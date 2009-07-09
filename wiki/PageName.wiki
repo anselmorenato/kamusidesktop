@@ -1,0 +1,7 @@
+#summary How to run this software.
+
+ To run the project from the command line, go to the distribution folder and type the following:
+
+ _java -jar "KamusiProjectDesktop.jar"_
+
+To distribute this project, zip up the distribution folder (including the lib folder) and distribute the ZIP file.
