@@ -39,7 +39,7 @@ public class ResultTable extends DefaultTableModel
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
                 query = "select EnglishSortBy, SwahiliSortBy, EnglishExample, SwahiliExample from " +
-                        "dict where EnglishSortBy like ?";
+                        "dict where EnglishSortBy like ? Order by EnglishSortBy asc";
                 heading.addElement("English");
                 heading.addElement("Swahili");
                 heading.addElement("English Example");
@@ -48,7 +48,7 @@ public class ResultTable extends DefaultTableModel
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
                 query = "select SwahiliSortBy, EnglishSortBy, EnglishExample, SwahiliExample from " +
-                        "dict where SwahiliSortBy like ?";
+                        "dict where SwahiliSortBy like ? Order by SwahiliSortBy asc";
                 heading.addElement("Swahili");
                 heading.addElement("English");
                 heading.addElement("English Example");
