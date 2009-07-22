@@ -16,6 +16,9 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -98,6 +101,15 @@ public class MainWindow extends JFrame
     private JCheckBox swahiliExample;
     private JCheckBox englishPlural;
     private JCheckBox swahiliPlural;
+    /**
+     * The MenuBar
+     */
+    private JMenuBar menuBar;
+    /**
+     * File Menu
+     */
+    private JMenu fileMenu;
+    private JMenuItem fileUpdate;
 
     /**
      * Initializes the display
@@ -139,6 +151,17 @@ public class MainWindow extends JFrame
             public void keyReleased(KeyEvent e)
             {
                 fetchTranslation(e);
+            }
+        });
+
+        /**
+         * Add a listener for the file-update menu item
+         */
+        fileUpdate.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                updateDatabase();
             }
         });
     }
@@ -201,8 +224,20 @@ public class MainWindow extends JFrame
         statusPanel.add(statusLabel, BorderLayout.WEST);
         statusPanel.add(staticLabel, BorderLayout.EAST);
 
-        setLayout(new BorderLayout());
 
+        //Populate the menu
+
+        fileUpdate = new JMenuItem("Update Database");
+        fileMenu = new JMenu("File");
+        menuBar = new JMenuBar();
+
+        fileMenu.add(fileUpdate);
+        menuBar.add(fileMenu);
+
+        setJMenuBar(menuBar);
+
+        //Lay out everything on the window
+        setLayout(new BorderLayout());
         add(inputPanel, BorderLayout.NORTH);
         add(outputPanel, BorderLayout.CENTER);
         add(statusPanel, BorderLayout.SOUTH);
@@ -223,18 +258,26 @@ public class MainWindow extends JFrame
         catch (ClassNotFoundException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                JOptionPane.ERROR_MESSAGE);
         }
         catch (InstantiationException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                JOptionPane.ERROR_MESSAGE);
         }
         catch (IllegalAccessException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                JOptionPane.ERROR_MESSAGE);
         }
         catch (UnsupportedLookAndFeelException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                JOptionPane.ERROR_MESSAGE);
         }
 
         wordField.requestFocusInWindow(); // Makes the cursor go to this field on startup
@@ -280,7 +323,7 @@ public class MainWindow extends JFrame
         {
             fields.add("SwahiliExample");
         }
-        
+
         return fields;
     }
 
@@ -376,4 +419,14 @@ public class MainWindow extends JFrame
         }
     }
     //TODO: Implement database update mechanism
+
+    /**
+     * Updates the words database
+     */
+
+    private void updateDatabase()
+    {
+        JOptionPane.showMessageDialog(null, "Not yet Implemented!", "Kamusi Desktop",
+                JOptionPane.WARNING_MESSAGE);
+    }
 }
