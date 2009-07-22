@@ -9,6 +9,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -175,9 +176,12 @@ public class ResultTable extends DefaultTableModel
                 data.addElement(fieldToDisplay);
             }
         }
-        catch (Exception e)
+        catch (Exception ex)
         {
-            e.printStackTrace();
+            ex.printStackTrace();
+            Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                JOptionPane.ERROR_MESSAGE);
         }
         finally
         {
@@ -190,6 +194,8 @@ public class ResultTable extends DefaultTableModel
             catch (SQLException ex)
             {
                 Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                JOptionPane.ERROR_MESSAGE);
             }
         }
 
