@@ -70,6 +70,7 @@ public class ResultTable extends DefaultTableModel
         try
         {
             Class.forName("org.sqlite.JDBC").newInstance();
+
             connection = DriverManager.getConnection(database, username, password);
 
             String query = "";

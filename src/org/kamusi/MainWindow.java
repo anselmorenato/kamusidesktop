@@ -12,6 +12,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -110,6 +111,8 @@ public class MainWindow extends JFrame
      */
     private JMenu fileMenu;
     private JMenuItem fileUpdate;
+    private JMenu helpMenu;
+    private JMenuItem helpAbout;
 
     /**
      * Initializes the display
@@ -159,9 +162,24 @@ public class MainWindow extends JFrame
          */
         fileUpdate.addActionListener(new ActionListener()
         {
+
             public void actionPerformed(ActionEvent e)
             {
                 updateDatabase();
+            }
+        });
+
+        /**
+         * Add a listener for the help-about menu item
+         */
+        helpAbout.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                final AboutBox dialog = new AboutBox(null, true);
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);
             }
         });
     }
@@ -228,11 +246,15 @@ public class MainWindow extends JFrame
         //Populate the menu
 
         fileUpdate = new JMenuItem("Update Database");
+        helpAbout = new JMenuItem("About");
         fileMenu = new JMenu("File");
+        helpMenu = new JMenu("Help");
         menuBar = new JMenuBar();
 
         fileMenu.add(fileUpdate);
+        helpMenu.add(helpAbout);
         menuBar.add(fileMenu);
+        menuBar.add(helpMenu);
 
         setJMenuBar(menuBar);
 
@@ -243,6 +265,8 @@ public class MainWindow extends JFrame
         add(statusPanel, BorderLayout.SOUTH);
 
         setSize(500, 300);
+
+        setIconImage(new ImageIcon(getClass().getResource("/org/kamusi/resources/favicon.png")).getImage());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -259,25 +283,25 @@ public class MainWindow extends JFrame
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
         catch (InstantiationException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
         catch (IllegalAccessException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
         catch (UnsupportedLookAndFeelException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         wordField.requestFocusInWindow(); // Makes the cursor go to this field on startup
@@ -289,7 +313,6 @@ public class MainWindow extends JFrame
     private void reset()
     {
         wordField.setText("");
-        englishWord.setSelected(false);
         englishExample.setSelected(false);
         swahiliExample.setSelected(false);
         englishPlural.setSelected(false);
@@ -333,30 +356,32 @@ public class MainWindow extends JFrame
      */
     private void displayTable(String word)
     {
-        String languageToTranslateFrom = "";
-        Vector fields = getDisplayableFields();
 
-        if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
+        if (word.trim().length() == 0)
         {
+            JOptionPane.showMessageDialog(null, "Please input a word to translate first.");
+        }
+        else
+        {
+            String languageToTranslateFrom = "";
+            Vector fields = getDisplayableFields();
 
-            if (swahiliToEnglish.isSelected())
+            if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
             {
-                languageToTranslateFrom = "SWAHILI";
-            }
-            else if (englishToSwahili.isSelected())
-            {
-                languageToTranslateFrom = "ENGLISH";
-            }
 
-            if (word.trim().length() == 0)
-            {
-                JOptionPane.showMessageDialog(null, "Please input a word to translate first.");
-            }
-            else
-            {
+                if (swahiliToEnglish.isSelected())
+                {
+                    languageToTranslateFrom = "SWAHILI";
+                }
+                else if (englishToSwahili.isSelected())
+                {
+                    languageToTranslateFrom = "ENGLISH";
+                }
+
                 outputPanel.removeAll();
 
                 resultTable = new ResultTable(languageToTranslateFrom, word, fields);
+
                 TableModel model = resultTable.getTableModel();
 
                 JTable newTable = new JTable(model);
@@ -369,11 +394,12 @@ public class MainWindow extends JFrame
                 updateStatusBar(resultTable.getResultCount() + " Rows fetched");
 
                 pack();
+
             }
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Please select the desired language first");
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Please select the desired language first");
+            }
         }
     }
 
@@ -423,7 +449,6 @@ public class MainWindow extends JFrame
     /**
      * Updates the words database
      */
-
     private void updateDatabase()
     {
         JOptionPane.showMessageDialog(null, "Not yet Implemented!", "Kamusi Desktop",
