@@ -16,19 +16,19 @@ import javax.swing.table.TableModel;
 
 public class ResultTable extends DefaultTableModel
 {
-    
+
     /**
      * The translation SQLite3 database
      */
-    private String database = "jdbc:sqlite:kamusiproject.db";
+    private final String DATABASE = "jdbc:sqlite:kamusiproject.db";
     /**
      * Translation database username. Defaults to blank
      */
-    private String username = "";
+    private final String USERNAME = "";
     /**
      * Translation database password. Defaults to blank
      */
-    private String password = "";
+    private final String PASSWORD = "";
     /**
      * Table to display the output
      */
@@ -44,6 +44,10 @@ public class ResultTable extends DefaultTableModel
      */
     private String englishWord, swahiliWord, englishExample, swahiliExample, swahiliPlural,
             englishPlural;
+    private String fieldsString = "";
+    private Vector heading;
+    private Vector data;
+    private Vector fieldToDisplay;
     /**
      * Holds the number of records fetched
      */
@@ -57,28 +61,30 @@ public class ResultTable extends DefaultTableModel
      */
     public ResultTable(String fromLanguage, String word, Vector fields)
     {
-        Vector heading = new Vector();
-        Vector data = new Vector();
-
-        String fieldsString = "";
-        Enumeration availableFieldsString = fields.elements();
-        while (availableFieldsString.hasMoreElements())
-        {
-            fieldsString += ((String) availableFieldsString.nextElement());
-        }
-
         try
         {
             Class.forName("org.sqlite.JDBC").newInstance();
 
-            connection = DriverManager.getConnection(database, username, password);
+            StringBuffer fieldStringBuffer = new StringBuffer();
+
+            Enumeration availableFieldsString = fields.elements();
+
+            while (availableFieldsString.hasMoreElements())
+            {
+                fieldStringBuffer.append((String) availableFieldsString.nextElement());
+            }
+
+            fieldsString = fieldStringBuffer.toString();
+            connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
 
             String query = "";
 
+            heading = new Vector();
+
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
-                query = "select * from dict where EnglishSortBy like ? " +
-                        "Order by EnglishSortBy asc";
+                query = "SELECT * FROM dict WHERE EnglishSortBy LIKE ? " +
+                        "ORDER BY EnglishSortBy ASC";
                 heading.addElement("English");
                 heading.addElement("Swahili");
 
@@ -90,8 +96,8 @@ public class ResultTable extends DefaultTableModel
             }
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
-                query = "select * from dict where SwahiliSortBy like ? " +
-                        "Order by SwahiliSortBy asc";
+                query = "SELECT * FROM dict WHERE SwahiliSortBy LIKE ? " +
+                        "ORDER BY SwahiliSortBy ASC";
                 heading.addElement("Swahili");
                 heading.addElement("English");
 
@@ -114,6 +120,9 @@ public class ResultTable extends DefaultTableModel
 
             row = 0; // To hold the number of records
 
+            data = new Vector();
+
+
             while (resultSet.next())
             {
                 row++;
@@ -126,26 +135,26 @@ public class ResultTable extends DefaultTableModel
                 swahiliExample = resultSet.getString("SwahiliExample");
 
                 //create a row
-                Vector fieldToDisplay = new Vector();
+                fieldToDisplay = new Vector();
 
                 if (fromLanguage.equalsIgnoreCase("ENGLISH"))
                 {
                     fieldToDisplay.addElement(englishWord);
                     fieldToDisplay.addElement(swahiliWord);
 
-                    if (fieldsString.contains("EnglishPlural"))
+                    if (fieldsString.contains("English Plural"))
                     {
                         fieldToDisplay.addElement(englishPlural);
                     }
-                    if (fieldsString.contains("SwahiliPlural"))
+                    if (fieldsString.contains("Swahili Plural"))
                     {
                         fieldToDisplay.addElement(swahiliPlural);
                     }
-                    if (fieldsString.contains("EnglishExample"))
+                    if (fieldsString.contains("English Example"))
                     {
                         fieldToDisplay.addElement(englishExample);
                     }
-                    if (fieldsString.contains("SwahiliExample"))
+                    if (fieldsString.contains("Swahili Example"))
                     {
                         fieldToDisplay.addElement(swahiliExample);
                     }
@@ -155,19 +164,19 @@ public class ResultTable extends DefaultTableModel
                     fieldToDisplay.addElement(swahiliWord);
                     fieldToDisplay.addElement(englishWord);
 
-                    if (fieldsString.contains("EnglishPlural"))
+                    if (fieldsString.contains("English Plural"))
                     {
                         fieldToDisplay.addElement(englishPlural);
                     }
-                    if (fieldsString.contains("SwahiliPlural"))
+                    if (fieldsString.contains("Swahili Plural"))
                     {
                         fieldToDisplay.addElement(swahiliPlural);
                     }
-                    if (fieldsString.contains("EnglishExample"))
+                    if (fieldsString.contains("English Example"))
                     {
                         fieldToDisplay.addElement(englishExample);
                     }
-                    if (fieldsString.contains("SwahiliExample"))
+                    if (fieldsString.contains("Swahili Example"))
                     {
                         fieldToDisplay.addElement(swahiliExample);
                     }
@@ -175,6 +184,22 @@ public class ResultTable extends DefaultTableModel
 
                 //add to model
                 data.addElement(fieldToDisplay);
+
+            }
+        }
+        catch (SQLException ex)
+        {
+            if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
+            {
+                JOptionPane.showMessageDialog(null, "Kamusi Desktop Could not find databse or " +
+                        "your database may be corrupted.\nCheck your working directory or\n" +
+                        "Click file -> Update in order to fetch a new database.", "Kamusi Desktop",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
         catch (Exception ex)
@@ -182,7 +207,7 @@ public class ResultTable extends DefaultTableModel
             ex.printStackTrace();
             Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.ERROR_MESSAGE);
         }
         finally
         {
@@ -196,7 +221,7 @@ public class ResultTable extends DefaultTableModel
             {
                 Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
 
