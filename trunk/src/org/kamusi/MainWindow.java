@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.MessageFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -111,8 +114,14 @@ public class MainWindow extends JFrame
      */
     private JMenu fileMenu;
     private JMenuItem fileUpdate;
+    private JMenuItem filePrint;
+    private JMenuItem fileQuit;
     private JMenu helpMenu;
     private JMenuItem helpAbout;
+    /**
+     * The updater
+     */
+    private Updater updater;
 
     /**
      * Initializes the display
@@ -170,6 +179,30 @@ public class MainWindow extends JFrame
         });
 
         /**
+         * Add a listener for the file-quit menu item
+         */
+        fileQuit.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                System.exit(0);
+            }
+        });
+
+        /**
+         * Add a listener for the file-print menu item
+         */
+        filePrint.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                print();
+            }
+        });
+
+        /**
          * Add a listener for the help-about menu item
          */
         helpAbout.addActionListener(new ActionListener()
@@ -185,10 +218,30 @@ public class MainWindow extends JFrame
     }
 
     /**
+     * Prints what's currently on display in the JFrame
+     */
+    private void print()
+    {
+        try
+        {
+            JTable table = new JTable(resultTable.getTableModel());
+            MessageFormat headerFormat = new MessageFormat("Page {0}");
+            MessageFormat footerFormat = new MessageFormat("- {0} -");
+            table.print(JTable.PrintMode.FIT_WIDTH, headerFormat, footerFormat);
+        }
+        catch (Exception pe)
+        {
+            JOptionPane.showMessageDialog(null, pe.getMessage(), "Kamusi Desktop",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
      * Initializes the components
      */
     private void initComponents()
     {
+        updater = new Updater();
         wordLabel = new JLabel("Word", JLabel.LEFT);
         wordField = new JTextField(70);
         language = new ButtonGroup();
@@ -213,6 +266,7 @@ public class MainWindow extends JFrame
 
         fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new FlowLayout());
+        fieldsPanel.add(new JLabel("Show Fields: ", JLabel.LEFT));
         fieldsPanel.add(englishWord);
         fieldsPanel.add(swahiliWord);
         fieldsPanel.add(englishPlural);
@@ -246,12 +300,18 @@ public class MainWindow extends JFrame
         //Populate the menu
 
         fileUpdate = new JMenuItem("Update Database");
+        filePrint = new JMenuItem("Print");
+        fileQuit = new JMenuItem("Quit");
         helpAbout = new JMenuItem("About");
         fileMenu = new JMenu("File");
         helpMenu = new JMenu("Help");
         menuBar = new JMenuBar();
 
         fileMenu.add(fileUpdate);
+        fileMenu.add(filePrint);
+        fileMenu.addSeparator();
+        fileMenu.add(fileQuit);
+
         helpMenu.add(helpAbout);
         menuBar.add(fileMenu);
         menuBar.add(helpMenu);
@@ -332,19 +392,19 @@ public class MainWindow extends JFrame
 
         if (englishPlural.isSelected())
         {
-            fields.add("EnglishPlural");
+            fields.add("English Plural");
         }
         if (swahiliPlural.isSelected())
         {
-            fields.add("SwahiliPlural");
+            fields.add("Swahili Plural");
         }
         if (englishExample.isSelected())
         {
-            fields.add("EnglishExample");
+            fields.add("English Example");
         }
         if (swahiliExample.isSelected())
         {
-            fields.add("SwahiliExample");
+            fields.add("Swahili Example");
         }
 
         return fields;
@@ -380,18 +440,21 @@ public class MainWindow extends JFrame
 
                 outputPanel.removeAll();
 
-                resultTable = new ResultTable(languageToTranslateFrom, word, fields);
+                this.resultTable = new ResultTable(languageToTranslateFrom, word, fields);
 
-                TableModel model = resultTable.getTableModel();
+                TableModel model = this.resultTable.getTableModel();
 
                 JTable newTable = new JTable(model);
+
+                newTable.setRowSelectionAllowed(true);
+                newTable.setColumnSelectionAllowed(false);
 
                 JScrollPane scrollPane = new JScrollPane(newTable);
 
                 outputPanel.add(scrollPane, BorderLayout.CENTER);
 
                 // Update the status bar
-                updateStatusBar(resultTable.getResultCount() + " Rows fetched");
+                updateStatusBar(this.resultTable.getResultCount() + " Rows fetched");
 
                 pack();
 
@@ -451,7 +514,38 @@ public class MainWindow extends JFrame
      */
     private void updateDatabase()
     {
-        JOptionPane.showMessageDialog(null, "Not yet Implemented!", "Kamusi Desktop",
-                JOptionPane.WARNING_MESSAGE);
+        updateStatusBar("Updating database. Please wait...");
+
+        // Back up the original database
+        String originaldb = "kamusiproject.db";
+        String backupdb = "kamusiproject.db_bakup";
+
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+        try
+        {
+            updater.update();
+            updateStatusBar("Database updated successfully.");
+        }
+        catch (MalformedURLException ex)
+        {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, ex.toString(), "Kamusi Desktop",
+                    JOptionPane.ERROR_MESSAGE);
+            updateStatusBar("An error occurred while updating database. Reverted to original.");
+
+            // Restore the original file
+            updater.restoreOriginal();
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, ex.toString(), "Kamusi Desktop",
+                    JOptionPane.ERROR_MESSAGE);
+            // Restore the original file
+            updater.restoreOriginal();
+            updateStatusBar("An error occurred while updating database. Reverted to original.");
+        }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 }
