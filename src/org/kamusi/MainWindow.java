@@ -526,25 +526,27 @@ public class MainWindow extends JFrame
         {
             updater.update();
             updateStatusBar("Database updated successfully.");
+            JOptionPane.showMessageDialog(null, "The database has been successfully updated.",
+                    "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
         }
         catch (MalformedURLException ex)
         {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, ex.toString(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
-            updateStatusBar("An error occurred while updating database. Reverted to original.");
-
-            // Restore the original file
+            //Restore the original database
             updater.restoreOriginal();
+            updateStatusBar("An error occurred while updating database. Reverted to original.");
+            JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
+                    "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
+            
         }
         catch (IOException ex)
         {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, ex.toString(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
             // Restore the original file
             updater.restoreOriginal();
             updateStatusBar("An error occurred while updating database. Reverted to original.");
+            JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
+                    "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
         }
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
