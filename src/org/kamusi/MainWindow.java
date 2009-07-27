@@ -8,8 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DecimalFormat;
 import java.text.MessageFormat;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -25,6 +27,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -121,7 +124,11 @@ public class MainWindow extends JFrame
     /**
      * The updater
      */
-    private Updater updater;
+    private static Updater updater;
+    /**
+     * For update progress indication
+     */
+    private static JProgressBar progressBar;
 
     /**
      * Initializes the display
@@ -242,6 +249,11 @@ public class MainWindow extends JFrame
     private void initComponents()
     {
         updater = new Updater();
+        progressBar = new JProgressBar();
+        progressBar.setString("0%");
+        progressBar.setValue(0);
+        progressBar.setStringPainted(true);
+
         wordLabel = new JLabel("Word", JLabel.LEFT);
         wordField = new JTextField(70);
         language = new ButtonGroup();
@@ -378,6 +390,7 @@ public class MainWindow extends JFrame
         englishPlural.setSelected(false);
         swahiliPlural.setSelected(false);
         outputPanel.removeAll();
+
         updateStatusBar("The Kamusi Project");
         pack();
     }
@@ -516,18 +529,57 @@ public class MainWindow extends JFrame
     {
         updateStatusBar("Updating database. Please wait...");
 
-        // Back up the original database
-        String originaldb = "kamusiproject.db";
-        String backupdb = "kamusiproject.db_bakup";
+        long size = updater.getSizeOfUpdate();
 
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
+        statusPanel.add(progressBar, BorderLayout.CENTER);
+
         try
         {
-            updater.update();
-            updateStatusBar("Database updated successfully.");
-            JOptionPane.showMessageDialog(null, "The database has been successfully updated.",
-                    "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
+            double sizeInMBForm = (double) size / 1000 / 1000;
+            DecimalFormat twoDForm = new DecimalFormat("#.##");
+
+            String message = "Kamusi Desktop will now download " +
+                    Double.valueOf(twoDForm.format(sizeInMBForm)) +
+                    " MB of database update. Proceed?";
+
+            Object[] options =
+            {
+                "Yes",
+                "No"
+            };
+
+            int choice = JOptionPane.showOptionDialog(null,
+                    message,
+                    "Kamusi Desktop",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[1]); //default button title
+
+            switch (choice)
+            {
+                case 0: //YES
+                    updateStatusBar("Getting size of update...");
+                    updater.update();
+                    updateStatusBar("Database updated successfully.");
+                    JOptionPane.showMessageDialog(null, "The database has been successfully updated.",
+                            "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+
+                case 1: //NO
+                    updateStatusBar("Database update cancelled.");
+                    break;
+
+                case -1: //Closed Window
+                    updateStatusBar("Database update cancelled.");
+                    break;
+
+                default:
+                    break;
+            }
         }
         catch (MalformedURLException ex)
         {
@@ -537,7 +589,7 @@ public class MainWindow extends JFrame
             updateStatusBar("An error occurred while updating database. Reverted to original.");
             JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
                     "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
-            
+
         }
         catch (IOException ex)
         {
@@ -549,5 +601,26 @@ public class MainWindow extends JFrame
                     "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
         }
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }
+
+    /**
+     * Updates the progress bar with how much of the update has been got
+     */
+    public static void updateProgressBar()
+    {
+        long downloadedSize = updater.getSizeOfDatabase();
+        long totalDownloadSize = updater.getSizeOfUpdate();
+
+        int downloadedInInt = (int) downloadedSize;
+        int totalInInt = (int) totalDownloadSize;
+
+        System.out.println("Downloaded : " + downloadedInInt + " out of " + totalInInt);
+
+        int percentage = (downloadedInInt * 100) / totalInInt;
+
+        System.out.println("Progress: " + percentage + "%");
+
+        progressBar.setString(percentage + "%");
+        progressBar.setValue(percentage);
     }
 }
