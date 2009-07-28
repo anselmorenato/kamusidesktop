@@ -100,6 +100,10 @@ public class MainWindow extends JFrame
      */
     private JButton resetButton;
     /**
+     * Button for cancelling the update
+     */
+    private JButton cancelUpdateButton;
+    /**
      * Checkboxes for the fields to be displayed
      */
     private JCheckBox swahiliWord;
@@ -145,6 +149,18 @@ public class MainWindow extends JFrame
      */
     private void addActionListeners()
     {
+        /**
+         * Adds action listener for the "cancel update" button
+         */
+        cancelUpdateButton.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                updater.cancelUpdate();
+                reset(); // Reset the input/output display
+            }
+        });
         /**
          * Adds action listener for the "clear" button
          */
@@ -265,6 +281,9 @@ public class MainWindow extends JFrame
         languagePanel.setLayout(new GridLayout(0, 1));
         languagePanel.add(englishToSwahili);
         languagePanel.add(swahiliToEnglish);
+
+        cancelUpdateButton = new JButton("x");
+        cancelUpdateButton.setToolTipText("Cancel Database Update");
         resetButton = new JButton("RESET");
 
         englishWord = new JCheckBox("English", true);
@@ -563,7 +582,11 @@ public class MainWindow extends JFrame
         {
             case 0: //YES
                 updateStatusBar("Downloading update");
-                statusPanel.add(progressBar, BorderLayout.CENTER);
+                JPanel updatePanel = new JPanel();
+                updatePanel.setLayout(new BorderLayout());
+                updatePanel.add(progressBar, BorderLayout.CENTER);
+                updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
+                statusPanel.add(updatePanel, BorderLayout.CENTER);
                 updater.update();
 
                 break;
