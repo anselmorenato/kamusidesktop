@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
@@ -46,7 +46,7 @@ public class MainWindow extends JFrame
     /**
      * The input field for the word to be translated
      */
-    private JTextField wordField;
+    private static JTextField wordField;
     /**
      * Label to direct for the input
      */
@@ -74,7 +74,7 @@ public class MainWindow extends JFrame
     /**
      * The status label
      */
-    private JLabel statusLabel, staticLabel;
+    private static JLabel statusLabel, staticLabel;
     /**
      * Panel to hold the Radio Buttons for the available languages
      */
@@ -343,8 +343,7 @@ public class MainWindow extends JFrame
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
-
-        setVisible(true);
+        JFrame.setDefaultLookAndFeelDecorated(false);
 
         try
         {
@@ -384,12 +383,17 @@ public class MainWindow extends JFrame
      */
     private void reset()
     {
+        System.gc();
+
         wordField.setText("");
         englishExample.setSelected(false);
         swahiliExample.setSelected(false);
         englishPlural.setSelected(false);
         swahiliPlural.setSelected(false);
         outputPanel.removeAll();
+        statusPanel.removeAll();
+        statusPanel.add(statusLabel, BorderLayout.WEST);
+        statusPanel.add(staticLabel, BorderLayout.EAST);
 
         updateStatusBar("The Kamusi Project");
         pack();
@@ -529,76 +533,51 @@ public class MainWindow extends JFrame
     {
         updateStatusBar("Updating database. Please wait...");
 
-        long size = updater.getSizeOfUpdate();
-
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        statusPanel.add(progressBar, BorderLayout.CENTER);
+        long size = updater.getSizeOfUpdate();
 
-        try
+        double sizeInMBForm = (double) size / 1000 / 1000;
+        DecimalFormat twoDForm = new DecimalFormat("#.##");
+
+        String message = "Kamusi Desktop will now download " +
+                Double.valueOf(twoDForm.format(sizeInMBForm)) +
+                " MB of database update. Proceed?";
+
+        Object[] options =
         {
-            double sizeInMBForm = (double) size / 1000 / 1000;
-            DecimalFormat twoDForm = new DecimalFormat("#.##");
+            "Yes",
+            "No"
+        };
 
-            String message = "Kamusi Desktop will now download " +
-                    Double.valueOf(twoDForm.format(sizeInMBForm)) +
-                    " MB of database update. Proceed?";
+        int choice = JOptionPane.showOptionDialog(null,
+                message,
+                "Kamusi Desktop",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, //do not use a custom Icon
+                options, //the titles of buttons
+                options[1]); //default button title
 
-            Object[] options =
-            {
-                "Yes",
-                "No"
-            };
-
-            int choice = JOptionPane.showOptionDialog(null,
-                    message,
-                    "Kamusi Desktop",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, //do not use a custom Icon
-                    options, //the titles of buttons
-                    options[1]); //default button title
-
-            switch (choice)
-            {
-                case 0: //YES
-                    updateStatusBar("Getting size of update...");
-                    updater.update();
-                    updateStatusBar("Database updated successfully.");
-                    JOptionPane.showMessageDialog(null, "The database has been successfully updated.",
-                            "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
-                    break;
-
-                case 1: //NO
-                    updateStatusBar("Database update cancelled.");
-                    break;
-
-                case -1: //Closed Window
-                    updateStatusBar("Database update cancelled.");
-                    break;
-
-                default:
-                    break;
-            }
-        }
-        catch (MalformedURLException ex)
+        switch (choice)
         {
-            ex.printStackTrace();
-            //Restore the original database
-            updater.restoreOriginal();
-            updateStatusBar("An error occurred while updating database. Reverted to original.");
-            JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
-                    "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
+            case 0: //YES
+                updateStatusBar("Downloading update");
+                statusPanel.add(progressBar, BorderLayout.CENTER);
+                updater.update();
 
-        }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
-            // Restore the original file
-            updater.restoreOriginal();
-            updateStatusBar("An error occurred while updating database. Reverted to original.");
-            JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
-                    "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
+                break;
+
+            case 1: //NO
+                updateStatusBar("Database update cancelled.");
+                break;
+
+            case -1: //Closed Window
+                updateStatusBar("Database update cancelled.");
+                break;
+
+            default:
+                break;
         }
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
@@ -606,21 +585,31 @@ public class MainWindow extends JFrame
     /**
      * Updates the progress bar with how much of the update has been got
      */
-    public static void updateProgressBar()
+    public static void updateProgressBar() throws MalformedURLException, IOException
     {
         long downloadedSize = updater.getSizeOfDatabase();
-        long totalDownloadSize = updater.getSizeOfUpdate();
 
         int downloadedInInt = (int) downloadedSize;
-        int totalInInt = (int) totalDownloadSize;
 
-        System.out.println("Downloaded : " + downloadedInInt + " out of " + totalInInt);
+        long totalDownloadSize = updater.getSizeOfUpdate();
+
+        int totalInInt = (int) totalDownloadSize;
 
         int percentage = (downloadedInInt * 100) / totalInInt;
 
-        System.out.println("Progress: " + percentage + "%");
-
-        progressBar.setString(percentage + "%");
+        progressBar.setString("Downloaded : " + downloadedInInt + " out of " +
+                totalInInt + " bytes (" + percentage + "% )");
         progressBar.setValue(percentage);
+
+//        System.out.println("Downloaded : " + downloadedInInt + " out of " + totalInInt);
+//        System.out.println("Progress: " + percentage + "%");
+
+        if (percentage == 100)
+        {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Database updated successfully");
+            JOptionPane.showMessageDialog(null, "Kamusi database has been successfully updated.",
+                    "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
+            statusLabel.setText("Database updated successfully.");
+        }
     }
 }

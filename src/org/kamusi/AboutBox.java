@@ -65,7 +65,6 @@ public class AboutBox extends javax.swing.JDialog
         contentPanel.add(imagePanel, java.awt.BorderLayout.NORTH);
 
         contentArea.setColumns(20);
-        contentArea.setFont(new java.awt.Font("Monospaced", 2, 10)); // NOI18N
         contentArea.setLineWrap(true);
         contentArea.setRows(5);
         contentArea.setWrapStyleWord(true);
@@ -98,8 +97,8 @@ public class AboutBox extends javax.swing.JDialog
                 "System: " + System.getProperty("os.name") + " version " + System.getProperty("os.version") + "\n";
 
         final String disclaimer =
-                "\nKamusi Desktop and Kamusi Project are based on software from kamusi.org" +
-                "which has been licensed under the GNU General Public License version 2." +
+                "\nKamusi Desktop and Kamusi Project are based on software from kamusi.org " +
+                "which has been licensed under the GNU General Public License version 2. " +
                 "For more information, please visit www.kamusi.org.\n\n";
 
         contentArea.setEditable(false);
