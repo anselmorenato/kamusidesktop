@@ -14,6 +14,6 @@ public class Main
     public static void main(String[] args)
     {
         MainWindow mainWindow = new MainWindow();
-//        System.out.println(Math.round((double) ((6659072 / 6659072) * 100)));
+        mainWindow.setVisible(true);
     }
 }
