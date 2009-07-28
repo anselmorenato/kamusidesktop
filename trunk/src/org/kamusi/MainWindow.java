@@ -2,7 +2,9 @@ package org.kamusi;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -245,17 +247,38 @@ public class MainWindow extends JFrame
      */
     private void print()
     {
-        try
+        String word = wordField.getText().trim();
+
+        if (word.trim().length() == 0)
         {
-            JTable table = new JTable(resultTable.getTableModel());
-            MessageFormat headerFormat = new MessageFormat("Page {0}");
-            MessageFormat footerFormat = new MessageFormat("- {0} -");
-            table.print(JTable.PrintMode.FIT_WIDTH, headerFormat, footerFormat);
+            JOptionPane.showMessageDialog(null, "Please input a word to translate first.");
         }
-        catch (Exception pe)
+        else
         {
-            JOptionPane.showMessageDialog(null, pe.getMessage(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
+            String languageToTranslateFrom = "";
+
+            Vector fields = getDisplayableFields();
+
+            if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
+            {
+
+                if (swahiliToEnglish.isSelected())
+                {
+                    languageToTranslateFrom = "SWAHILI";
+                }
+                else if (englishToSwahili.isSelected())
+                {
+                    languageToTranslateFrom = "ENGLISH";
+                }
+
+                outputPanel.removeAll();
+
+                resultTable.print(languageToTranslateFrom, word, fields);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "Please select the desired language first");
+            }
         }
     }
 
@@ -283,6 +306,9 @@ public class MainWindow extends JFrame
         languagePanel.add(swahiliToEnglish);
 
         cancelUpdateButton = new JButton("x");
+        cancelUpdateButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
+        cancelUpdateButton.setBorderPainted(true);
+//        cancelUpdateButton.setPreferredSize(new Dimension(25, 25));
         cancelUpdateButton.setToolTipText("Cancel Database Update");
         resetButton = new JButton("RESET");
 
@@ -367,12 +393,16 @@ public class MainWindow extends JFrame
         try
         {
             // Set the look and feel to what the user's system looks like
+            // Set cross-platform Java L&F (also called "Metal")
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+//            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
+
         }
         catch (ClassNotFoundException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+            JOptionPane.showMessageDialog(null, ex.toString(), "Kamusi Desktop",
                     JOptionPane.ERROR_MESSAGE);
         }
         catch (InstantiationException ex)

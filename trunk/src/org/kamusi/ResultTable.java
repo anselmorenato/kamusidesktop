@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -228,6 +229,184 @@ public class ResultTable extends DefaultTableModel
         this.table = new JTable(data, heading);
 
         TableModel model = this.table.getModel();
+    }
+
+    /**
+     * Class Instance for printing
+     * @param fromLanguage the language from which we are translating
+     * @param word the word to translate
+     * @param fields the fields which we are interested in
+     */
+    public void print(String fromLanguage, String word, Vector fields)
+    {
+        StringBuffer printables = new StringBuffer();
+
+        try
+        {
+            Class.forName("org.sqlite.JDBC").newInstance();
+
+            StringBuffer fieldStringBuffer = new StringBuffer();
+
+            Enumeration availableFieldsString = fields.elements();
+
+            while (availableFieldsString.hasMoreElements())
+            {
+                fieldStringBuffer.append((String) availableFieldsString.nextElement());
+            }
+
+            fieldsString = fieldStringBuffer.toString();
+            connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
+
+            String query = "";
+
+
+            if (fromLanguage.equalsIgnoreCase("ENGLISH"))
+            {
+                query = "SELECT * FROM dict WHERE EnglishSortBy LIKE ? " +
+                        "ORDER BY EnglishSortBy ASC";
+                printables.append("English|");
+                printables.append("Swahili|");
+
+                Enumeration availableFields = fields.elements();
+                while (availableFields.hasMoreElements())
+                {
+                    printables.append((String) availableFields.nextElement() + "|");
+                }
+            }
+            else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
+            {
+                query = "SELECT * FROM dict WHERE SwahiliSortBy LIKE ? " +
+                        "ORDER BY SwahiliSortBy ASC";
+                printables.append("Swahili|");
+                printables.append("English|");
+
+                Enumeration availableFields = fields.elements();
+                while (availableFields.hasMoreElements())
+                {
+                    printables.append((String) availableFields.nextElement() + "|");
+                }
+            }
+            else
+            {
+                throw new Exception("Undefined language!");
+            }
+
+            statement = connection.prepareStatement(query);
+
+            statement.setString(1, "%" + word + "%");
+
+            resultSet = statement.executeQuery();
+
+            row = 0; // To hold the number of records
+
+            while (resultSet.next())
+            {
+                row++;
+
+                englishWord = resultSet.getString("EnglishSortBy");
+                swahiliWord = resultSet.getString("SwahiliSortBy");
+                englishPlural = resultSet.getString("EnglishPlural");
+                swahiliPlural = resultSet.getString("SwahiliPlural");
+                englishExample = resultSet.getString("EnglishExample");
+                swahiliExample = resultSet.getString("SwahiliExample");
+
+                //create a row
+
+
+                printables.append("\n");
+
+                if (fromLanguage.equalsIgnoreCase("ENGLISH"))
+                {
+                    printables.append(englishWord + "|");
+                    printables.append(swahiliWord + "|");
+
+                    if (fieldsString.contains("English Plural"))
+                    {
+                        printables.append(englishPlural + "|");
+                    }
+                    if (fieldsString.contains("Swahili Plural"))
+                    {
+                        printables.append(swahiliPlural + "|");
+                    }
+                    if (fieldsString.contains("English Example"))
+                    {
+                        printables.append(englishExample + "|");
+                    }
+                    if (fieldsString.contains("Swahili Example"))
+                    {
+                        printables.append(swahiliExample + "|");
+                    }
+                }
+                else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
+                {
+                    printables.append(swahiliWord + "|");
+                    printables.append(englishWord + "|");
+
+                    if (fieldsString.contains("English Plural"))
+                    {
+                        printables.append(englishPlural + "|");
+                    }
+                    if (fieldsString.contains("Swahili Plural"))
+                    {
+                        printables.append(swahiliPlural + "|");
+                    }
+                    if (fieldsString.contains("English Example"))
+                    {
+                        printables.append(englishExample + "|");
+                    }
+                    if (fieldsString.contains("Swahili Example"))
+                    {
+                        printables.append(swahiliExample + "|");
+                    }
+                }
+            }
+
+            JTextPane pane = new JTextPane();
+            String text = printables.toString();
+            pane.setText(text);
+            new PrintMe().print(pane);
+            System.gc();
+        }
+        catch (SQLException ex)
+        {
+            if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
+            {
+                JOptionPane.showMessageDialog(null, "Kamusi Desktop Could not find databse or " +
+                        "your database may be corrupted.\nCheck your working directory or\n" +
+                        "Click file -> Update in order to fetch a new database.", "Kamusi Desktop",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+            Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        finally
+        {
+            try
+            {
+                resultSet.close();
+                statement.close();
+                connection.close();
+            }
+            catch (SQLException ex)
+            {
+                Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+
+
     }
 
     /**
