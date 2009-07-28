@@ -135,6 +135,11 @@ public class MainWindow extends JFrame
      * For update progress indication
      */
     private static JProgressBar progressBar;
+    /**
+     * Used in the update progress
+     */
+    public static long downloadedSize = 0;
+    public static long totalDownloadSize = 0;
 
     /**
      * Initializes the display
@@ -581,6 +586,7 @@ public class MainWindow extends JFrame
     private void updateDatabase()
     {
         updateStatusBar("Updating database. Please wait...");
+        progressBar.setString("Initializing. Please wait...");
 
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
@@ -611,12 +617,14 @@ public class MainWindow extends JFrame
         switch (choice)
         {
             case 0: //YES
+
                 updateStatusBar("Downloading update");
                 JPanel updatePanel = new JPanel();
                 updatePanel.setLayout(new BorderLayout());
                 updatePanel.add(progressBar, BorderLayout.CENTER);
                 updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
                 statusPanel.add(updatePanel, BorderLayout.CENTER);
+                pack();
                 updater.update();
 
                 break;
@@ -639,12 +647,12 @@ public class MainWindow extends JFrame
      * Updates the progress bar with how much of the update has been got
      */
     public static void updateProgressBar() throws MalformedURLException, IOException
-    {
-        long downloadedSize = updater.getSizeOfDatabase();
+    {     
+        downloadedSize = updater.getSizeOfDatabase();
 
         int downloadedInInt = (int) downloadedSize;
 
-        long totalDownloadSize = updater.getSizeOfUpdate();
+        totalDownloadSize = updater.getSizeOfUpdate();
 
         int totalInInt = (int) totalDownloadSize;
 

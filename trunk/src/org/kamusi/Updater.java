@@ -30,23 +30,23 @@ public class Updater
      * The update URL
      */
     public static final String UPDATE_URL =
-                        "http://localhost/kamusidesktop/kamusiproject.db";
-//            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
+            //            "http://localhost/kamusidesktop/kamusiproject.db";
+            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
     private static URL url;
 
     public Updater()
     {
-        progress = new DownloadProgressBar();
-        update = new UpdaterThread();
     }
 
     public synchronized void update()
     {
         // Create and run the two threads
+        progress = new DownloadProgressBar();
+        update = new UpdaterThread();
         update.start();
     }
 
-    void cancelUpdate()
+    protected void cancelUpdate()
     {
         String message = "Are you sure you want to cancel the database update?";
 
@@ -69,8 +69,13 @@ public class Updater
         {
             case 0: //YES
 
-                System.exit(0);
+                update.stop();
+                Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Database update cancelled");
+                JOptionPane.showMessageDialog(null, "Database update download has been cancelled.",
+                        "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
 
+                // Restore the original file
+                restoreOriginal();
                 break;
 
             case 1: //NO
