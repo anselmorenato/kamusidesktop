@@ -20,7 +20,7 @@ public class Updater
 {
 
     private static final String originaldb = "kamusiproject.db";
-    private final String backupdb = "kamusiproject.db_bakup";
+    private final String updatedb = "kamusiproject.db_bakup";
     private long totalSizeOfUpdate = 0;
     private DownloadProgressBar progress;
     private UpdaterThread update;
@@ -30,8 +30,8 @@ public class Updater
      * The update URL
      */
     public static final String UPDATE_URL =
-//            "http://localhost/kamusidesktop/kamusiproject.db";
-            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
+                        "http://localhost/kamusidesktop/kamusiproject.db";
+//            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
     private static URL url;
 
     public Updater()
@@ -44,6 +44,47 @@ public class Updater
     {
         // Create and run the two threads
         update.start();
+    }
+
+    void cancelUpdate()
+    {
+        String message = "Are you sure you want to cancel the database update?";
+
+        Object[] options =
+        {
+            "Yes",
+            "No"
+        };
+
+        int choice = JOptionPane.showOptionDialog(null,
+                message,
+                "Kamusi Desktop",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, //do not use a custom Icon
+                options, //the titles of buttons
+                options[0]); //default button title
+
+        switch (choice)
+        {
+            case 0: //YES
+
+                System.exit(0);
+
+                break;
+
+            case 1: //NO
+                // Do nothing
+                break;
+
+            case -1: //Closed Window
+                // Do nothing
+                break;
+
+            default:
+                // Do nothing
+                break;
+        }
     }
 
     class UpdaterThread extends Thread
@@ -59,14 +100,13 @@ public class Updater
                 // Get size of update
                 totalSizeOfUpdate = getSizeOfUpdate();
 
-                //Create a backup copy
-                File original = new File(originaldb);
-                original.renameTo(new File(backupdb));
+                // Leave the original db intact
+                // Save the new update as a temporary file
 
                 url = new URL(UPDATE_URL);
                 URLConnection connection = url.openConnection();
                 BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
-                FileOutputStream ftpFileOutputStream = new FileOutputStream(originaldb);
+                FileOutputStream ftpFileOutputStream = new FileOutputStream(updatedb);
 
                 int i = 0;
                 byte[] bytesIn = new byte[1024];
@@ -89,9 +129,13 @@ public class Updater
                         "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
             }
 
-            //Delete the backup
-            File copy = new File(backupdb);
-            copy.delete();
+            //Delete the original
+            File original = new File(originaldb);
+            original.delete();
+
+            //Rename the temp db appropriately
+            File update = new File(updatedb);
+            update.renameTo(new File(originaldb));
         }
 
         @Override
@@ -106,8 +150,8 @@ public class Updater
      */
     public void restoreOriginal()
     {
-        File copy = new File(backupdb);
-        copy.renameTo(new File(originaldb));
+        File copy = new File(updatedb);
+        copy.delete();
     }
 
     /**
@@ -161,7 +205,7 @@ public class Updater
     {
         long size = 0;
 
-        File database = new File(originaldb);
+        File database = new File(updatedb);
         size = database.length();
 
         return size;
