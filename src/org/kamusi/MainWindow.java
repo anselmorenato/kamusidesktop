@@ -575,6 +575,7 @@ public class MainWindow extends JFrame
         {
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             displayTable(word);
+            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
     }
 
