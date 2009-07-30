@@ -224,7 +224,7 @@ public class Updater
         return size;
     }
 
-    class DownloadProgressBar implements Runnable
+    class DownloadProgressBar extends Thread
     {
 
         /**
