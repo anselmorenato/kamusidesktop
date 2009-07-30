@@ -230,6 +230,7 @@ public class MainWindow extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 print();
+                fetchTranslation();
             }
         });
 
@@ -257,10 +258,42 @@ public class MainWindow extends JFrame
                 fetchTranslation();
             }
         });
-        /**
-         * Add a listener for the radio buttons
-         */
         englishToSwahili.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                fetchTranslation();
+            }
+        });
+        /**
+         * Add a listener for the checkboxes
+         */
+        englishExample.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                fetchTranslation();
+            }
+        });
+        englishPlural.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                fetchTranslation();
+            }
+        });
+        swahiliExample.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                fetchTranslation();
+            }
+        });
+        swahiliPlural.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
