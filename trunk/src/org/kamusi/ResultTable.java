@@ -84,7 +84,7 @@ public class ResultTable extends DefaultTableModel
 
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
-                query = "SELECT * FROM dict WHERE EnglishSortBy LIKE ? " +
+                query = "SELECT * FROM dict WHERE EnglishSortBy = ? " +
                         "ORDER BY EnglishSortBy ASC";
                 heading.addElement("English");
                 heading.addElement("Swahili");
@@ -97,7 +97,7 @@ public class ResultTable extends DefaultTableModel
             }
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
-                query = "SELECT * FROM dict WHERE SwahiliSortBy LIKE ? " +
+                query = "SELECT * FROM dict WHERE SwahiliSortBy = ? " +
                         "ORDER BY SwahiliSortBy ASC";
                 heading.addElement("Swahili");
                 heading.addElement("English");
@@ -115,7 +115,8 @@ public class ResultTable extends DefaultTableModel
 
             statement = connection.prepareStatement(query);
 
-            statement.setString(1, "%" + word + "%");
+//            statement.setString(1, "%" + word + "%");
+            statement.setString(1, word);
 
             resultSet = statement.executeQuery();
 
