@@ -27,7 +27,6 @@ public class Main
         {
             MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
             UIManager.setLookAndFeel(new MetalLookAndFeel());
-
         }
         catch (UnsupportedLookAndFeelException ex)
         {
