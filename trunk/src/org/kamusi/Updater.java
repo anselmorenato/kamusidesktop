@@ -46,8 +46,10 @@ public class Updater
         update.start();
     }
 
-    protected void cancelUpdate()
+    protected boolean cancelUpdate()
     {
+        boolean updateCancelled = false;
+
         String message = "Are you sure you want to cancel the database update?";
 
         Object[] options =
@@ -76,20 +78,26 @@ public class Updater
 
                 // Restore the original file
                 restoreOriginal();
+                updateCancelled = true;
                 break;
 
             case 1: //NO
                 // Do nothing
+                updateCancelled = false;
                 break;
 
             case -1: //Closed Window
                 // Do nothing
+                updateCancelled = false;
                 break;
 
             default:
                 // Do nothing
+                updateCancelled = false;
                 break;
         }
+
+        return updateCancelled;
     }
 
     class UpdaterThread extends Thread

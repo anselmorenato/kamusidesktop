@@ -34,7 +34,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableModel;
 
@@ -164,8 +163,14 @@ public class MainWindow extends JFrame
 
             public void actionPerformed(ActionEvent e)
             {
-                updater.cancelUpdate();
-                reset(); // Reset the input/output display
+                if (updater.cancelUpdate())
+                {
+                    // Reset the output display
+                    statusPanel.removeAll();
+                    statusPanel.add(statusLabel, BorderLayout.WEST);
+                    statusPanel.add(staticLabel, BorderLayout.EAST);
+                    pack();
+                }
             }
         });
         /**
@@ -395,40 +400,6 @@ public class MainWindow extends JFrame
         setLocationRelativeTo(null);
         JFrame.setDefaultLookAndFeelDecorated(false);
 
-        try
-        {
-            // Set the look and feel to what the user's system looks like
-            // Set cross-platform Java L&F (also called "Metal")
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-//            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-//            UIManager.setLookAndFeel("com.sun.java.swing.plaf.motif.MotifLookAndFeel");
-
-        }
-        catch (ClassNotFoundException ex)
-        {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.toString(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        catch (InstantiationException ex)
-        {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        catch (IllegalAccessException ex)
-        {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-        catch (UnsupportedLookAndFeelException ex)
-        {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
-        }
-
         wordField.requestFocusInWindow(); // Makes the cursor go to this field on startup
     }
 
@@ -578,14 +549,15 @@ public class MainWindow extends JFrame
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
     }
-    //TODO: Implement database update mechanism
 
     /**
      * Updates the words database
      */
     private void updateDatabase()
     {
-        updateStatusBar("Updating database. Please wait...");
+        updateStatusBar("Downloading database update...");
+
+        progressBar.setIndeterminate(true);
         progressBar.setString("Initializing. Please wait...");
 
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
@@ -647,7 +619,9 @@ public class MainWindow extends JFrame
      * Updates the progress bar with how much of the update has been got
      */
     public static void updateProgressBar() throws MalformedURLException, IOException
-    {     
+    {
+        progressBar.setIndeterminate(false);
+
         downloadedSize = updater.getSizeOfDatabase();
 
         int downloadedInInt = (int) downloadedSize;
@@ -658,7 +632,7 @@ public class MainWindow extends JFrame
 
         int percentage = (downloadedInInt * 100) / totalInInt;
 
-        progressBar.setString("Downloaded : " + downloadedInInt + " out of " +
+        progressBar.setString("Updating database. Downloaded " + downloadedInInt + " out of " +
                 totalInInt + " bytes (" + percentage + "% )");
         progressBar.setValue(percentage);
 
