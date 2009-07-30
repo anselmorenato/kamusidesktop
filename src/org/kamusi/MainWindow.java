@@ -2,7 +2,6 @@ package org.kamusi;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -10,11 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
-import java.text.MessageFormat;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +31,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableModel;
 
 /**
@@ -250,6 +246,28 @@ public class MainWindow extends JFrame
                 dialog.setVisible(true);
             }
         });
+        /**
+         * Add a listener for the radio buttons
+         */
+        swahiliToEnglish.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                fetchTranslation();
+            }
+        });
+        /**
+         * Add a listener for the radio buttons
+         */
+        englishToSwahili.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                fetchTranslation();
+            }
+        });
     }
 
     /**
@@ -458,53 +476,45 @@ public class MainWindow extends JFrame
      */
     private void displayTable(String word)
     {
+        String languageToTranslateFrom = "";
+        Vector fields = getDisplayableFields();
 
-        if (word.trim().length() == 0)
+        if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
         {
-            JOptionPane.showMessageDialog(null, "Please input a word to translate first.");
+
+            if (swahiliToEnglish.isSelected())
+            {
+                languageToTranslateFrom = "SWAHILI";
+            }
+            else if (englishToSwahili.isSelected())
+            {
+                languageToTranslateFrom = "ENGLISH";
+            }
+
+            outputPanel.removeAll();
+
+            this.resultTable = new ResultTable(languageToTranslateFrom, word, fields);
+
+            TableModel model = this.resultTable.getTableModel();
+
+            JTable newTable = new JTable(model);
+
+            newTable.setRowSelectionAllowed(true);
+            newTable.setColumnSelectionAllowed(false);
+
+            JScrollPane scrollPane = new JScrollPane(newTable);
+
+            outputPanel.add(scrollPane, BorderLayout.CENTER);
+
+            // Update the status bar
+            updateStatusBar(this.resultTable.getResultCount() + " Rows fetched");
+
+            pack();
+
         }
         else
         {
-            String languageToTranslateFrom = "";
-            Vector fields = getDisplayableFields();
-
-            if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
-            {
-
-                if (swahiliToEnglish.isSelected())
-                {
-                    languageToTranslateFrom = "SWAHILI";
-                }
-                else if (englishToSwahili.isSelected())
-                {
-                    languageToTranslateFrom = "ENGLISH";
-                }
-
-                outputPanel.removeAll();
-
-                this.resultTable = new ResultTable(languageToTranslateFrom, word, fields);
-
-                TableModel model = this.resultTable.getTableModel();
-
-                JTable newTable = new JTable(model);
-
-                newTable.setRowSelectionAllowed(true);
-                newTable.setColumnSelectionAllowed(false);
-
-                JScrollPane scrollPane = new JScrollPane(newTable);
-
-                outputPanel.add(scrollPane, BorderLayout.CENTER);
-
-                // Update the status bar
-                updateStatusBar(this.resultTable.getResultCount() + " Rows fetched");
-
-                pack();
-
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Please select the desired language first");
-            }
+            JOptionPane.showMessageDialog(null, "Please select the desired language first");
         }
     }
 
@@ -547,6 +557,24 @@ public class MainWindow extends JFrame
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             displayTable(word);
             setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        }
+    }
+
+    /**
+     * Fetches and displays the translation depending on the radio button pressed
+     * on the field bearing the word to translate
+     * @param e The key to listen for
+     */
+    private void fetchTranslation()
+    {
+        String word = wordField.getText().trim();
+        if (word.trim().length() == 0)
+        {
+        }
+        else
+        {
+            setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            displayTable(word);
         }
     }
 
