@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
@@ -131,6 +132,12 @@ public class MainWindow extends JFrame
      */
     private static JProgressBar progressBar;
     /**
+     * For update indication
+     */
+    private boolean updating = false;
+
+    ;
+    /**
      * Used in the update progress
      */
     public static long downloadedSize = 0;
@@ -230,7 +237,6 @@ public class MainWindow extends JFrame
             public void actionPerformed(ActionEvent e)
             {
                 print();
-                fetchTranslation();
             }
         });
 
@@ -332,9 +338,48 @@ public class MainWindow extends JFrame
                     languageToTranslateFrom = "ENGLISH";
                 }
 
-                outputPanel.removeAll();
 
-                resultTable.print(languageToTranslateFrom, word, fields);
+                TableModel model = this.resultTable.getTableModel();
+
+                JTable newTable = new JTable(model);
+
+                try
+                {
+                    boolean complete = newTable.print();
+
+                    if (complete)
+                    {
+                        /* show a success message  */
+                        System.out.println("FIN");
+                    }
+                    else
+                    {
+                        /*show a message indicating that printing was cancelled */
+                        System.out.println("UN MOMENTO...");
+                    }
+                }
+                catch (PrinterException pe)
+                {
+                    /* Printing failed, report to the user */
+                    pe.printStackTrace();
+                }
+
+
+                JScrollPane scrollPane = new JScrollPane(newTable);
+
+                JFrame f = new JFrame("Test Print");
+
+                f.setLayout(new BorderLayout());
+
+                f.add(scrollPane, BorderLayout.CENTER);
+
+                f.pack();
+
+                f.setVisible(true);
+
+
+//                new ResultTable(languageToTranslateFrom, word, fields)
+//                        .print();
             }
             else
             {
@@ -461,18 +506,34 @@ public class MainWindow extends JFrame
     {
         System.gc();
 
-        wordField.setText("");
-        englishExample.setSelected(false);
-        swahiliExample.setSelected(false);
-        englishPlural.setSelected(false);
-        swahiliPlural.setSelected(false);
-        outputPanel.removeAll();
-        statusPanel.removeAll();
-        statusPanel.add(statusLabel, BorderLayout.WEST);
-        statusPanel.add(staticLabel, BorderLayout.EAST);
+        if (!updating)
+        {
+            wordField.setText("");
 
-        updateStatusBar("The Kamusi Project");
-        pack();
+            englishExample.setSelected(false);
+            swahiliExample.setSelected(false);
+            englishPlural.setSelected(false);
+            swahiliPlural.setSelected(false);
+            outputPanel.removeAll();
+            statusPanel.removeAll();
+            statusPanel.add(statusLabel, BorderLayout.WEST);
+            statusPanel.add(staticLabel, BorderLayout.EAST);
+
+            updateStatusBar("The Kamusi Project");
+            pack();
+        }
+        else
+        {
+            wordField.setText("");
+            outputPanel.removeAll();
+            englishExample.setSelected(false);
+            swahiliExample.setSelected(false);
+            englishPlural.setSelected(false);
+            swahiliPlural.setSelected(false);
+
+            updateStatusBar("The Kamusi Project");
+            pack();
+        }
     }
 
     /**
@@ -617,6 +678,8 @@ public class MainWindow extends JFrame
      */
     private void updateDatabase()
     {
+        updating = true;
+
         updateStatusBar("Downloading database update...");
 
         progressBar.setIndeterminate(true);
@@ -665,15 +728,19 @@ public class MainWindow extends JFrame
 
             case 1: //NO
                 updateStatusBar("Database update cancelled.");
+                updating = false;
                 break;
 
             case -1: //Closed Window
                 updateStatusBar("Database update cancelled.");
+                updating = false;
                 break;
 
             default:
+                updating = false;
                 break;
         }
+
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
