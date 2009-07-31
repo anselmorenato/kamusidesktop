@@ -142,6 +142,7 @@ public class MainWindow extends JFrame
      */
     public static long downloadedSize = 0;
     public static long totalDownloadSize = 0;
+    private static final String APPLICATION_NAME = "Kamusi Desktop";
 
     /**
      * Initializes the display
@@ -318,72 +319,41 @@ public class MainWindow extends JFrame
 
         if (word.trim().length() == 0)
         {
-            JOptionPane.showMessageDialog(null, "Please input a word to translate first.");
+            showWarning("Please input a word to translate first");
         }
         else
         {
-            String languageToTranslateFrom = "";
 
-            Vector fields = getDisplayableFields();
+            TableModel model = resultTable.getTableModel();
+            JTable toPrint = new JTable(model);
 
-            if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
+            try
             {
+                throw new PrinterException("Undefined error while printing!");
 
-                if (swahiliToEnglish.isSelected())
-                {
-                    languageToTranslateFrom = "SWAHILI";
-                }
-                else if (englishToSwahili.isSelected())
-                {
-                    languageToTranslateFrom = "ENGLISH";
-                }
+//                boolean complete = toPrint.print();
 
-
-                TableModel model = this.resultTable.getTableModel();
-
-                JTable newTable = new JTable(model);
-
-                try
-                {
-                    boolean complete = newTable.print();
-
-                    if (complete)
-                    {
-                        /* show a success message  */
-                        System.out.println("FIN");
-                    }
-                    else
-                    {
-                        /*show a message indicating that printing was cancelled */
-                        System.out.println("UN MOMENTO...");
-                    }
-                }
-                catch (PrinterException pe)
-                {
-                    /* Printing failed, report to the user */
-                    pe.printStackTrace();
-                }
-
-
-                JScrollPane scrollPane = new JScrollPane(newTable);
-
-                JFrame f = new JFrame("Test Print");
-
-                f.setLayout(new BorderLayout());
-
-                f.add(scrollPane, BorderLayout.CENTER);
-
-                f.pack();
-
-                f.setVisible(true);
-
-
-//                new ResultTable(languageToTranslateFrom, word, fields)
-//                        .print();
+//                if (complete)
+//                {
+//                    /* show a success message  */
+//                    System.out.println("FIN");
+//                }
+//                else
+//                {
+//                    /*show a message indicating that printing was cancelled */
+//                    System.out.println("UN MOMENTO...");
+//                }
+//                JScrollPane scrollPane = new JScrollPane(toPrint);
+//                JFrame f = new JFrame("Test Print");
+//                f.setLayout(new BorderLayout());
+//                f.add(scrollPane, BorderLayout.CENTER);
+//                f.pack();
+//                f.setVisible(true);
             }
-            else
+            catch (PrinterException pe)
             {
-                JOptionPane.showMessageDialog(null, "Please select the desired language first");
+                /* Printing failed, report to the user */
+                MainWindow.showError(pe.getMessage());
             }
         }
     }
@@ -506,34 +476,25 @@ public class MainWindow extends JFrame
     {
         System.gc();
 
+        wordField.setText("");
+        outputPanel.removeAll();
+        englishExample.setSelected(false);
+        swahiliExample.setSelected(false);
+        englishPlural.setSelected(false);
+        swahiliPlural.setSelected(false);
+
         if (!updating)
         {
-            wordField.setText("");
-
-            englishExample.setSelected(false);
-            swahiliExample.setSelected(false);
-            englishPlural.setSelected(false);
-            swahiliPlural.setSelected(false);
-            outputPanel.removeAll();
             statusPanel.removeAll();
             statusPanel.add(statusLabel, BorderLayout.WEST);
             statusPanel.add(staticLabel, BorderLayout.EAST);
-
-            updateStatusBar("The Kamusi Project");
-            pack();
         }
         else
         {
-            wordField.setText("");
-            outputPanel.removeAll();
-            englishExample.setSelected(false);
-            swahiliExample.setSelected(false);
-            englishPlural.setSelected(false);
-            swahiliPlural.setSelected(false);
-
             updateStatusBar("The Kamusi Project");
-            pack();
         }
+
+        pack();
     }
 
     /**
@@ -608,7 +569,7 @@ public class MainWindow extends JFrame
         }
         else
         {
-            JOptionPane.showMessageDialog(null, "Please select the desired language first");
+            showWarning("Please select the desired language first");
         }
     }
 
@@ -704,7 +665,7 @@ public class MainWindow extends JFrame
 
         int choice = JOptionPane.showOptionDialog(null,
                 message,
-                "Kamusi Desktop",
+                APPLICATION_NAME,
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null, //do not use a custom Icon
@@ -771,9 +732,38 @@ public class MainWindow extends JFrame
         if (percentage == 100)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Database updated successfully");
-            JOptionPane.showMessageDialog(null, "Kamusi database has been successfully updated.",
-                    "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
+            showInfo("Kamusi database has been successfully updated.");
             statusLabel.setText("Database updated successfully.");
         }
+    }
+
+    /**
+     * Displays an error message
+     */
+    protected static void showError(String message)
+    {
+        Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, message);
+        JOptionPane.showMessageDialog(null, message,
+                APPLICATION_NAME, JOptionPane.ERROR_MESSAGE);
+    }
+
+    /**
+     * Displays an information message
+     */
+    protected static void showInfo(String message)
+    {
+        Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, message);
+        JOptionPane.showMessageDialog(null, message,
+                APPLICATION_NAME, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Displays a warning message
+     */
+    protected static void showWarning(String message)
+    {
+        Logger.getLogger(MainWindow.class.getName()).log(Level.WARNING, message);
+        JOptionPane.showMessageDialog(null, message,
+                APPLICATION_NAME, JOptionPane.WARNING_MESSAGE);
     }
 }
