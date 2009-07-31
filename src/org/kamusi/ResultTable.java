@@ -9,7 +9,6 @@ import java.util.Enumeration;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -190,25 +189,23 @@ public class ResultTable extends DefaultTableModel
         }
         catch (SQLException ex)
         {
+            Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+
             if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
             {
-                JOptionPane.showMessageDialog(null, "Kamusi Desktop Could not find databse or " +
+                MainWindow.showError("Kamusi Desktop Could not find databse or " +
                         "your database may be corrupted.\nCheck your working directory or\n" +
-                        "select file -> Update in order to fetch a new database.", "Kamusi Desktop",
-                        JOptionPane.ERROR_MESSAGE);
+                        "select file -> Update in order to fetch a new database.");
             }
             else
             {
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                        JOptionPane.ERROR_MESSAGE);
+                MainWindow.showError(ex.getMessage());
             }
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
             Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                    JOptionPane.ERROR_MESSAGE);
+            MainWindow.showError(ex.getMessage());
         }
         finally
         {
@@ -221,8 +218,7 @@ public class ResultTable extends DefaultTableModel
             catch (SQLException ex)
             {
                 Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
-                        JOptionPane.ERROR_MESSAGE);
+                MainWindow.showError(ex.getMessage());
             }
         }
 

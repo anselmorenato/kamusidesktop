@@ -73,8 +73,7 @@ public class Updater
 
                 update.stop();
                 Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Database update cancelled");
-                JOptionPane.showMessageDialog(null, "Database update download has been cancelled.",
-                        "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
+                MainWindow.showInfo("Database update download has been cancelled.");
 
                 // Restore the original file
                 restoreOriginal();
@@ -138,8 +137,7 @@ public class Updater
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
                 // Restore the original file
                 restoreOriginal();
-                JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
-                        "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
+                MainWindow.showError("An error occurred while updating database. Reverted to original database.");
             }
 
             //Delete the original
@@ -188,24 +186,22 @@ public class Updater
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             // Restore the original file
             restoreOriginal();
-            JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
-                    "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
+            MainWindow.showError("An error occurred while updating database.");
         }
         catch (FileNotFoundException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             // Restore the original file
             restoreOriginal();
-            JOptionPane.showMessageDialog(null, "An error occurred while trying to access the update file. Check your connection to the Internet.",
-                    "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
+            MainWindow.showError("An error occurred while trying to access the update file. " +
+                    "Please check your connection to the Internet.");
         }
         catch (IOException ex)
         {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             // Restore the original file
             restoreOriginal();
-            JOptionPane.showMessageDialog(null, "An error occurred while updating database. Reverted to original database.",
-                    "Kamusi Desktop", JOptionPane.ERROR_MESSAGE);
+            MainWindow.showError("An error occurred while updating database.");
         }
 
         return size;
