@@ -323,32 +323,9 @@ public class MainWindow extends JFrame
         }
         else
         {
-
-            TableModel model = resultTable.getTableModel();
-            JTable toPrint = new JTable(model);
-
             try
             {
-                throw new PrinterException("Undefined error while printing!");
-
-//                boolean complete = toPrint.print();
-
-//                if (complete)
-//                {
-//                    /* show a success message  */
-//                    System.out.println("FIN");
-//                }
-//                else
-//                {
-//                    /*show a message indicating that printing was cancelled */
-//                    System.out.println("UN MOMENTO...");
-//                }
-//                JScrollPane scrollPane = new JScrollPane(toPrint);
-//                JFrame f = new JFrame("Test Print");
-//                f.setLayout(new BorderLayout());
-//                f.add(scrollPane, BorderLayout.CENTER);
-//                f.pack();
-//                f.setVisible(true);
+                resultTable.getTable().print();
             }
             catch (PrinterException pe)
             {
