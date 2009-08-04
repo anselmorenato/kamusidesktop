@@ -7,11 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+/**
+ * ResultTable.java
+ * Fetches translations from the database and renders them into a JTable
+ * @author arthur
+ */
 
 public class ResultTable extends DefaultTableModel
 {
@@ -44,9 +48,10 @@ public class ResultTable extends DefaultTableModel
     private String englishWord, swahiliWord, englishExample, swahiliExample, swahiliPlural,
             englishPlural;
     private String fieldsString = "";
-    private Vector headers;
-    private Vector rowData;
-    private Vector rows;
+    private Vector<String> headers;
+    private Vector<Vector> data;
+    private Vector<String> rows;
+    private LoggingUtil util = new LoggingUtil();
     /**
      * Holds the number of records fetched
      */
@@ -78,7 +83,7 @@ public class ResultTable extends DefaultTableModel
 
             String query = "";
 
-            headers = new Vector();
+            headers = new Vector<String>();
 
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
@@ -120,8 +125,7 @@ public class ResultTable extends DefaultTableModel
 
             row = 0; // To hold the number of records
 
-            rowData = new Vector();
-
+            data = new Vector<Vector>();
 
             while (resultSet.next())
             {
@@ -135,7 +139,7 @@ public class ResultTable extends DefaultTableModel
                 swahiliExample = resultSet.getString("SwahiliExample");
 
                 //create a row
-                rows = new Vector();
+                rows = new Vector<String>();
 
                 if (fromLanguage.equalsIgnoreCase("ENGLISH"))
                 {
@@ -183,17 +187,20 @@ public class ResultTable extends DefaultTableModel
                 }
 
                 //add to model
-                rowData.addElement(rows);
-
+                data.addElement(rows);
+            }
+            if (row > 0)
+            {
+                util.log(row + " results matched for \"" + word + "\" from " + fromLanguage);
             }
         }
         catch (SQLException ex)
         {
-            Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+            util.log(ex.getMessage());
 
             if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
             {
-                MainWindow.showError("Kamusi Desktop Could not find databse or " +
+                MainWindow.showError("Kamusi Desktop Could not find database or " +
                         "your database may be corrupted.\nCheck your working directory or\n" +
                         "select file -> Update in order to fetch a new database.");
             }
@@ -204,7 +211,7 @@ public class ResultTable extends DefaultTableModel
         }
         catch (Exception ex)
         {
-            Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+            util.log(ex.getMessage());
             MainWindow.showError(ex.getMessage());
         }
         finally
@@ -217,12 +224,12 @@ public class ResultTable extends DefaultTableModel
             }
             catch (SQLException ex)
             {
-                Logger.getLogger(ResultTable.class.getName()).log(Level.SEVERE, null, ex);
+                util.log(ex.getMessage());
                 MainWindow.showError(ex.getMessage());
             }
         }
 
-        table = new JTable(rowData, headers);
+        table = new JTable(data, headers);
     }
 
     /**

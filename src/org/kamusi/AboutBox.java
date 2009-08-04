@@ -94,11 +94,10 @@ public class AboutBox extends javax.swing.JDialog
         final String about =
                 "Product Version: " + "Kamusi Project Desktop Build 7" + "\n" +
                 "Java: " + System.getProperty("java.version") + "\n" +
-                "System: " + System.getProperty("os.name") + " version " + System.getProperty("os.version") + "\n";
+                "System: " + System.getProperty("os.name") + " version " + System.getProperty("os.version") + "\n\n";
 
         final String disclaimer =
-                "\nKamusi Desktop and Kamusi Project are based on software from kamusi.org " +
-                "which has been licensed under the GNU General Public License version 2. " +
+                "Kamusi Desktop and Kamusi Project are based on software from kamusi.org. " +
                 "For more information, please visit www.kamusi.org.\n\n";
 
         contentArea.setEditable(false);

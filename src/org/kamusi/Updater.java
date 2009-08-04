@@ -2,40 +2,41 @@ package org.kamusi;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Fetched an update of the database
  * @author arthur
  */
 public class Updater
 {
 
+    private long sizeOfDatabase = 0;
+    private long sizeOfUpdate = 0;
     private static final String originaldb = "kamusiproject.db";
     private final String updatedb = "kamusiproject.db_bakup";
     private long totalSizeOfUpdate = 0;
     private DownloadProgressBar progress;
     private UpdaterThread update;
-
-    ;
+    private boolean canUpdate;
+    private LoggingUtil util;
     /**
      * The update URL
      */
     public static final String UPDATE_URL =
-            //            "http://localhost/kamusidesktop/kamusiproject.db";
+            //"http://localhost/kamusi/kamusiproject.db";
             "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
     private static URL url;
 
     public Updater()
     {
+        canUpdate = false;
+        util = new LoggingUtil();
     }
 
     public synchronized void update()
@@ -44,6 +45,7 @@ public class Updater
         progress = new DownloadProgressBar();
         update = new UpdaterThread();
         update.start();
+        progress.start();
     }
 
     protected boolean cancelUpdate()
@@ -70,9 +72,9 @@ public class Updater
         switch (choice)
         {
             case 0: //YES
-
-                update.stop();
-                Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Database update cancelled");
+                progress.running = false;
+                progress.interrupt();
+                update.interrupt();
                 MainWindow.showInfo("Database update download has been cancelled.");
 
                 // Restore the original file
@@ -109,14 +111,15 @@ public class Updater
         {
             try
             {
-                // Get size of update
-                totalSizeOfUpdate = getSizeOfUpdate();
-
                 // Leave the original db intact
                 // Save the new update as a temporary file
 
                 url = new URL(UPDATE_URL);
                 URLConnection connection = url.openConnection();
+
+                // Get size of update
+                totalSizeOfUpdate = getSizeOfUpdate();
+
                 BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
                 FileOutputStream ftpFileOutputStream = new FileOutputStream(updatedb);
 
@@ -126,27 +129,50 @@ public class Updater
                 while ((i = inputStream.read(bytesIn)) >= 0)
                 {
                     ftpFileOutputStream.write(bytesIn, 0, i);
-                    new Thread(progress).run();
                 }
 
                 ftpFileOutputStream.close();
                 inputStream.close();
+                //Delete the original
+                File original = new File(originaldb);
+                original.delete();
+
+                //Rename the temp db appropriately
+                File update = new File(updatedb);
+                update.renameTo(new File(originaldb));
+
+                cleanUp();
+            }
+            catch (java.net.UnknownHostException ex)
+            {
+                util.log(ex.getMessage());
+                // Restore the original file
+                restoreOriginal();
+                MainWindow.showError("An error occurred while connecting to the update server.");
+            }
+            catch (MalformedURLException ex)
+            {
+                util.log(ex.getMessage());
+                // Restore the original file
+                restoreOriginal();
+                MainWindow.showError("An error occurred while updating database.");
             }
             catch (IOException ex)
             {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                util.log(ex.getMessage());
                 // Restore the original file
                 restoreOriginal();
-                MainWindow.showError("An error occurred while updating database. Reverted to original database.");
+
+                if (ex.getMessage().contains("Permission denied"))
+                {
+                    MainWindow.showError("An error occurred while updating database.\n" +
+                            "Do you have permissions to write to the Kamusi Desktop installation directory?");
+                }
+                else
+                {
+                    MainWindow.showError("An error occurred while updating database.");
+                }
             }
-
-            //Delete the original
-            File original = new File(originaldb);
-            original.delete();
-
-            //Rename the temp db appropriately
-            File update = new File(updatedb);
-            update.renameTo(new File(originaldb));
         }
 
         @Override
@@ -170,41 +196,39 @@ public class Updater
      */
     public long getSizeOfUpdate()
     {
-        long size = 0;
-
         try
         {
             url = new URL(UPDATE_URL);
 
             URLConnection connection = url.openConnection();
-            size = connection.getContentLength();
+            sizeOfUpdate = connection.getContentLength();
 
             connection.getInputStream().close();
+            canUpdate = true;
+        }
+        catch (java.net.UnknownHostException ex)
+        {
+            util.log(ex.getMessage());
+            // Restore the original file
+            restoreOriginal();
+            MainWindow.showError("An error occurred while connecting to the update server.");
         }
         catch (MalformedURLException ex)
         {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            util.log(ex.getMessage());
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
         }
-        catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            // Restore the original file
-            restoreOriginal();
-            MainWindow.showError("An error occurred while trying to access the update file. " +
-                    "Please check your connection to the Internet.");
-        }
         catch (IOException ex)
         {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            util.log(ex.getMessage());
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
         }
 
-        return size;
+        return sizeOfUpdate;
     }
 
     /**
@@ -212,16 +236,15 @@ public class Updater
      */
     public long getSizeOfDatabase()
     {
-        long size = 0;
-
         File database = new File(updatedb);
-        size = database.length();
-
-        return size;
+        sizeOfDatabase = database.length();
+        return sizeOfDatabase;
     }
 
     class DownloadProgressBar extends Thread
     {
+
+        private boolean running = true;
 
         /**
          * Updates the progress bar with how much of the update has been got
@@ -234,14 +257,36 @@ public class Updater
             }
             catch (IOException ex)
             {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+                util.log(ex.getMessage());
             }
         }
 
         @Override
         public void run()
         {
-            showDownloadProgress();
+            while (running)
+            {
+                showDownloadProgress();
+            }
         }
+    }
+
+    /**
+     * Gets if the db can be updated.
+     */
+    public boolean canUpdate()
+    {
+        return canUpdate;
+    }
+
+    /**
+     * Cleans up after an update
+     */
+    private void cleanUp()
+    {
+        progress.running = false;
+        progress.interrupt();
+        util.log("Cleanup successful");
+        MainWindow.showInfo("Database updated successfully.");
     }
 }

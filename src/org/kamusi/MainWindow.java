@@ -14,8 +14,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,13 +30,15 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.TableModel;
 
 /**
  * This is the main window of the application
  * @author arthur
  */
-public class MainWindow extends JFrame
+public class MainWindow extends JFrame implements TableModelListener
 {
 
     /**
@@ -134,9 +134,11 @@ public class MainWindow extends JFrame
     /**
      * For update indication
      */
-    private boolean updating = false;
-
-    ;
+    private static boolean updating = false;
+    /**
+     * For logging system messages
+     */
+    private static LoggingUtil util;
     /**
      * Used in the update progress
      */
@@ -315,24 +317,28 @@ public class MainWindow extends JFrame
      */
     private void print()
     {
-        String word = wordField.getText().trim();
+        showWarning("Printing has been disabled for now due to ongoing work.\n" +
+                "Sorry for any inconvenience caused.");
+        return;
 
-        if (word.trim().length() == 0)
-        {
-            showWarning("Please input a word to translate first");
-        }
-        else
-        {
-            try
-            {
-                resultTable.getTable().print();
-            }
-            catch (PrinterException pe)
-            {
-                /* Printing failed, report to the user */
-                MainWindow.showError(pe.getMessage());
-            }
-        }
+//        String word = wordField.getText().trim();
+//
+//        if (word.trim().length() == 0)
+//        {
+//            showWarning("Please input a word to translate first");
+//        }
+//        else
+//        {
+//            try
+//            {
+//                resultTable.getTable().print();
+//            }
+//            catch (PrinterException pe)
+//            {
+//                /* Printing failed, report to the user */
+//                MainWindow.showError(pe.getMessage());
+//            }
+//        }
     }
 
     /**
@@ -340,6 +346,8 @@ public class MainWindow extends JFrame
      */
     private void initComponents()
     {
+        util = new LoggingUtil();
+
         updater = new Updater();
         progressBar = new JProgressBar();
         progressBar.setString("0%");
@@ -478,9 +486,9 @@ public class MainWindow extends JFrame
      * Gets a Vector representation of the selected displayable fields
      * @return The Vector representation
      */
-    private Vector getDisplayableFields()
+    private Vector<String> getDisplayableFields()
     {
-        Vector fields = new Vector();
+        Vector<String> fields = new Vector<String>();
 
         if (englishPlural.isSelected())
         {
@@ -509,7 +517,7 @@ public class MainWindow extends JFrame
     private void displayTable(String word)
     {
         String languageToTranslateFrom = "";
-        Vector fields = getDisplayableFields();
+        Vector<String> fields = getDisplayableFields();
 
         if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
         {
@@ -535,6 +543,8 @@ public class MainWindow extends JFrame
             newTable.setColumnSelectionAllowed(false);
 
             JScrollPane scrollPane = new JScrollPane(newTable);
+
+            newTable.getModel().addTableModelListener(this);
 
             outputPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -627,56 +637,58 @@ public class MainWindow extends JFrame
 
         long size = updater.getSizeOfUpdate();
 
-        double sizeInMBForm = (double) size / 1000 / 1000;
-        DecimalFormat twoDForm = new DecimalFormat("#.##");
-
-        String message = "Kamusi Desktop will now download " +
-                Double.valueOf(twoDForm.format(sizeInMBForm)) +
-                " MB of database update. Proceed?";
-
-        Object[] options =
+        if (updater.canUpdate())
         {
-            "Yes",
-            "No"
-        };
+            double sizeInMBForm = (double) size / 1000 / 1000;
+            DecimalFormat twoDForm = new DecimalFormat("#.##");
 
-        int choice = JOptionPane.showOptionDialog(null,
-                message,
-                APPLICATION_NAME,
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, //do not use a custom Icon
-                options, //the titles of buttons
-                options[1]); //default button title
+            String message = "Kamusi Desktop will now download " +
+                    Double.valueOf(twoDForm.format(sizeInMBForm)) +
+                    " MB of database update. Proceed?";
 
-        switch (choice)
-        {
-            case 0: //YES
+            Object[] options =
+            {
+                "Yes",
+                "No"
+            };
 
-                updateStatusBar("Downloading update");
-                JPanel updatePanel = new JPanel();
-                updatePanel.setLayout(new BorderLayout());
-                updatePanel.add(progressBar, BorderLayout.CENTER);
-                updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
-                statusPanel.add(updatePanel, BorderLayout.CENTER);
-                pack();
-                updater.update();
+            int choice = JOptionPane.showOptionDialog(null,
+                    message,
+                    APPLICATION_NAME,
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[1]); //default button title
 
-                break;
+            switch (choice)
+            {
+                case 0: //YES
 
-            case 1: //NO
-                updateStatusBar("Database update cancelled.");
-                updating = false;
-                break;
+                    updateStatusBar("Downloading update");
+                    JPanel updatePanel = new JPanel();
+                    updatePanel.setLayout(new BorderLayout());
+                    updatePanel.add(progressBar, BorderLayout.CENTER);
+                    updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
+                    statusPanel.add(updatePanel, BorderLayout.CENTER);
+                    pack();
+                    updater.update();
+                    break;
 
-            case -1: //Closed Window
-                updateStatusBar("Database update cancelled.");
-                updating = false;
-                break;
+                case 1: //NO
+                    updateStatusBar("Database update cancelled.");
+                    updating = false;
+                    break;
 
-            default:
-                updating = false;
-                break;
+                case -1: //Closed Window
+                    updateStatusBar("Database update cancelled.");
+                    updating = false;
+                    break;
+
+                default:
+                    updating = false;
+                    break;
+            }
         }
 
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -697,20 +709,19 @@ public class MainWindow extends JFrame
 
         int totalInInt = (int) totalDownloadSize;
 
-        int percentage = (downloadedInInt * 100) / totalInInt;
+        int percentage = (int) Math.ceil((downloadedInInt * 100) / totalInInt);
+
+//        int percentage = (downloadedInInt * 100) / totalInInt;
 
         progressBar.setString("Updating database. Downloaded " + downloadedInInt + " out of " +
                 totalInInt + " bytes (" + percentage + "% )");
         progressBar.setValue(percentage);
 
-//        System.out.println("Downloaded : " + downloadedInInt + " out of " + totalInInt);
-//        System.out.println("Progress: " + percentage + "%");
+        util.log("Downloaded update: " + downloadedInInt + " out of " + totalInInt);
 
         if (percentage == 100)
         {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Database updated successfully");
-            showInfo("Kamusi database has been successfully updated.");
-            statusLabel.setText("Database updated successfully.");
+            updating = false;
         }
     }
 
@@ -719,7 +730,7 @@ public class MainWindow extends JFrame
      */
     protected static void showError(String message)
     {
-        Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, message);
+        util.log(message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.ERROR_MESSAGE);
     }
@@ -729,7 +740,7 @@ public class MainWindow extends JFrame
      */
     protected static void showInfo(String message)
     {
-        Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, message);
+        util.log(message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -739,8 +750,13 @@ public class MainWindow extends JFrame
      */
     protected static void showWarning(String message)
     {
-        Logger.getLogger(MainWindow.class.getName()).log(Level.WARNING, message);
+        util.log(message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.WARNING_MESSAGE);
+    }
+
+    public void tableChanged(TableModelEvent e)
+    {
+        showWarning("Edititng is not yet supported.");
     }
 }
