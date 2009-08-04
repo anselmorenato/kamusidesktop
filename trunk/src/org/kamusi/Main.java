@@ -1,7 +1,5 @@
 package org.kamusi;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -21,6 +19,8 @@ public class Main
      */
     public static void main(String[] args)
     {
+        LoggingUtil util = new LoggingUtil();
+
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         try
@@ -30,7 +30,7 @@ public class Main
         }
         catch (UnsupportedLookAndFeelException ex)
         {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            util.log(ex.getMessage());
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
                     JOptionPane.ERROR_MESSAGE);
         }
