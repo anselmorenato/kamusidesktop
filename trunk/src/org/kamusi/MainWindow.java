@@ -5,15 +5,20 @@ import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.DecimalFormat;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +30,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -92,7 +98,7 @@ public class MainWindow extends JFrame implements TableModelListener
     /**
      * JTable for displaying output
      */
-    private ResultTable resultTable;
+//    private ResultTable resultTable;
     /**
      * Button for resetting the window
      */
@@ -145,13 +151,17 @@ public class MainWindow extends JFrame implements TableModelListener
     public static long downloadedSize = 0;
     public static long totalDownloadSize = 0;
     private static final String APPLICATION_NAME = "Kamusi Desktop";
+    /**
+     * For the editing of cells
+     */
+    private String oldWord = "";
 
     /**
      * Initializes the display
      */
     public MainWindow()
     {
-        super("Kamusi Project Desktop");
+        super("Kamusi Project Desktop - Editor's Edition");
         initComponents();
         addActionListeners();
     }
@@ -317,28 +327,37 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private void print()
     {
-        showWarning("Printing has been disabled for now due to ongoing work.\n" +
-                "Sorry for any inconvenience caused.");
-        return;
+//        showWarning("Printing has been disabled for now due to ongoing work.\n" +
+//                "Sorry for any inconvenience caused.");
+//        return;
+        String word = wordField.getText().trim();
 
-//        String word = wordField.getText().trim();
-//
-//        if (word.trim().length() == 0)
-//        {
-//            showWarning("Please input a word to translate first");
-//        }
-//        else
-//        {
-//            try
-//            {
-//                resultTable.getTable().print();
-//            }
-//            catch (PrinterException pe)
-//            {
-//                /* Printing failed, report to the user */
-//                MainWindow.showError(pe.getMessage());
-//            }
-//        }
+        String languageToTranslateFrom = "";
+
+        Vector<String> fields = getDisplayableFields();
+
+        if (swahiliToEnglish.isSelected())
+        {
+            languageToTranslateFrom = "SWAHILI";
+        }
+        else if (englishToSwahili.isSelected())
+        {
+            languageToTranslateFrom = "ENGLISH";
+        }
+
+        ResultTable resultTable = new ResultTable(languageToTranslateFrom, word, fields);
+
+        TableModel model = resultTable.getTableModel();
+
+        final JTable newTable = new JTable(model);
+        try
+        {
+            newTable.print();
+        }
+        catch (PrinterException ex)
+        {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -463,10 +482,6 @@ public class MainWindow extends JFrame implements TableModelListener
 
         wordField.setText("");
         outputPanel.removeAll();
-        englishExample.setSelected(false);
-        swahiliExample.setSelected(false);
-        englishPlural.setSelected(false);
-        swahiliPlural.setSelected(false);
 
         if (!updating)
         {
@@ -517,6 +532,7 @@ public class MainWindow extends JFrame implements TableModelListener
     private void displayTable(String word)
     {
         String languageToTranslateFrom = "";
+
         Vector<String> fields = getDisplayableFields();
 
         if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
@@ -533,11 +549,11 @@ public class MainWindow extends JFrame implements TableModelListener
 
             outputPanel.removeAll();
 
-            this.resultTable = new ResultTable(languageToTranslateFrom, word, fields);
+            ResultTable resultTable = new ResultTable(languageToTranslateFrom, word, fields);
 
-            TableModel model = this.resultTable.getTableModel();
+            TableModel model = resultTable.getTableModel();
 
-            JTable newTable = new JTable(model);
+            final JTable newTable = new JTable(model);
 
             newTable.setRowSelectionAllowed(true);
             newTable.setColumnSelectionAllowed(false);
@@ -546,10 +562,42 @@ public class MainWindow extends JFrame implements TableModelListener
 
             newTable.getModel().addTableModelListener(this);
 
+            newTable.addMouseListener(new MouseAdapter()
+            {
+
+                @Override
+                public void mouseClicked(MouseEvent e)
+                {
+                    Point point = e.getPoint();
+                    int column = newTable.columnAtPoint(point);
+                    int row = newTable.rowAtPoint(point);
+                    String columnName = newTable.getColumnName(column);
+                    String cellValue = (String) newTable.getValueAt(row, column);
+                    oldWord = (cellValue);
+
+                    if (e.isMetaDown())
+                    {
+                        //Display a popup menu
+                        JPopupMenu popupMenu = new JPopupMenu();
+                        JMenuItem edit = new JMenuItem("Edit Value");
+                        popupMenu.add(edit);
+                        edit.addActionListener(new ActionListener()
+                        {
+
+                            public void actionPerformed(ActionEvent e)
+                            {
+                                showWarning("Editing is not yet supported.");
+                            }
+                        });
+                        popupMenu.show(newTable, point.x, point.y);
+                    }
+                }
+            });
+
             outputPanel.add(scrollPane, BorderLayout.CENTER);
 
             // Update the status bar
-            updateStatusBar(this.resultTable.getResultCount() + " Rows fetched");
+            updateStatusBar(resultTable.getResultCount() + " Rows fetched");
 
             pack();
 
@@ -757,6 +805,19 @@ public class MainWindow extends JFrame implements TableModelListener
 
     public void tableChanged(TableModelEvent e)
     {
-        showWarning("Edititng is not yet supported.");
+//        showWarning("Editing is not yet supported.");
+
+        int row = e.getFirstRow();
+        int column = e.getColumn();
+
+        TableModel model = (TableModel) e.getSource();
+        String columnName = model.getColumnName(column);
+
+        Object newWord = model.getValueAt(row, column);
+
+        String fromLanguage = (swahiliToEnglish.isSelected()) ? "Swahili" : "English";
+        String searchKey = wordField.getText().trim();
+        Editor editor = new Editor();
+        editor.edit(row, columnName, fromLanguage, oldWord, (String) newWord, searchKey);
     }
 }
