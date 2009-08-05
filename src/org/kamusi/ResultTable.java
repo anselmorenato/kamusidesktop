@@ -16,7 +16,6 @@ import javax.swing.table.TableModel;
  * Fetches translations from the database and renders them into a JTable
  * @author arthur
  */
-
 public class ResultTable extends DefaultTableModel
 {
 
@@ -35,7 +34,7 @@ public class ResultTable extends DefaultTableModel
     /**
      * Table to display the output
      */
-    private JTable table;
+    private JTable table = new JTable();
     /**
      * Connection to the database
      */
@@ -192,6 +191,7 @@ public class ResultTable extends DefaultTableModel
             if (row > 0)
             {
                 util.log(row + " results matched for \"" + word + "\" from " + fromLanguage);
+                table.setModel(new JTable(data, headers).getModel());
             }
         }
         catch (SQLException ex)
@@ -228,8 +228,6 @@ public class ResultTable extends DefaultTableModel
                 MainWindow.showError(ex.getMessage());
             }
         }
-
-        table = new JTable(data, headers);
     }
 
     /**
@@ -238,18 +236,7 @@ public class ResultTable extends DefaultTableModel
      */
     public JTable getTable()
     {
-        return table;
-    }
-
-    /**
-     * Returns a table model
-     * @return the table model
-     */
-    public TableModel getTableModel()
-    {
-        TableModel model = table.getModel();
-
-        return model;
+        return this.table;
     }
 
     /**
