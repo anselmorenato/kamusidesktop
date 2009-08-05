@@ -6,6 +6,7 @@ package org.kamusi;
  * @author arthur
  */
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -18,6 +19,15 @@ import java.util.logging.Logger;
  */
 public class LoggingUtil
 {
+    public LoggingUtil()
+    {
+        //Start by creating the log folder if it does not exist
+        File logFolder = new File("logs");
+        if (!logFolder.exists())
+        {
+            logFolder.mkdir();
+        }
+    }
 
     /**
      * Logs system events to a file

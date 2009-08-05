@@ -347,9 +347,8 @@ public class MainWindow extends JFrame implements TableModelListener
 
         ResultTable resultTable = new ResultTable(languageToTranslateFrom, word, fields);
 
-        TableModel model = resultTable.getTableModel();
+        JTable newTable = resultTable.getTable();
 
-        final JTable newTable = new JTable(model);
         try
         {
             newTable.print();
@@ -388,7 +387,6 @@ public class MainWindow extends JFrame implements TableModelListener
         cancelUpdateButton = new JButton("x");
         cancelUpdateButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
         cancelUpdateButton.setBorderPainted(true);
-//        cancelUpdateButton.setPreferredSize(new Dimension(25, 25));
         cancelUpdateButton.setToolTipText("Cancel Database Update");
         resetButton = new JButton("RESET");
 
@@ -445,7 +443,7 @@ public class MainWindow extends JFrame implements TableModelListener
         menuBar = new JMenuBar();
 
         fileMenu.add(fileUpdate);
-        fileMenu.add(filePrint);
+//        fileMenu.add(filePrint);
         fileMenu.addSeparator();
         fileMenu.add(fileQuit);
 
@@ -551,9 +549,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
             ResultTable resultTable = new ResultTable(languageToTranslateFrom, word, fields);
 
-            TableModel model = resultTable.getTableModel();
-
-            final JTable newTable = new JTable(model);
+            final JTable newTable = resultTable.getTable();
 
             newTable.setRowSelectionAllowed(true);
             newTable.setColumnSelectionAllowed(false);
@@ -570,8 +566,8 @@ public class MainWindow extends JFrame implements TableModelListener
                 {
                     Point point = e.getPoint();
                     int column = newTable.columnAtPoint(point);
-                    int row = newTable.rowAtPoint(point);
-                    String columnName = newTable.getColumnName(column);
+                    final int row = newTable.rowAtPoint(point);
+                    final String columnName = newTable.getColumnName(column);
                     String cellValue = (String) newTable.getValueAt(row, column);
                     oldWord = (cellValue);
 
@@ -586,7 +582,20 @@ public class MainWindow extends JFrame implements TableModelListener
 
                             public void actionPerformed(ActionEvent e)
                             {
-                                showWarning("Editing is not yet supported.");
+                                String newWord = (String) JOptionPane.showInputDialog(
+                                        null,
+                                        "Please enter the New Word",
+                                        APPLICATION_NAME,
+                                        JOptionPane.PLAIN_MESSAGE);
+
+                                if ((newWord != null) && (newWord.length() > 0))
+                                {
+                                    String fromLanguage = (swahiliToEnglish.isSelected()) ? "Swahili" : "English";
+                                    String searchKey = wordField.getText().trim();
+                                    Editor editor = new Editor();
+                                    editor.edit(row, columnName, fromLanguage, oldWord, (String) newWord, searchKey);
+                                    return;
+                                }
                             }
                         });
                         popupMenu.show(newTable, point.x, point.y);
@@ -818,6 +827,7 @@ public class MainWindow extends JFrame implements TableModelListener
         String fromLanguage = (swahiliToEnglish.isSelected()) ? "Swahili" : "English";
         String searchKey = wordField.getText().trim();
         Editor editor = new Editor();
+
         editor.edit(row, columnName, fromLanguage, oldWord, (String) newWord, searchKey);
     }
 }
