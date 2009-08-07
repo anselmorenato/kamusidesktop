@@ -108,7 +108,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private JButton resetButton;
     /**
-     * Button for cancelling the update
+     * Button for cancelling the restore
      */
     private static JButton cancelUpdateButton;
     /**
@@ -133,17 +133,17 @@ public class MainWindow extends JFrame implements TableModelListener
     private JMenuItem fileQuit;
     private JMenu helpMenu;
     private JMenuItem helpAbout;
-    private JMenuItem helpDownloadOriginal;
+    private static JMenuItem helpDownloadOriginal;
     /**
      * The updater
      */
     private static Restorer restorer;
     /**
-     * For update progress indication
+     * For restore progress indication
      */
     private static JProgressBar progressBar;
     /**
-     * For update indication
+     * For restore indication
      */
     private static boolean updating = false;
     /**
@@ -151,7 +151,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private static LoggingUtil util;
     /**
-     * Used in the update progress
+     * Used in the restore progress
      */
     public static long downloadedSize = 0;
     public static long totalDownloadSize = 0;
@@ -185,7 +185,7 @@ public class MainWindow extends JFrame implements TableModelListener
     private void addActionListeners()
     {
         /**
-         * Adds action listener for the "cancel update" button
+         * Adds action listener for the "cancel restore" button
          */
         cancelUpdateButton.addActionListener(new ActionListener()
         {
@@ -195,6 +195,7 @@ public class MainWindow extends JFrame implements TableModelListener
                 if (restorer.cancelUpdate())
                 {
                     fileUpdate.setEnabled(true);
+                    helpDownloadOriginal.setEnabled(true);
                     // Reset the output display
                     statusPanel.removeAll();
                     statusPanel.add(statusLabel, BorderLayout.WEST);
@@ -233,7 +234,7 @@ public class MainWindow extends JFrame implements TableModelListener
         });
 
         /**
-         * Add a listener for the file-update menu item
+         * Add a listener for the file-restore menu item
          */
         fileUpdate.addActionListener(new ActionListener()
         {
@@ -669,7 +670,7 @@ public class MainWindow extends JFrame implements TableModelListener
                                             JOptionPane.showInputDialog(null,
                                             "Please enter the New Word", oldWord);
 
-                                    if ((newWord != null) && (newWord.length() > 0))
+                                    if ((newWord != null))
                                     {
                                         String fromLanguage =
                                                 (swahiliToEnglish.isSelected())
@@ -853,6 +854,7 @@ public class MainWindow extends JFrame implements TableModelListener
             {
                 case 0: //YES
                     fileUpdate.setEnabled(false);
+                    helpDownloadOriginal.setEnabled(false);
                     updateStatusBar("Downloading update");
                     JPanel updatePanel = new JPanel();
                     updatePanel.setLayout(new BorderLayout());
@@ -860,7 +862,7 @@ public class MainWindow extends JFrame implements TableModelListener
                     updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
                     statusPanel.add(updatePanel, BorderLayout.CENTER);
                     pack();
-                    restorer.update();
+                    restorer.restore();
                     break;
 
                 case 1: //NO
@@ -882,7 +884,7 @@ public class MainWindow extends JFrame implements TableModelListener
     }
 
     /**
-     * Updates the progress bar with how much of the update has been got
+     * Updates the progress bar with how much of the restore has been got
      * @throws MalformedURLException 
      * @throws IOException
      */
@@ -902,6 +904,7 @@ public class MainWindow extends JFrame implements TableModelListener
         if (percentage >= 100)
         {
             fileUpdate.setEnabled(false);
+            helpDownloadOriginal.setEnabled(false);
             cancelUpdateButton.setEnabled(false);
             updating = false;
 

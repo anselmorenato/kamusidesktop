@@ -32,7 +32,7 @@ public class Restorer
     private boolean canRestore;
     private LoggingUtil util;
     /**
-     * The update URL
+     * The restore URL
      */
     public static final String UPDATE_URL =
 //            "http://localhost/kamusi/kamusiproject.db";
@@ -45,7 +45,7 @@ public class Restorer
         util = new LoggingUtil();
     }
 
-    public synchronized void update()
+    public synchronized void restore()
     {
         // Create and run the two threads
         progress = new RestorerProgress();
@@ -117,12 +117,12 @@ public class Restorer
             try
             {
                 // Leave the original db intact
-                // Save the new update as a temporary file
+                // Save the new restore as a temporary file
 
                 url = new URL(UPDATE_URL);
                 URLConnection connection = url.openConnection();
 
-                // Get size of update
+                // Get size of restore
                 totalSizeOfUpdate = getSizeOfUpdate();
 
                 BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
@@ -195,8 +195,8 @@ public class Restorer
     }
 
     /**
-     * Gets the size of the new update
-     * @return The size of update to be downloaded
+     * Gets the size of the new restore
+     * @return The size of restore to be downloaded
      */
     public long getSizeOfUpdate()
     {
@@ -252,7 +252,7 @@ public class Restorer
         private boolean running = true;
 
         /**
-         * Updates the progress bar with how much of the update has been got
+         * Updates the progress bar with how much of the restore has been got
          */
         private void showDownloadProgress()
         {
@@ -278,7 +278,7 @@ public class Restorer
 
     /**
      * Gets if the db can be updated.
-     * @return Boolean value if update can be performed
+     * @return Boolean value if restore can be performed
      */
     public boolean canRestore()
     {
@@ -286,7 +286,7 @@ public class Restorer
     }
 
     /**
-     * Cleans up after an update
+     * Cleans up after an restore
      */
     private void cleanUp()
     {
