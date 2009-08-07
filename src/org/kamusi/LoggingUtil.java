@@ -1,10 +1,10 @@
-package org.kamusi;
-
 /**
  * LoggingUtil.java
  * Created on Aug 4, 2009, 10:27:51 AM
  * @author arthur
  */
+package org.kamusi;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -19,10 +19,11 @@ import java.util.logging.Logger;
  */
 public class LoggingUtil
 {
+
     public LoggingUtil()
     {
         //Start by creating the log folder if it does not exist
-        File logFolder = new File("logs");
+        File logFolder = new File("log");
         if (!logFolder.exists())
         {
             logFolder.mkdir();
@@ -71,7 +72,7 @@ public class LoggingUtil
     {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         String date = f.format(new Date());
-        String fileName = "logs/" + date + ".log";
+        String fileName = "log/" + date + ".log";
         return fileName;
     }
 }

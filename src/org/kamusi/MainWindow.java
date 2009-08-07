@@ -1,3 +1,8 @@
+/**
+ * MainWindow.java
+ * Created on Aug 6, 2009, 3:52:23 PM
+ * @author arthur
+ */
 package org.kamusi;
 
 import java.awt.BorderLayout;
@@ -42,7 +47,6 @@ import javax.swing.table.TableModel;
 
 /**
  * This is the main window of the application
- * @author arthur
  */
 public class MainWindow extends JFrame implements TableModelListener
 {
@@ -106,7 +110,7 @@ public class MainWindow extends JFrame implements TableModelListener
     /**
      * Button for cancelling the update
      */
-    private JButton cancelUpdateButton;
+    private static JButton cancelUpdateButton;
     /**
      * Checkboxes for the fields to be displayed
      */
@@ -124,15 +128,16 @@ public class MainWindow extends JFrame implements TableModelListener
      * File Menu
      */
     private JMenu fileMenu;
-    private JMenuItem fileUpdate;
+    private static JMenuItem fileUpdate;
     private JMenuItem filePrint;
     private JMenuItem fileQuit;
     private JMenu helpMenu;
     private JMenuItem helpAbout;
+    private JMenuItem helpDownloadOriginal;
     /**
      * The updater
      */
-    private static Updater updater;
+    private static Restorer restorer;
     /**
      * For update progress indication
      */
@@ -155,13 +160,21 @@ public class MainWindow extends JFrame implements TableModelListener
      * For the editing of cells
      */
     private String oldWord = "";
+    /**
+     * Differentiates the different versions of the software
+     */
+    private final boolean isEditorVersion = true;
+    private final String TITLE =
+            (isEditorVersion)
+            ? "Kamusi Project Desktop - Editor's Edition" : "Kamusi Project Desktop";
 
     /**
      * Initializes the display
      */
     public MainWindow()
     {
-        super("Kamusi Project Desktop - Editor's Edition");
+        super();
+        setTitle(TITLE);
         initComponents();
         addActionListeners();
     }
@@ -179,12 +192,14 @@ public class MainWindow extends JFrame implements TableModelListener
 
             public void actionPerformed(ActionEvent e)
             {
-                if (updater.cancelUpdate())
+                if (restorer.cancelUpdate())
                 {
+                    fileUpdate.setEnabled(true);
                     // Reset the output display
                     statusPanel.removeAll();
                     statusPanel.add(statusLabel, BorderLayout.WEST);
                     statusPanel.add(staticLabel, BorderLayout.EAST);
+                    updateStatusBar("Database update has been cancelled");
                     pack();
                 }
             }
@@ -225,7 +240,58 @@ public class MainWindow extends JFrame implements TableModelListener
 
             public void actionPerformed(ActionEvent e)
             {
-                updateDatabase();
+
+                String message;
+
+                if (isEditorVersion)
+                {
+                    message = "You will not be able to use the application " +
+                            "until all the updates have been fetched.\nThis might take" +
+                            "some time depending on your internet connection.\n\n" +
+                            "Further to this, all the editings you have made will be " +
+                            "committed to the server and\n" +
+                            "be made available for download " +
+                            "to other " + APPLICATION_NAME + " users.\n\n" +
+                            "Are you sure that you want to proceed?";
+                }
+                else
+                {
+                    message = "You will not be able to use the application " +
+                            "until all the updates have been fetched.\nThis might take" +
+                            "some time depending on your internet connection.\n\n" +
+                            "Are you sure that you want to proceed?";
+                }
+
+                Object[] options =
+                {
+                    "Yes",
+                    "No"
+                };
+
+                int choice = JOptionPane.showOptionDialog(null,
+                        message,
+                        "Kamusi Desktop",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, //do not use a custom Icon
+                        options, //the titles of buttons
+                        options[1]); //default button title
+
+                switch (choice)
+                {
+                    case 0: //YES
+                        synchronizeDatabases();
+                        break;
+
+                    case 1: //NO
+                        break;
+
+                    case -1: //Closed Window
+                        break;
+
+                    default:
+                        break;
+                }
             }
         });
 
@@ -264,6 +330,17 @@ public class MainWindow extends JFrame implements TableModelListener
                 final AboutBox dialog = new AboutBox(null, true);
                 dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
+            }
+        });
+        /**
+         * Add a listener for the help-downloadoriginal menu item
+         */
+        helpDownloadOriginal.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                downloadOriginalDatabase();
             }
         });
         /**
@@ -345,9 +422,9 @@ public class MainWindow extends JFrame implements TableModelListener
             languageToTranslateFrom = "ENGLISH";
         }
 
-        ResultTable resultTable = new ResultTable(languageToTranslateFrom, word, fields);
+        TableModel model = new ResultTable(languageToTranslateFrom, word, fields);
 
-        JTable newTable = resultTable.getTable();
+        JTable newTable = new JTable(model);
 
         try
         {
@@ -366,7 +443,7 @@ public class MainWindow extends JFrame implements TableModelListener
     {
         util = new LoggingUtil();
 
-        updater = new Updater();
+        restorer = new Restorer();
         progressBar = new JProgressBar();
         progressBar.setString("0%");
         progressBar.setValue(0);
@@ -434,12 +511,13 @@ public class MainWindow extends JFrame implements TableModelListener
 
         //Populate the menu
 
-        fileUpdate = new JMenuItem("Update Database");
+        fileUpdate = new JMenuItem("Synchronize");
         filePrint = new JMenuItem("Print");
         fileQuit = new JMenuItem("Quit");
         helpAbout = new JMenuItem("About");
         fileMenu = new JMenu("File");
         helpMenu = new JMenu("Help");
+        helpDownloadOriginal = new JMenuItem("Download Original Database");
         menuBar = new JMenuBar();
 
         fileMenu.add(fileUpdate);
@@ -447,6 +525,7 @@ public class MainWindow extends JFrame implements TableModelListener
         fileMenu.addSeparator();
         fileMenu.add(fileQuit);
 
+        helpMenu.add(helpDownloadOriginal);
         helpMenu.add(helpAbout);
         menuBar.add(fileMenu);
         menuBar.add(helpMenu);
@@ -461,7 +540,8 @@ public class MainWindow extends JFrame implements TableModelListener
 
         setSize(500, 300);
 
-        setIconImage(new ImageIcon(getClass().getResource("/org/kamusi/resources/favicon.png")).getImage());
+        setIconImage(new ImageIcon(getClass().
+                getResource("/org/kamusi/resources/favicon.png")).getImage());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
@@ -547,7 +627,8 @@ public class MainWindow extends JFrame implements TableModelListener
 
             outputPanel.removeAll();
 
-            ResultTable resultTable = new ResultTable(languageToTranslateFrom, word, fields);
+            ResultTable resultTable =
+                    new ResultTable(languageToTranslateFrom, word, fields);
 
             final JTable newTable = resultTable.getTable();
 
@@ -556,52 +637,57 @@ public class MainWindow extends JFrame implements TableModelListener
 
             JScrollPane scrollPane = new JScrollPane(newTable);
 
-            newTable.getModel().addTableModelListener(this);
-
-            newTable.addMouseListener(new MouseAdapter()
+            if (isEditorVersion)
             {
+                newTable.getModel().addTableModelListener(this);
 
-                @Override
-                public void mouseClicked(MouseEvent e)
+                newTable.addMouseListener(new MouseAdapter()
                 {
-                    Point point = e.getPoint();
-                    int column = newTable.columnAtPoint(point);
-                    final int row = newTable.rowAtPoint(point);
-                    final String columnName = newTable.getColumnName(column);
-                    String cellValue = (String) newTable.getValueAt(row, column);
-                    oldWord = (cellValue);
 
-                    if (e.isMetaDown())
+                    @Override
+                    public void mouseClicked(MouseEvent e)
                     {
-                        //Display a popup menu
-                        JPopupMenu popupMenu = new JPopupMenu();
-                        JMenuItem edit = new JMenuItem("Edit Value");
-                        popupMenu.add(edit);
-                        edit.addActionListener(new ActionListener()
+                        Point point = e.getPoint();
+                        int column = newTable.columnAtPoint(point);
+                        final int row = newTable.rowAtPoint(point);
+                        final String columnName = newTable.getColumnName(column);
+                        String cellValue = (String) newTable.getValueAt(row, column);
+                        oldWord = (cellValue);
+
+                        if (e.isMetaDown())
                         {
-
-                            public void actionPerformed(ActionEvent e)
+                            //Display a popup menu
+                            JPopupMenu popupMenu = new JPopupMenu();
+                            JMenuItem edit = new JMenuItem("Edit Value");
+                            popupMenu.add(edit);
+                            edit.addActionListener(new ActionListener()
                             {
-                                String newWord = (String) JOptionPane.showInputDialog(
-                                        null,
-                                        "Please enter the New Word",
-                                        APPLICATION_NAME,
-                                        JOptionPane.PLAIN_MESSAGE);
 
-                                if ((newWord != null) && (newWord.length() > 0))
+                                public void actionPerformed(ActionEvent e)
                                 {
-                                    String fromLanguage = (swahiliToEnglish.isSelected()) ? "Swahili" : "English";
-                                    String searchKey = wordField.getText().trim();
-                                    Editor editor = new Editor();
-                                    editor.edit(row, columnName, fromLanguage, oldWord, (String) newWord, searchKey);
-                                    return;
+                                    String newWord =
+                                            JOptionPane.showInputDialog(null,
+                                            "Please enter the New Word", oldWord);
+
+                                    if ((newWord != null) && (newWord.length() > 0))
+                                    {
+                                        String fromLanguage =
+                                                (swahiliToEnglish.isSelected())
+                                                ? "Swahili" : "English";
+                                        String searchKey = wordField.getText().trim();
+                                        Editor editor = new Editor();
+                                        editor.edit(row, columnName, fromLanguage,
+                                                oldWord, newWord, searchKey);
+                                        fetchTranslation();
+                                        return;
+                                    }
                                 }
-                            }
-                        });
-                        popupMenu.show(newTable, point.x, point.y);
+                            });
+                            popupMenu.show(newTable, point.x, point.y);
+                        }
                     }
-                }
-            });
+                });
+            }
 
             outputPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -660,7 +746,7 @@ public class MainWindow extends JFrame implements TableModelListener
     }
 
     /**
-     * Fetches and displays the translation depending on the radio button pressed
+     * Refreshes the display
      * on the field bearing the word to translate
      * @param e The key to listen for
      */
@@ -679,9 +765,54 @@ public class MainWindow extends JFrame implements TableModelListener
     }
 
     /**
-     * Updates the words database
+     * Fetches an updates for the database
      */
-    private void updateDatabase()
+    private void synchronizeDatabases()
+    {
+        Synchronizer synchronizer = new Synchronizer();
+        String size = String.valueOf(synchronizer.getSizeOfUpdate());
+        String message = "We will now fetch " + size + " bytes of updates.\n\n" +
+                "Proceed?";
+        Object[] options =
+        {
+            "Yes",
+            "No"
+        };
+
+        int choice = JOptionPane.showOptionDialog(null,
+                message,
+                "Kamusi Desktop",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, //do not use a custom Icon
+                options, //the titles of buttons
+                options[1]); //default button title
+
+        switch (choice)
+        {
+            case 0: //YES
+                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                synchronizer.fetchUpdate(isEditorVersion);
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                break;
+
+            case 1: //NO
+                break;
+
+            case -1: //Closed Window
+                break;
+
+            default:
+                break;
+        }
+
+        fetchTranslation();
+    }
+
+    /**
+     * Fetches the original database
+     */
+    private void downloadOriginalDatabase()
     {
         updating = true;
 
@@ -692,9 +823,9 @@ public class MainWindow extends JFrame implements TableModelListener
 
         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
-        long size = updater.getSizeOfUpdate();
+        long size = restorer.getSizeOfUpdate();
 
-        if (updater.canUpdate())
+        if (restorer.canRestore())
         {
             double sizeInMBForm = (double) size / 1000 / 1000;
             DecimalFormat twoDForm = new DecimalFormat("#.##");
@@ -721,7 +852,7 @@ public class MainWindow extends JFrame implements TableModelListener
             switch (choice)
             {
                 case 0: //YES
-
+                    fileUpdate.setEnabled(false);
                     updateStatusBar("Downloading update");
                     JPanel updatePanel = new JPanel();
                     updatePanel.setLayout(new BorderLayout());
@@ -729,7 +860,7 @@ public class MainWindow extends JFrame implements TableModelListener
                     updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
                     statusPanel.add(updatePanel, BorderLayout.CENTER);
                     pack();
-                    updater.update();
+                    restorer.update();
                     break;
 
                 case 1: //NO
@@ -747,43 +878,40 @@ public class MainWindow extends JFrame implements TableModelListener
                     break;
             }
         }
-
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     /**
      * Updates the progress bar with how much of the update has been got
+     * @throws MalformedURLException 
+     * @throws IOException
      */
     public static void updateProgressBar() throws MalformedURLException, IOException
     {
         progressBar.setIndeterminate(false);
-
-        downloadedSize = updater.getSizeOfDatabase();
-
+        downloadedSize = restorer.getSizeOfDatabase();
         int downloadedInInt = (int) downloadedSize;
-
-        totalDownloadSize = updater.getSizeOfUpdate();
-
+        totalDownloadSize = restorer.getSizeOfUpdate();
         int totalInInt = (int) totalDownloadSize;
-
         int percentage = (int) Math.ceil((downloadedInInt * 100) / totalInInt);
-
 //        int percentage = (downloadedInInt * 100) / totalInInt;
-
-        progressBar.setString("Updating database. Downloaded " + downloadedInInt + " out of " +
-                totalInInt + " bytes (" + percentage + "% )");
+        progressBar.setString("Updating database. Downloaded " + downloadedInInt +
+                " out of " + totalInInt + " bytes (" + percentage + "% )");
         progressBar.setValue(percentage);
-
         util.log("Downloaded update: " + downloadedInInt + " out of " + totalInInt);
-
-        if (percentage == 100)
+        if (percentage >= 100)
         {
+            fileUpdate.setEnabled(false);
+            cancelUpdateButton.setEnabled(false);
             updating = false;
+
+            showInfo("Database has been updated successfully.");
         }
     }
 
     /**
      * Displays an error message
+     * @param message The error message
      */
     protected static void showError(String message)
     {
@@ -794,6 +922,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
     /**
      * Displays an information message
+     * @param message The Information message
      */
     protected static void showInfo(String message)
     {
@@ -804,6 +933,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
     /**
      * Displays a warning message
+     * @param message The warning message
      */
     protected static void showWarning(String message)
     {
@@ -812,6 +942,10 @@ public class MainWindow extends JFrame implements TableModelListener
                 APPLICATION_NAME, JOptionPane.WARNING_MESSAGE);
     }
 
+    /**
+     * What happens when a cell value is changed
+     * @param e The event that fired the table change
+     */
     public void tableChanged(TableModelEvent e)
     {
 //        showWarning("Editing is not yet supported.");
@@ -827,7 +961,8 @@ public class MainWindow extends JFrame implements TableModelListener
         String fromLanguage = (swahiliToEnglish.isSelected()) ? "Swahili" : "English";
         String searchKey = wordField.getText().trim();
         Editor editor = new Editor();
-
         editor.edit(row, columnName, fromLanguage, oldWord, (String) newWord, searchKey);
+
+        fetchTranslation();
     }
 }

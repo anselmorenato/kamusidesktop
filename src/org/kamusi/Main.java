@@ -1,3 +1,8 @@
+/**
+ * Main.java
+ * Created on Aug 6, 2009, 3:52:23 PM
+ * @author arthur
+ */
 package org.kamusi;
 
 import javax.swing.JFrame;
@@ -9,7 +14,6 @@ import javax.swing.plaf.metal.MetalLookAndFeel;
 
 /**
  * Main
- * @author arthur
  */
 public class Main
 {
