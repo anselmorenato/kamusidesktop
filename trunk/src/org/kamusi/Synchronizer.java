@@ -19,7 +19,6 @@ import java.net.URLConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Calendar;
 
 /**
  *
@@ -48,8 +47,6 @@ public class Synchronizer
 
         // UPDATE THE CHANGES NOW TO LOCAL
 
-        StringBuffer oldUpdates = new StringBuffer();
-
         File oldFile = new File(editLog);
 
         try
@@ -57,44 +54,33 @@ public class Synchronizer
             FileReader oldReader = new FileReader(oldFile);
             BufferedReader oldBuffer = new BufferedReader(oldReader);
             String oldLines;
-            String oldTimeStamp = null;
 
             while ((oldLines = oldBuffer.readLine()) != null)
             {
-                if (oldLines.startsWith(";"))
+                System.out.println(oldLines);
+
+                String[] queryArray = oldLines.split("\\|");
+
+                String query = ("UPDATE DICT SET " + queryArray[0] +
+                        "=? WHERE Id=?");
+                try
                 {
-                    oldTimeStamp = oldLines;
+                    Class.forName("org.sqlite.JDBC").newInstance();
+                    Connection connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.setString(1, queryArray[1]);
+                    statement.setString(2, queryArray[2]);
+                    statement.executeUpdate();
+                    statement.close();
+                    connection.close();
                 }
-                else
+                catch (SQLException ex)
                 {
-
-                    String[] queryArray = oldLines.split("\\|");
-
-                    String query = ("UPDATE DICT SET " + queryArray[0] +
-                            "=? WHERE Id=?");
-
-                    System.out.println("Query: " + query);
-
-                    try
-                    {
-                        Class.forName("org.sqlite.JDBC").newInstance();
-                        Connection connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
-                        PreparedStatement statement = connection.prepareStatement(query);
-                        statement.setString(1, queryArray[1]);
-                        statement.setString(2, queryArray[2]);
-                        statement.executeUpdate();
-                        statement.close();
-                        connection.close();
-                    }
-                    catch (SQLException ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.printStackTrace();
-                    }
-
+                    ex.printStackTrace();
+                }
+                catch (Exception ex)
+                {
+                    ex.printStackTrace();
                 }
             }
             oldReader.close();
@@ -152,12 +138,8 @@ public class Synchronizer
             fileReader.close();
 
             // Clear the sync logs and put a timestamp to the file
-            FileOutputStream fos = new FileOutputStream(inputFile, false);
-            Calendar calendar = Calendar.getInstance();
-            long milliseconds = calendar.getTimeInMillis();
-            fos.write((";" + milliseconds + "\n").getBytes());
+            FileOutputStream fos = new FileOutputStream(inputFile);
             fos.close();
-
 
             // DOWNLOAD ALL THE CHANGES THAT REMOTE HAS
             // AND COPY THEM TO THE LOCAL SYSTEM

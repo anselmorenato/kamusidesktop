@@ -89,9 +89,20 @@ public class Editor
         String updateLog = formatColumnName(columnName) + "|" + newWord +
                 "|" + id;
 
-        String message = "This will modify the entry from \n" +
+        String message;
+        
+        if (newWord.length() == 0)
+        {
+            message = "This will delete the entry \n" +
+                "\"" + oldWord + "\". \n" +
+                "Are you sure that you want to proceed?";
+        }
+        else
+        {
+            message = "This will modify the entry from \n" +
                 "\"" + oldWord + "\" to \"" + newWord + "\"\n" +
                 "Are you sure that you want to proceed?";
+        }
 
         Object[] options =
         {
