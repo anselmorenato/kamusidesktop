@@ -14,7 +14,11 @@ import javax.swing.ImageIcon;
 public class AboutBox extends javax.swing.JDialog
 {
 
-    /** Creates new form AboutBox */
+    /** 
+     * Creates new form AboutBox
+     * @param parent The parent of the box
+     * @param modal
+     */
     public AboutBox(java.awt.Frame parent, boolean modal)
     {
         super(parent, modal);

@@ -1,3 +1,8 @@
+/**
+ * ResultTable.java
+ * Created on Aug 6, 2009, 3:52:23 PM
+ * @author arthur
+ */
 package org.kamusi;
 
 import java.sql.Connection;
@@ -9,12 +14,10 @@ import java.util.Enumeration;
 import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 
 /**
  * ResultTable.java
  * Fetches translations from the database and renders them into a JTable
- * @author arthur
  */
 public class ResultTable extends DefaultTableModel
 {
