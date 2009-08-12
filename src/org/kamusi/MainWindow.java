@@ -100,10 +100,6 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private ButtonGroup language;
     /**
-     * JTable for displaying output
-     */
-//    private ResultTable resultTable;
-    /**
      * Button for resetting the window
      */
     private JButton resetButton;
@@ -166,7 +162,8 @@ public class MainWindow extends JFrame implements TableModelListener
     private final boolean isEditorVersion = true;
     private final String TITLE =
             (isEditorVersion)
-            ? "Kamusi Project Desktop - Editor's Edition" : "Kamusi Project Desktop";
+            ? "Kamusi Project Desktop - Editor's Edition"
+            : "Kamusi Project Desktop";
 
     /**
      * Initializes the display
@@ -249,7 +246,7 @@ public class MainWindow extends JFrame implements TableModelListener
                     message = "You will not be able to use the application " +
                             "until all the updates have been fetched.\nThis might take" +
                             "some time depending on your internet connection.\n\n" +
-                            "Further to this, all the editings you have made will be " +
+                            "Further to this, any editings that you may have done will be " +
                             "committed to the server and\n" +
                             "be made available for download " +
                             "to other " + APPLICATION_NAME + " users.\n\n" +
@@ -405,9 +402,6 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private void print()
     {
-//        showWarning("Printing has been disabled for now due to ongoing work.\n" +
-//                "Sorry for any inconvenience caused.");
-//        return;
         String word = wordField.getText().trim();
 
         String languageToTranslateFrom = "";
@@ -509,9 +503,7 @@ public class MainWindow extends JFrame implements TableModelListener
         statusPanel.add(statusLabel, BorderLayout.WEST);
         statusPanel.add(staticLabel, BorderLayout.EAST);
 
-
         //Populate the menu
-
         fileUpdate = new JMenuItem("Synchronize");
         filePrint = new JMenuItem("Print");
         fileQuit = new JMenuItem("Quit");
@@ -557,10 +549,9 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private void reset()
     {
-        System.gc();
-
         wordField.setText("");
         outputPanel.removeAll();
+        System.gc();
 
         if (!updating)
         {
@@ -644,7 +635,6 @@ public class MainWindow extends JFrame implements TableModelListener
 
                 newTable.addMouseListener(new MouseAdapter()
                 {
-
                     @Override
                     public void mouseClicked(MouseEvent e)
                     {
@@ -885,7 +875,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
     /**
      * Updates the progress bar with how much of the restore has been got
-     * @throws MalformedURLException 
+     * @throws MalformedURLException
      * @throws IOException
      */
     public static void updateProgressBar() throws MalformedURLException, IOException
@@ -951,8 +941,6 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     public void tableChanged(TableModelEvent e)
     {
-//        showWarning("Editing is not yet supported.");
-
         int row = e.getFirstRow();
         int column = e.getColumn();
 

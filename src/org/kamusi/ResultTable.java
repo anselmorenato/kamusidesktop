@@ -65,19 +65,20 @@ public class ResultTable extends DefaultTableModel
      * @param word the word to translate
      * @param fields the fields which we are interested in
      */
-    public ResultTable(String fromLanguage, String word, Vector fields)
+    public ResultTable(String fromLanguage, String word, Vector <String> fields)
     {
+
         try
         {
             Class.forName("org.sqlite.JDBC").newInstance();
 
             StringBuffer fieldStringBuffer = new StringBuffer();
 
-            Enumeration availableFieldsString = fields.elements();
+            Enumeration <String> availableFieldsString = fields.elements();
 
             while (availableFieldsString.hasMoreElements())
             {
-                fieldStringBuffer.append((String) availableFieldsString.nextElement());
+                fieldStringBuffer.append(availableFieldsString.nextElement());
             }
 
             fieldsString = fieldStringBuffer.toString();
@@ -94,7 +95,8 @@ public class ResultTable extends DefaultTableModel
                 headers.addElement("English");
                 headers.addElement("Swahili");
 
-                Enumeration availableFields = fields.elements();
+                Enumeration <String> availableFields = fields.elements();
+
                 while (availableFields.hasMoreElements())
                 {
                     headers.addElement((String) availableFields.nextElement());
@@ -107,7 +109,8 @@ public class ResultTable extends DefaultTableModel
                 headers.addElement("Swahili");
                 headers.addElement("English");
 
-                Enumeration availableFields = fields.elements();
+                Enumeration <String> availableFields = fields.elements();
+
                 while (availableFields.hasMoreElements())
                 {
                     headers.addElement((String) availableFields.nextElement());
@@ -199,7 +202,7 @@ public class ResultTable extends DefaultTableModel
         }
         catch (SQLException ex)
         {
-            util.log(ex.getMessage());
+            util.log(String.valueOf(ex));
 
             if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
             {
@@ -209,13 +212,13 @@ public class ResultTable extends DefaultTableModel
             }
             else
             {
-                MainWindow.showError(ex.getMessage());
+                MainWindow.showError(String.valueOf(ex));
             }
         }
         catch (Exception ex)
         {
-            util.log(ex.getMessage());
-            MainWindow.showError(ex.getMessage());
+            util.log(String.valueOf(ex));
+            MainWindow.showError(String.valueOf(ex));
         }
         finally
         {
@@ -227,8 +230,8 @@ public class ResultTable extends DefaultTableModel
             }
             catch (SQLException ex)
             {
-                util.log(ex.getMessage());
-                MainWindow.showError(ex.getMessage());
+                util.log(String.valueOf(ex));
+                MainWindow.showError(String.valueOf(ex));
             }
         }
     }

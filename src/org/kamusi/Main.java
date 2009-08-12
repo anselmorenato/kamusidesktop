@@ -23,7 +23,7 @@ public class Main
      */
     public static void main(String[] args)
     {
-        LoggingUtil util = new LoggingUtil();
+        LoggingUtil logger = new LoggingUtil();
 
         JFrame.setDefaultLookAndFeelDecorated(true);
 
@@ -34,7 +34,7 @@ public class Main
         }
         catch (UnsupportedLookAndFeelException ex)
         {
-            util.log(ex.getMessage());
+            logger.log(String.valueOf(ex));
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Kamusi Desktop",
                     JOptionPane.ERROR_MESSAGE);
         }

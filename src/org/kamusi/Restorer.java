@@ -81,7 +81,7 @@ public class Restorer
                 progress.running = false;
                 progress.interrupt();
                 restorer.interrupt();
-                
+
                 // Restore the original file
                 restoreOriginal();
                 updateCancelled = true;
@@ -147,21 +147,21 @@ public class Restorer
             }
             catch (java.net.UnknownHostException ex)
             {
-                util.log(ex.getMessage());
+                util.log(String.valueOf(ex));
                 // Restore the original file
                 restoreOriginal();
                 MainWindow.showError("An error occurred while connecting to the update server.");
             }
             catch (MalformedURLException ex)
             {
-                util.log(ex.getMessage());
+                util.log(String.valueOf(ex));
                 // Restore the original file
                 restoreOriginal();
                 MainWindow.showError("An error occurred while updating database.");
             }
             catch (IOException ex)
             {
-                util.log(ex.getMessage());
+                util.log(String.valueOf(ex));
                 // Restore the original file
                 restoreOriginal();
 
@@ -212,21 +212,21 @@ public class Restorer
         }
         catch (java.net.UnknownHostException ex)
         {
-            util.log(ex.getMessage());
+            util.log(String.valueOf(ex));
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while connecting to the update server.");
         }
         catch (MalformedURLException ex)
         {
-            util.log(ex.getMessage());
+            util.log(String.valueOf(ex));
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
         }
         catch (IOException ex)
         {
-            util.log(ex.getMessage());
+            util.log(String.valueOf(ex));
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
@@ -262,7 +262,7 @@ public class Restorer
             }
             catch (IOException ex)
             {
-                util.log(ex.getMessage());
+                util.log(String.valueOf(ex));
             }
         }
 

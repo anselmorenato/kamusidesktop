@@ -26,6 +26,9 @@ public class AboutBox extends javax.swing.JDialog
         updateAboutBox();
     }
 
+    /**
+     * Initialize components
+     */
     private void initComponents()
     {
 
@@ -81,10 +84,15 @@ public class AboutBox extends javax.swing.JDialog
         pack();
     }
 
+    /**
+     * What happens when the OK button is clicked
+     * @param evt
+     */
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_okButtonActionPerformed
     {
         dispose();
     }
+
     private javax.swing.JPanel buttonPanel;
     private javax.swing.JTextArea contentArea;
     private javax.swing.JScrollPane contentPane;
@@ -93,10 +101,16 @@ public class AboutBox extends javax.swing.JDialog
     private javax.swing.JPanel imagePanel;
     private javax.swing.JButton okButton;
 
+    /**
+     * The message in the About box
+     */
     private void updateAboutBox()
     {
+
+        final String build = "1249930188890";
+
         final String about =
-                "Product Version: " + "Kamusi Project Desktop Build 7" + "\n" +
+                "Product Version: " + "Kamusi Project Desktop Build " + build + "\n" +
                 "Java: " + System.getProperty("java.version") + "\n" +
                 "System: " + System.getProperty("os.name") + " version " + System.getProperty("os.version") + "\n\n";
 
