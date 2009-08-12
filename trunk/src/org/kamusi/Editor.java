@@ -6,10 +6,11 @@
 package org.kamusi;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -41,10 +42,22 @@ public class Editor
      * Database password
      */
     private final String PASSWORD = "";
+    /**
+     * The database connection
+     */
     private Connection connection;
+    /**
+     * PreparedStatement object for the connections
+     */
     private PreparedStatement statement;
+    /**
+     * ResultSet from the queries
+     */
     private ResultSet resultSet;
 
+    /**
+     * Constructor
+     */
     public Editor()
     {
         try
@@ -53,15 +66,15 @@ public class Editor
         }
         catch (ClassNotFoundException ex)
         {
-            util.log(ex.getMessage());
+            util.log(String.valueOf(ex));
         }
         catch (InstantiationException ex)
         {
-            util.log(ex.getMessage());
+            util.log(String.valueOf(ex));
         }
         catch (IllegalAccessException ex)
         {
-            util.log(ex.getMessage());
+            util.log(String.valueOf(ex));
         }
     }
 
@@ -89,19 +102,19 @@ public class Editor
         String updateLog = formatColumnName(columnName) + "|" + newWord +
                 "|" + id;
 
-        String message;
-        
-        if (newWord.length() == 0)
+        String message = "";
+
+        if (newWord.trim().length() == 0)
         {
             message = "This will delete the entry \n" +
-                "\"" + oldWord + "\". \n" +
-                "Are you sure that you want to proceed?";
+                    "\"" + oldWord + "\"\n" +
+                    "Are you sure that you want to proceed?";
         }
         else
         {
             message = "This will modify the entry from \n" +
-                "\"" + oldWord + "\" to \"" + newWord + "\"\n" +
-                "Are you sure that you want to proceed?";
+                    "\"" + oldWord + "\" to \"" + newWord + "\"\n" +
+                    "Are you sure that you want to proceed?";
         }
 
         Object[] options =
@@ -183,13 +196,13 @@ public class Editor
         }
         catch (SQLException ex)
         {
-            util.log(ex.getMessage());
-            MainWindow.showError(ex.getMessage());
+            util.log(String.valueOf(ex));
+            MainWindow.showError(String.valueOf(ex));
         }
         catch (Exception ex)
         {
-            util.log(ex.getMessage());
-            MainWindow.showError(ex.getMessage());
+            util.log(String.valueOf(ex));
+            MainWindow.showError(String.valueOf(ex));
         }
         return id;
     }
@@ -260,27 +273,26 @@ public class Editor
 
             oldReader.close();
 
-            String oldData = oldUpdates.toString();
-
             //Append the new data
             StringBuffer newUpdates = new StringBuffer();
-            newUpdates.append(update + "\n");
+            newUpdates.append(update);
             String newData = newUpdates.toString();
 
             //Write out the new update file
-            FileOutputStream fos = new FileOutputStream(oldFile);
-            fos.write(newData.getBytes());
-            fos.close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(oldFile, true));
+            writer.write(newData);
+            writer.newLine();
+            writer.close();
         }
         catch (FileNotFoundException ex)
         {
-            util.log(ex.getMessage());
-            MainWindow.showError(ex.getMessage());
+            util.log(String.valueOf(ex));
+            MainWindow.showError(String.valueOf(ex));
         }
         catch (IOException ex)
         {
-            util.log(ex.getMessage());
-            MainWindow.showError(ex.getMessage());
+            util.log(String.valueOf(ex));
+            MainWindow.showError(String.valueOf(ex));
         }
     }
 
