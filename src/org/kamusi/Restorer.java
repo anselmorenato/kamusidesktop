@@ -30,7 +30,7 @@ public class Restorer
     private RestorerProgress progress;
     private RestorerThread restorer;
     private boolean canRestore;
-    private LoggingUtil util;
+    private KamusiLogger logger;
     /**
      * The restore URL
      */
@@ -42,7 +42,7 @@ public class Restorer
     public Restorer()
     {
         canRestore = false;
-        util = new LoggingUtil();
+        logger = new KamusiLogger();
     }
 
     public synchronized void restore()
@@ -147,21 +147,21 @@ public class Restorer
             }
             catch (java.net.UnknownHostException ex)
             {
-                util.log(String.valueOf(ex));
+                logger.log(String.valueOf(ex));
                 // Restore the original file
                 restoreOriginal();
                 MainWindow.showError("An error occurred while connecting to the update server.");
             }
             catch (MalformedURLException ex)
             {
-                util.log(String.valueOf(ex));
+                logger.log(String.valueOf(ex));
                 // Restore the original file
                 restoreOriginal();
                 MainWindow.showError("An error occurred while updating database.");
             }
             catch (IOException ex)
             {
-                util.log(String.valueOf(ex));
+                logger.log(String.valueOf(ex));
                 // Restore the original file
                 restoreOriginal();
 
@@ -212,21 +212,21 @@ public class Restorer
         }
         catch (java.net.UnknownHostException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while connecting to the update server.");
         }
         catch (MalformedURLException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
         }
         catch (IOException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
@@ -262,7 +262,7 @@ public class Restorer
             }
             catch (IOException ex)
             {
-                util.log(String.valueOf(ex));
+                logger.log(String.valueOf(ex));
             }
         }
 
@@ -309,6 +309,6 @@ public class Restorer
         //Rename the temp db appropriately
         File updateFile = new File(updatedb);
         updateFile.renameTo(new File(originaldb));
-        util.log("Cleanup successful");
+        logger.log("Cleanup successful");
     }
 }

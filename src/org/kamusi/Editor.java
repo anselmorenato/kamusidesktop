@@ -6,11 +6,10 @@
 package org.kamusi;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -29,7 +28,7 @@ public class Editor
     /**
      * Logging facility
      */
-    private LoggingUtil util = new LoggingUtil();
+    private KamusiLogger logger = new KamusiLogger();
     /**
      * Database URL
      */
@@ -66,15 +65,15 @@ public class Editor
         }
         catch (ClassNotFoundException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
         }
         catch (InstantiationException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
         }
         catch (IllegalAccessException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
         }
     }
 
@@ -90,7 +89,7 @@ public class Editor
     public void edit(int row, String columnName, String fromLanguage,
             String oldWord, String newWord, String searchKey)
     {
-        util.log("Editing database entry from " + oldWord + " to " + newWord);
+        logger.log("Editing database entry from " + oldWord + " to " + newWord);
 
         // Get the ID at the specified row and column
         String id = getID(row, fromLanguage, searchKey);
@@ -109,6 +108,11 @@ public class Editor
             message = "This will delete the entry \n" +
                     "\"" + oldWord + "\"\n" +
                     "Are you sure that you want to proceed?";
+        }
+        else if (newWord.equals(oldWord))
+        {
+            logger.log("No changes applied.");
+            return;
         }
         else
         {
@@ -196,12 +200,12 @@ public class Editor
         }
         catch (SQLException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             MainWindow.showError(String.valueOf(ex));
         }
         catch (Exception ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             MainWindow.showError(String.valueOf(ex));
         }
         return id;
@@ -253,7 +257,7 @@ public class Editor
      */
     public void logUpdate(String update)
     {
-        util.log("Updating log with " + update);
+        logger.log("Updating log with " + update);
         final String fileName = "log/edit.log";
 
         try
@@ -273,25 +277,26 @@ public class Editor
 
             oldReader.close();
 
+            String oldData = oldUpdates.toString();
+
             //Append the new data
             StringBuffer newUpdates = new StringBuffer();
-            newUpdates.append(update);
+            newUpdates.append(update + "\n");
             String newData = newUpdates.toString();
 
             //Write out the new update file
-            BufferedWriter writer = new BufferedWriter(new FileWriter(oldFile, true));
-            writer.write(newData);
-            writer.newLine();
-            writer.close();
+            FileOutputStream fos = new FileOutputStream(oldFile, true);
+            fos.write(newData.getBytes());
+            fos.close();
         }
         catch (FileNotFoundException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             MainWindow.showError(String.valueOf(ex));
         }
         catch (IOException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             MainWindow.showError(String.valueOf(ex));
         }
     }
@@ -316,13 +321,28 @@ public class Editor
         }
         catch (SQLException ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             MainWindow.showError(String.valueOf(ex));
         }
         catch (Exception ex)
         {
-            util.log(String.valueOf(ex));
+            logger.log(String.valueOf(ex));
             MainWindow.showError(String.valueOf(ex));
         }
+    }
+
+    /**
+     * Deletes a given entry in the database
+     *
+     * @param row The row that the entry is in in the database
+     * @param fromLanguage Language we are translating from
+     * @param oldWord The word that we want to delete
+     * @param searchKey The search we made in order to find the word we want to edit
+     */
+    void deleteEntry(int row, String fromLanguage, String oldWord, String searchKey)
+    {
+        String exception = String.valueOf(
+                new UnsupportedOperationException("Deleting entries is not yet implemented"));
+        MainWindow.showWarning(exception);
     }
 }
