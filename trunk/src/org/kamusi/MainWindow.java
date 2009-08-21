@@ -145,7 +145,7 @@ public class MainWindow extends JFrame implements TableModelListener
     /**
      * For logging system messages
      */
-    private static LoggingUtil util;
+    private static KamusiLogger logger;
     /**
      * Used in the restore progress
      */
@@ -238,6 +238,15 @@ public class MainWindow extends JFrame implements TableModelListener
 
             public void actionPerformed(ActionEvent e)
             {
+
+                progressBar.setIndeterminate(true);
+                progressBar.setString("Synchronizing databases...");
+                JPanel updatePanel = new JPanel();
+                updatePanel.setLayout(new BorderLayout());
+                updatePanel.add(progressBar, BorderLayout.CENTER);
+                updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
+                statusPanel.add(updatePanel, BorderLayout.CENTER);
+                pack();
 
                 String message;
 
@@ -417,7 +426,7 @@ public class MainWindow extends JFrame implements TableModelListener
             languageToTranslateFrom = "ENGLISH";
         }
 
-        TableModel model = new ResultTable(languageToTranslateFrom, word, fields);
+        TableModel model = new Translator(languageToTranslateFrom, word, fields);
 
         JTable newTable = new JTable(model);
 
@@ -436,7 +445,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private void initComponents()
     {
-        util = new LoggingUtil();
+        logger = new KamusiLogger();
 
         restorer = new Restorer();
         progressBar = new JProgressBar();
@@ -619,15 +628,15 @@ public class MainWindow extends JFrame implements TableModelListener
 
             outputPanel.removeAll();
 
-            ResultTable resultTable =
-                    new ResultTable(languageToTranslateFrom, word, fields);
+            Translator resultTable =
+                    new Translator(languageToTranslateFrom, word, fields);
 
             final JTable newTable = resultTable.getTable();
 
             newTable.setRowSelectionAllowed(true);
             newTable.setColumnSelectionAllowed(false);
 
-            JScrollPane scrollPane = new JScrollPane(newTable);
+            final JScrollPane scrollPane = new JScrollPane(newTable);
 
             if (isEditorVersion)
             {
@@ -635,6 +644,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
                 newTable.addMouseListener(new MouseAdapter()
                 {
+
                     @Override
                     public void mouseClicked(MouseEvent e)
                     {
@@ -649,9 +659,14 @@ public class MainWindow extends JFrame implements TableModelListener
                         {
                             //Display a popup menu
                             JPopupMenu popupMenu = new JPopupMenu();
-                            JMenuItem edit = new JMenuItem("Edit Value");
-                            popupMenu.add(edit);
-                            edit.addActionListener(new ActionListener()
+                            JMenuItem editEntry = new JMenuItem("Edit Value");
+                            JMenuItem deleteEntry = new JMenuItem("Delete Word");
+                            JMenuItem addNewEntry = new JMenuItem("Add New Word");
+                            popupMenu.add(editEntry);
+                            popupMenu.add(deleteEntry);
+                            popupMenu.addSeparator();
+                            popupMenu.add(addNewEntry);
+                            editEntry.addActionListener(new ActionListener()
                             {
 
                                 public void actionPerformed(ActionEvent e)
@@ -674,6 +689,33 @@ public class MainWindow extends JFrame implements TableModelListener
                                     }
                                 }
                             });
+                            deleteEntry.addActionListener(new ActionListener()
+                            {
+
+                                public void actionPerformed(ActionEvent e)
+                                {
+                                    String fromLanguage =
+                                            (swahiliToEnglish.isSelected())
+                                            ? "Swahili" : "English";
+                                    String searchKey = wordField.getText().trim();
+                                    Editor editor = new Editor();
+                                    editor.deleteEntry(row, fromLanguage,
+                                            oldWord, searchKey);
+                                    fetchTranslation();
+                                    return;
+                                }
+                            });
+                            addNewEntry.addActionListener(new ActionListener()
+                            {
+
+                                public void actionPerformed(ActionEvent e)
+                                {
+                                    String exception = String.valueOf(
+                                            new UnsupportedOperationException(
+                                            "Adding new entries is not yet implemented"));
+                                    MainWindow.showWarning(exception);
+                                }
+                            });
                             popupMenu.show(newTable, point.x, point.y);
                         }
                     }
@@ -687,6 +729,35 @@ public class MainWindow extends JFrame implements TableModelListener
 
             pack();
 
+            scrollPane.addMouseListener(new MouseAdapter()
+            {
+
+                @Override
+                public void mouseClicked(MouseEvent e)
+                {
+                    Point point = e.getPoint();
+
+                    if (e.isMetaDown())
+                    {
+                        //Display a popup menu
+                        JPopupMenu popupMenu = new JPopupMenu();
+                        JMenuItem addNewEntry = new JMenuItem("Add New Word");
+                        popupMenu.add(addNewEntry);
+                        addNewEntry.addActionListener(new ActionListener()
+                        {
+
+                            public void actionPerformed(ActionEvent e)
+                            {
+                                String exception = String.valueOf(
+                                        new UnsupportedOperationException(
+                                        "Adding new entries is not yet implemented"));
+                                MainWindow.showWarning(exception);
+                            }
+                        });
+                        popupMenu.show(scrollPane, point.x, point.y);
+                    }
+                }
+            });
         }
         else
         {
@@ -762,42 +833,53 @@ public class MainWindow extends JFrame implements TableModelListener
     {
         Synchronizer synchronizer = new Synchronizer();
         String size = String.valueOf(synchronizer.getSizeOfUpdate());
-        String message = "We will now fetch " + size + " bytes of updates.\n\n" +
-                "Proceed?";
-        Object[] options =
+
+        if (synchronizer.canSync())
         {
-            "Yes",
-            "No"
-        };
+            String message = "We will now fetch " + size + " bytes of updates.\n\n" +
+                    "Proceed?";
+            Object[] options =
+            {
+                "Yes",
+                "No"
+            };
 
-        int choice = JOptionPane.showOptionDialog(null,
-                message,
-                "Kamusi Desktop",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, //do not use a custom Icon
-                options, //the titles of buttons
-                options[1]); //default button title
+            int choice = JOptionPane.showOptionDialog(null,
+                    message,
+                    "Kamusi Desktop",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[1]); //default button title
 
-        switch (choice)
-        {
-            case 0: //YES
-                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                synchronizer.fetchUpdate(isEditorVersion);
-                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                break;
+            switch (choice)
+            {
+                case 0: //YES
+//                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                    wordField.setEnabled(false);
+//                    synchronizer.synchronize(isEditorVersion);
+                    synchronizer.run();
+//                    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    wordField.setEnabled(true);
+                    break;
 
-            case 1: //NO
-                break;
+                case 1: //NO
+                    break;
 
-            case -1: //Closed Window
-                break;
+                case -1: //Closed Window
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
-
-        fetchTranslation();
+        else
+        {
+            MainWindow.showError("An error occurred while synchronizing.\n" +
+                    "Check your connection to the Internet or try again later.");
+        }
+        reset();
     }
 
     /**
@@ -890,7 +972,7 @@ public class MainWindow extends JFrame implements TableModelListener
         progressBar.setString("Updating database. Downloaded " + downloadedInInt +
                 " out of " + totalInInt + " bytes (" + percentage + "% )");
         progressBar.setValue(percentage);
-        util.log("Downloaded update: " + downloadedInInt + " out of " + totalInInt);
+        logger.log("Downloaded update: " + downloadedInInt + " out of " + totalInInt);
         if (percentage >= 100)
         {
             fileUpdate.setEnabled(false);
@@ -908,7 +990,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     protected static void showError(String message)
     {
-        util.log(message);
+        logger.log(message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.ERROR_MESSAGE);
     }
@@ -919,7 +1001,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     protected static void showInfo(String message)
     {
-        util.log(message);
+        logger.log(message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -930,7 +1012,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     protected static void showWarning(String message)
     {
-        util.log(message);
+        logger.log(message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.WARNING_MESSAGE);
     }

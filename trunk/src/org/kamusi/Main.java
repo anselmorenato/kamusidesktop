@@ -23,7 +23,7 @@ public class Main
      */
     public static void main(String[] args)
     {
-        LoggingUtil logger = new LoggingUtil();
+        KamusiLogger logger = new KamusiLogger();
 
         JFrame.setDefaultLookAndFeelDecorated(true);
 
