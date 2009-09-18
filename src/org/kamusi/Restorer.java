@@ -12,14 +12,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  * Fetches the original database
  */
-public class Restorer
+public class Restorer extends KamusiLogger
 {
 
     private long sizeOfDatabase = 0;
@@ -35,8 +33,8 @@ public class Restorer
      * The restore URL
      */
     public static final String UPDATE_URL =
-//            "http://localhost/kamusi/kamusiproject.db";
-            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
+            "http://localhost:8084/kamusiproject/kamusiproject.db";
+//            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
     private static URL url;
 
     public Restorer()
@@ -147,21 +145,21 @@ public class Restorer
             }
             catch (java.net.UnknownHostException ex)
             {
-                logger.log(String.valueOf(ex));
+                log(ex.toString());
                 // Restore the original file
                 restoreOriginal();
                 MainWindow.showError("An error occurred while connecting to the update server.");
             }
             catch (MalformedURLException ex)
             {
-                logger.log(String.valueOf(ex));
+                log(ex.toString());
                 // Restore the original file
                 restoreOriginal();
                 MainWindow.showError("An error occurred while updating database.");
             }
             catch (IOException ex)
             {
-                logger.log(String.valueOf(ex));
+                log(ex.toString());
                 // Restore the original file
                 restoreOriginal();
 
@@ -212,21 +210,21 @@ public class Restorer
         }
         catch (java.net.UnknownHostException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while connecting to the update server.");
         }
         catch (MalformedURLException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
         }
         catch (IOException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             // Restore the original file
             restoreOriginal();
             MainWindow.showError("An error occurred while updating database.");
@@ -262,7 +260,7 @@ public class Restorer
             }
             catch (IOException ex)
             {
-                logger.log(String.valueOf(ex));
+                log(ex.toString());
             }
         }
 
@@ -298,17 +296,17 @@ public class Restorer
         {
             MainWindow.updateProgressBar();
         }
-
         catch (MalformedURLException ex)
         {
-            Logger.getLogger(Restorer.class.getName()).log(Level.SEVERE, null, ex);
-        }        catch (IOException ex)
+            log(ex.toString());
+        }
+        catch (IOException ex)
         {
-            Logger.getLogger(Restorer.class.getName()).log(Level.SEVERE, null, ex);
+            log(ex.toString());
         }
         //Rename the temp db appropriately
         File updateFile = new File(updatedb);
         updateFile.renameTo(new File(originaldb));
-        logger.log("Cleanup successful");
+        log("Cleanup successful");
     }
 }

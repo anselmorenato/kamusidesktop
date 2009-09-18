@@ -6,10 +6,12 @@
 package org.kamusi;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,12 +19,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 //import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
  * class Editor
  */
-public class Editor
+public class Editor extends KamusiLogger
 {
 
     /**
@@ -53,6 +57,10 @@ public class Editor
      * ResultSet from the queries
      */
     private ResultSet resultSet;
+    /**
+     * To identify the editor
+     */
+    private final String usernameFile = "./log/username.txt";
 
     /**
      * Constructor
@@ -65,15 +73,15 @@ public class Editor
         }
         catch (ClassNotFoundException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
         catch (InstantiationException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
         catch (IllegalAccessException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
     }
 
@@ -89,7 +97,7 @@ public class Editor
     public void edit(int row, String columnName, String fromLanguage,
             String oldWord, String newWord, String searchKey)
     {
-        logger.log("Editing database entry from " + oldWord + " to " + newWord);
+        log("Editing database entry from " + oldWord + " to " + newWord);
 
         // Get the ID at the specified row and column
         String id = getID(row, fromLanguage, searchKey);
@@ -99,7 +107,7 @@ public class Editor
                 " = ? WHERE Id = ?";
 
         String updateLog = formatColumnName(columnName) + "|" + newWord +
-                "|" + id;
+                "|" + id + "|" + getUsername() + "|" + oldWord;
 
         String message = "";
 
@@ -111,7 +119,7 @@ public class Editor
         }
         else if (newWord.equals(oldWord))
         {
-            logger.log("No changes applied.");
+            log("No changes applied.");
             return;
         }
         else
@@ -172,27 +180,32 @@ public class Editor
 
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
-                query = "SELECT * FROM dict WHERE EnglishSortBy = ? " +
-                        "ORDER BY EnglishSortBy ASC";
+                query = Translator.getQuery("english");
             }
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
-                query = "SELECT Id FROM dict WHERE SwahiliSortBy = ? " +
-                        "ORDER BY SwahiliSortBy ASC";
+                query = Translator.getQuery("swahili");
             }
+            
             connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
             statement = connection.prepareStatement(query);
             statement.setString(1, searchKey);
             resultSet = statement.executeQuery();
 
             int currentRow = 0; // To hold the number of records
+
             while (resultSet.next())
             {
                 if (currentRow == row)
                 {
                     id = resultSet.getString("Id");
+                    log("Editing ID: " + id);
+                    break;
                 }
-                currentRow++;
+                else
+                {
+                    currentRow++;
+                }
             }
             resultSet.close();
             statement.close();
@@ -200,13 +213,13 @@ public class Editor
         }
         catch (SQLException ex)
         {
-            logger.log(String.valueOf(ex));
-            MainWindow.showError(String.valueOf(ex));
+            log(ex.toString());
+            MainWindow.showError(ex.toString());
         }
         catch (Exception ex)
         {
-            logger.log(String.valueOf(ex));
-            MainWindow.showError(String.valueOf(ex));
+            log(ex.toString());
+            MainWindow.showError(ex.toString());
         }
         return id;
     }
@@ -221,11 +234,11 @@ public class Editor
     {
         if (columnName.equalsIgnoreCase("english"))
         {
-            return ("EnglishSortBy");
+            return ("EnglishWord");
         }
         else if (columnName.equalsIgnoreCase("swahili"))
         {
-            return ("SwahiliSortBy");
+            return ("SwahiliWord");
         }
         else if (columnName.equalsIgnoreCase("english plural"))
         {
@@ -257,47 +270,35 @@ public class Editor
      */
     public void logUpdate(String update)
     {
-        logger.log("Updating log with " + update);
-        final String fileName = "log/edit.log";
+        final String editLog = "log/edit.log";
 
         try
         {
             //Read the old file
             StringBuffer oldUpdates = new StringBuffer();
-            File oldFile = new File(fileName);
-            FileReader oldReader = new FileReader(oldFile);
-            BufferedReader oldBuffer = new BufferedReader(oldReader);
-            String oldLines;
-            String oldTimeStamp = null;
-
-            while ((oldLines = oldBuffer.readLine()) != null)
-            {
-                oldUpdates.append(oldLines + "\n");
-            }
-
-            oldReader.close();
-
-            String oldData = oldUpdates.toString();
+            File editFile = new File(editLog);
 
             //Append the new data
-            StringBuffer newUpdates = new StringBuffer();
-            newUpdates.append(update + "\n");
-            String newData = newUpdates.toString();
 
             //Write out the new update file
-            FileOutputStream fos = new FileOutputStream(oldFile, true);
-            fos.write(newData.getBytes());
-            fos.close();
+            BufferedWriter writer = new BufferedWriter(new FileWriter(editFile, true));
+
+            HexConverter converter = new HexConverter();
+            writer.write(converter.getHex(update));
+            writer.newLine();
+            writer.close();
+
+            log("Updated edit log");
         }
         catch (FileNotFoundException ex)
         {
-            logger.log(String.valueOf(ex));
-            MainWindow.showError(String.valueOf(ex));
+            log("Failed to update edit log: " + ex.toString());
+            MainWindow.showError(ex.toString());
         }
         catch (IOException ex)
         {
-            logger.log(String.valueOf(ex));
-            MainWindow.showError(String.valueOf(ex));
+            log("Failed to update edit log: " + ex.toString());
+            MainWindow.showError(ex.toString());
         }
     }
 
@@ -315,19 +316,19 @@ public class Editor
             statement = connection.prepareStatement(updateQuery);
             statement.setString(1, newWord);
             statement.setString(2, id);
-            statement.executeUpdate();
+//            statement.executeUpdate();
             statement.close();
             connection.close();
         }
         catch (SQLException ex)
         {
-            logger.log(String.valueOf(ex));
-            MainWindow.showError(String.valueOf(ex));
+            log(ex.toString());
+            MainWindow.showError(ex.toString());
         }
         catch (Exception ex)
         {
-            logger.log(String.valueOf(ex));
-            MainWindow.showError(String.valueOf(ex));
+            log(ex.toString());
+            MainWindow.showError(ex.toString());
         }
     }
 
@@ -339,10 +340,88 @@ public class Editor
      * @param oldWord The word that we want to delete
      * @param searchKey The search we made in order to find the word we want to edit
      */
-    void deleteEntry(int row, String fromLanguage, String oldWord, String searchKey)
+    public void deleteEntry(int row, String fromLanguage, String oldWord, String searchKey)
     {
-        String exception = String.valueOf(
-                new UnsupportedOperationException("Deleting entries is not yet implemented"));
+        String exception =
+                new UnsupportedOperationException("Deleting entries is not yet implemented").toString();
         MainWindow.showWarning(exception);
+    }
+
+//    TODO: Add authentication mechanism
+    /**
+     * Gets the username for kamusi edits
+     * @return The username
+     */
+    public String getUsername()
+    {
+        String username = "";
+
+        try
+        {
+
+            File inputFile = new File(usernameFile);
+            FileReader fileReader = new FileReader(inputFile);
+            BufferedReader buff = new BufferedReader(fileReader);
+
+            String line; // <<-- added
+
+            while (((line = buff.readLine()) != null)) // <<-- modified
+            {
+                if (line.startsWith(";") || line.startsWith("#"))
+                {
+                    continue;
+                }
+                else
+                {
+                    username = line;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            log(ex.toString());
+        }
+
+        return new HexConverter().getAscii(username);
+    }
+
+    /**
+     * Writes the username of the user to file
+     * @param newUsername
+     * @return True if writing to the file was successful, false otherwise
+     */
+    boolean setUsername(String newUsername)
+    {
+        //throw new UnsupportedOperationException("Not yet implemented");
+
+        FileWriter fstream;
+        BufferedWriter writer = null;
+        try
+        {
+            fstream = new FileWriter(usernameFile, false);
+            writer = new BufferedWriter(fstream);
+            HexConverter converter = new HexConverter();
+            writer.write("# DO NOT EDIT THIS FILE BY HAND");
+            writer.newLine();
+            writer.write(converter.getHex(newUsername));
+            return true;
+        }
+        catch (IOException ex)
+        {
+            log(ex.toString());
+            return false;
+        }
+        finally
+        {
+            try
+            {
+                writer.close();
+            }
+            catch (IOException ex)
+            {
+                log(ex.toString());
+                return false;
+            }
+        }
     }
 }
