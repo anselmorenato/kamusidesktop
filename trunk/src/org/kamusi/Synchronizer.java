@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ import java.sql.SQLException;
  * Synchronizer.java
  * @author arthur
  */
-public class Synchronizer extends Thread
+public class Synchronizer extends KamusiLogger
 {
 
     /**
@@ -52,8 +53,8 @@ public class Synchronizer extends Thread
     /**
      * The URL of the updates
      */
-//    private final String UPDATE_URL = "http://localhost:8080/kamusiproject/";
-    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
+    private final String UPDATE_URL = "http://localhost:8084/kamusiproject";
+//    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
     /**
      * Logging facility
      */
@@ -111,7 +112,7 @@ public class Synchronizer extends Thread
         long sizeOfUpdate = 0;
         try
         {
-            URL url = new URL(UPDATE_URL + "fetchupdate.jsp?update=" + lastUpdate);
+            URL url = new URL(UPDATE_URL + "/fetchupdate.jsp?update=" + lastUpdate);
             URLConnection connection = url.openConnection();
             sizeOfUpdate = connection.getContentLength();
             connection.getInputStream().close();
@@ -120,19 +121,19 @@ public class Synchronizer extends Thread
         }
         catch (java.net.UnknownHostException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             canSync = false;
             return sizeOfUpdate;
         }
         catch (MalformedURLException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             canSync = false;
             return sizeOfUpdate;
         }
         catch (IOException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             canSync = false;
             return sizeOfUpdate;
         }
@@ -159,21 +160,20 @@ public class Synchronizer extends Thread
                 {
                     continue;
                 }
-
                 else if (line.trim().length() == 0)
                 {
                     continue;
                 }
-
                 else if (line.startsWith("#"))
                 {
                     continue;
                 }
-
                 else
                 {
-                    logger.log(line);
-                    String[] queryArray = line.split("\\|");
+                    HexConverter converter = new HexConverter();
+                    String value = converter.getAscii(line);
+                    log(value);
+                    String[] queryArray = value.split("\\|");
                     updateLocalDatabase(queryArray);
                 }
             }
@@ -182,7 +182,7 @@ public class Synchronizer extends Thread
         }
         catch (Exception ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
     }
 
@@ -203,11 +203,11 @@ public class Synchronizer extends Thread
         }
         catch (FileNotFoundException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
         catch (IOException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
         finally
         {
@@ -217,7 +217,7 @@ public class Synchronizer extends Thread
             }
             catch (IOException ex)
             {
-                logger.log(String.valueOf(ex));
+                log(ex.toString());
             }
         }
     }
@@ -229,7 +229,9 @@ public class Synchronizer extends Thread
     {
         try
         {
-            URL url = new URL(UPDATE_URL + "fetchupdate.jsp?update=" + lastUpdate);
+            URL url = new URL(UPDATE_URL + "/fetchupdate.jsp?update=" + lastUpdate);
+
+            log("Fetching: " + url);
 
             URLConnection connection = url.openConnection();
 
@@ -250,12 +252,12 @@ public class Synchronizer extends Thread
         }
         catch (MalformedURLException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             return false;
         }
         catch (IOException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
             return false;
         }
     }
@@ -264,6 +266,74 @@ public class Synchronizer extends Thread
      * Commits the editings to remote server
      */
     private boolean copyLocalToRemote()
+    {
+        try
+        {
+            File inputFile = new File(editLog);
+            FileReader fileReader = new FileReader(inputFile);
+            BufferedReader buff = new BufferedReader(fileReader);
+
+            String line; // <<-- added
+            while (((line = buff.readLine()) != null)) // <<-- modified
+            {
+                if (line.startsWith(";"))
+                {
+                    lastUpdate = line.replace(";", "").trim();
+                    continue;
+                }
+                if (line.startsWith("#"))
+                {
+                    continue;
+                }
+                else
+                {
+                    // Call the URL
+//                http://localhost:8080/kamusiproject/?column=SwahiliExample&row=1&update=Maji+ya+kunde
+                    HexConverter converter = new HexConverter();
+                    String[] updateLog = converter.getAscii(line).split("\\|");
+                    String column = updateLog[0];
+                    String update = updateLog[1];
+                    String row = updateLog[2];
+                    String username = updateLog[3];
+                    String oldValue = updateLog[4];
+
+                    String url = UPDATE_URL + "/?column=" + column +
+                            "&row=" + row + "&update=" + update + "&username=" + username +
+                            "&oldValue=" + oldValue;
+
+                    log("Posting: " + url);
+
+                    URL synchronize = new URL(url);
+
+
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(
+                            synchronize.openStream()));
+                    String inputLine;
+                    while ((inputLine = in.readLine()) != null)
+                    {
+                        //log(inputLine);
+                    }
+                    in.close();
+                    continue;
+                }
+            }
+            fileReader.close();
+            return true;
+        }
+        catch (MalformedURLException ex)
+        {
+            log(ex.toString());
+            return false;
+        }
+        catch (IOException ex)
+        {
+            log(ex.toString());
+            return false;
+        }
+    }
+
+    public Synchronizer()
     {
         try
         {
@@ -284,41 +354,15 @@ public class Synchronizer extends Thread
                 {
                     continue;
                 }
-
-                // Call the URL
-//                http://localhost:8080/kamusiproject/?column=SwahiliExample&row=1&update=Maji+ya+kunde
-                String[] updateLog = line.split("\\|");
-                String column = updateLog[0];
-                String update = updateLog[1];
-                String row = updateLog[2];
-
-                String url = UPDATE_URL + "?column=" + column +
-                        "&row=" + row + "&update=" + update.replaceAll(" ", "+");
-
-                URL synchronize = new URL(url);
-
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(
-                        synchronize.openStream()));
-                String inputLine;
-                while ((inputLine = in.readLine()) != null)
-                {
-                    //logger.log(inputLine);
-                }
-                in.close();
             }
-            fileReader.close();
-            return true;
         }
         catch (MalformedURLException ex)
         {
-            logger.log(String.valueOf(ex));
-            return false;
+            log(ex.toString());
         }
         catch (IOException ex)
         {
-            logger.log(String.valueOf(ex));
-            return false;
+            log(ex.toString());
         }
     }
 
@@ -345,11 +389,11 @@ public class Synchronizer extends Thread
         }
         catch (SQLException ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
         catch (Exception ex)
         {
-            logger.log(String.valueOf(ex));
+            log(ex.toString());
         }
         finally
         {
@@ -360,7 +404,7 @@ public class Synchronizer extends Thread
             }
             catch (Exception ex)
             {
-                logger.log(String.valueOf(ex));
+                log(ex.toString());
             }
         }
     }
@@ -372,10 +416,5 @@ public class Synchronizer extends Thread
     protected boolean canSync()
     {
         return canSync;
-    }
-
-    public void run()
-    {
-        synchronize(false);
     }
 }

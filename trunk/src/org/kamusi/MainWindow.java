@@ -156,6 +156,7 @@ public class MainWindow extends JFrame implements TableModelListener
      * For the editing of cells
      */
     private String oldWord = "";
+    private Editor editor;
     /**
      * Differentiates the different versions of the software
      */
@@ -522,6 +523,8 @@ public class MainWindow extends JFrame implements TableModelListener
         helpDownloadOriginal = new JMenuItem("Download Original Database");
         menuBar = new JMenuBar();
 
+        editor = new Editor();
+
         fileMenu.add(fileUpdate);
 //        fileMenu.add(filePrint);
         fileMenu.addSeparator();
@@ -681,7 +684,7 @@ public class MainWindow extends JFrame implements TableModelListener
                                                 (swahiliToEnglish.isSelected())
                                                 ? "Swahili" : "English";
                                         String searchKey = wordField.getText().trim();
-                                        Editor editor = new Editor();
+                                        
                                         editor.edit(row, columnName, fromLanguage,
                                                 oldWord, newWord, searchKey);
                                         fetchTranslation();
@@ -698,7 +701,7 @@ public class MainWindow extends JFrame implements TableModelListener
                                             (swahiliToEnglish.isSelected())
                                             ? "Swahili" : "English";
                                     String searchKey = wordField.getText().trim();
-                                    Editor editor = new Editor();
+                                    
                                     editor.deleteEntry(row, fromLanguage,
                                             oldWord, searchKey);
                                     fetchTranslation();
@@ -858,9 +861,9 @@ public class MainWindow extends JFrame implements TableModelListener
                 case 0: //YES
 //                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     wordField.setEnabled(false);
-//                    synchronizer.synchronize(isEditorVersion);
-                    synchronizer.run();
-//                    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                    synchronizer.synchronize(isEditorVersion);
+//                    synchronizer.run();
+                    setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                     wordField.setEnabled(true);
                     break;
 
@@ -1033,7 +1036,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
         String fromLanguage = (swahiliToEnglish.isSelected()) ? "Swahili" : "English";
         String searchKey = wordField.getText().trim();
-        Editor editor = new Editor();
+
         editor.edit(row, columnName, fromLanguage, oldWord, (String) newWord, searchKey);
 
         fetchTranslation();

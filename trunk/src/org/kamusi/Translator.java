@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -65,7 +67,7 @@ public class Translator extends DefaultTableModel
      * @param word the word to translate
      * @param fields the fields which we are interested in
      */
-    public Translator(String fromLanguage, String word, Vector <String> fields)
+    public Translator(String fromLanguage, String word, Vector<String> fields)
     {
 
         try
@@ -74,7 +76,7 @@ public class Translator extends DefaultTableModel
 
             StringBuffer fieldStringBuffer = new StringBuffer();
 
-            Enumeration <String> availableFieldsString = fields.elements();
+            Enumeration<String> availableFieldsString = fields.elements();
 
             while (availableFieldsString.hasMoreElements())
             {
@@ -88,15 +90,19 @@ public class Translator extends DefaultTableModel
 
             headers = new Vector<String>();
 
+            // TODO: Implement grouping
+
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
-                query = "SELECT * FROM dict WHERE EnglishSortBy = ? " +
-                        "ORDER BY EnglishWord ASC";
-                
+//                query = "SELECT * FROM dict WHERE EnglishSortBy = ? " +
+//                        "ORDER BY EnglishWord ASC";
+
+                query = getQuery("english");
+
                 headers.addElement("English");
                 headers.addElement("Swahili");
 
-                Enumeration <String> availableFields = fields.elements();
+                Enumeration<String> availableFields = fields.elements();
 
                 while (availableFields.hasMoreElements())
                 {
@@ -105,13 +111,15 @@ public class Translator extends DefaultTableModel
             }
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
-                query = "SELECT * FROM dict WHERE SwahiliSortBy = ? " +
-                        "ORDER BY SwahiliWord ASC";
+//                query = "SELECT * FROM dict WHERE SwahiliSortBy = ? " +
+//                        "ORDER BY SwahiliWord ASC";
+
+                query = getQuery("swahili");
 
                 headers.addElement("Swahili");
                 headers.addElement("English");
 
-                Enumeration <String> availableFields = fields.elements();
+                Enumeration<String> availableFields = fields.elements();
 
                 while (availableFields.hasMoreElements())
                 {
@@ -206,7 +214,7 @@ public class Translator extends DefaultTableModel
         }
         catch (SQLException ex)
         {
-            logger.log(String.valueOf(ex));
+            logger.log(ex.toString());
 
             if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
             {
@@ -216,13 +224,13 @@ public class Translator extends DefaultTableModel
             }
             else
             {
-                MainWindow.showError(String.valueOf(ex));
+                MainWindow.showError(ex.toString());
             }
         }
         catch (Exception ex)
         {
-            logger.log(String.valueOf(ex));
-            MainWindow.showError(String.valueOf(ex));
+            logger.log(ex.toString());
+            MainWindow.showError(ex.toString());
         }
         finally
         {
@@ -234,8 +242,8 @@ public class Translator extends DefaultTableModel
             }
             catch (SQLException ex)
             {
-                logger.log(String.valueOf(ex));
-                MainWindow.showError(String.valueOf(ex));
+                logger.log(ex.toString());
+                MainWindow.showError(ex.toString());
             }
         }
     }
@@ -256,5 +264,32 @@ public class Translator extends DefaultTableModel
     public int getResultCount()
     {
         return row;
+    }
+
+    /**
+     * The query used to perform serches in the database
+     * @param language The language from which we are translating
+     * @return The appropriate SQL query
+     */
+    public static String getQuery(String language)
+    {
+        if (language.equals("english"))
+        {
+            return "select distinct di.*, wg.GroupNum, wg.InGroupPos " +
+                    "from dict as di LEFT JOIN word_grouping as wg " +
+                    "ON (di.Id=wg.WordId) where EnglishSortBy = ? " +
+                    "GROUP BY di.Id ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC";
+        }
+        else if (language.equals("swahili"))
+        {
+            return "select distinct di.*, wg.GroupNum, wg.InGroupPos " +
+                    "from dict as di LEFT JOIN word_grouping as wg " +
+                    "ON (di.Id=wg.WordId) where SwahiliSortBy = ? " +
+                    "GROUP BY di.Id ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC";
+        }
+        else
+        {
+            return "";
+        }
     }
 }

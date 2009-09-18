@@ -11,8 +11,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * class KamusiLogger
@@ -50,7 +48,7 @@ public class KamusiLogger
         }
         catch (IOException ex)
         {
-            Logger.getLogger(KamusiLogger.class.getName()).log(Level.SEVERE, null, ex);
+            MainWindow.showError(ex.toString());
         }
         finally
         {
@@ -60,7 +58,7 @@ public class KamusiLogger
             }
             catch (IOException ex)
             {
-                Logger.getLogger(KamusiLogger.class.getName()).log(Level.SEVERE, null, ex);
+                MainWindow.showError(ex.toString());
             }
         }
     }
