@@ -273,23 +273,15 @@ public class Translator extends DefaultTableModel
      */
     public static String getQuery(String language)
     {
-        if (language.equals("english"))
-        {
-            return "select distinct di.*, wg.GroupNum, wg.InGroupPos " +
-                    "from dict as di LEFT JOIN word_grouping as wg " +
-                    "ON (di.Id=wg.WordId) where EnglishSortBy = ? " +
-                    "GROUP BY di.Id ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC";
-        }
-        else if (language.equals("swahili"))
-        {
-            return "select distinct di.*, wg.GroupNum, wg.InGroupPos " +
-                    "from dict as di LEFT JOIN word_grouping as wg " +
-                    "ON (di.Id=wg.WordId) where SwahiliSortBy = ? " +
-                    "GROUP BY di.Id ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC";
-        }
-        else
-        {
-            return "";
-        }
+        language = language.trim();
+
+        String query =
+                "SELECT DISTINCT di.*, wg.GroupNum, wg.InGroupPos " +
+                "FROM dict AS di " +
+                "LEFT JOIN word_grouping AS wg " +
+                "WHERE wg.WordId = di.Id AND " + language + "SortBy = ? " +
+                "ORDER BY di." + language + "Word ASC";
+
+        return query;
     }
 }

@@ -316,7 +316,7 @@ public class Editor extends KamusiLogger
             statement = connection.prepareStatement(updateQuery);
             statement.setString(1, newWord);
             statement.setString(2, id);
-//            statement.executeUpdate();
+            statement.executeUpdate();
             statement.close();
             connection.close();
         }

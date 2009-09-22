@@ -29,13 +29,12 @@ public class Main
 
             KamusiLogger logger = new KamusiLogger();
 
-//            JFrame.setDefaultLookAndFeelDecorated(true);
+            JFrame.setDefaultLookAndFeelDecorated(true);
 
             try
             {
-//                MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
-//                UIManager.setLookAndFeel(new MetalLookAndFeel());
-                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+                UIManager.setLookAndFeel(new MetalLookAndFeel());
             }
             catch (Exception ex)
             {
