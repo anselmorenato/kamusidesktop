@@ -12,6 +12,8 @@ public class HexConverter extends KamusiLogger
 {
 
     private final int DEFAULT_BIT_SIZE = 2;
+    private final int MINIMUM_BIT_SIZE = 2;
+
     /**
      * Entry point of the class
      */
@@ -87,19 +89,16 @@ public class HexConverter extends KamusiLogger
     private String makeSignificant(String string, int bitSize)
     {
         int stringLength = string.length();
-        int differenceWithFour = bitSize - stringLength;
+        int bitDifference = bitSize - stringLength;
         String leadingZeroes = "";
 
-        //Check for minimum significantNumbers
-        int minimum = 2;
-
-        if (bitSize < minimum)
+        if (bitSize < MINIMUM_BIT_SIZE)
         {
             return string;
         }
         else
         {
-            for (int i = 0; i < differenceWithFour; i++)
+            for (int i = 0; i < bitDifference; i++)
             {
                 leadingZeroes += "0";
             }
