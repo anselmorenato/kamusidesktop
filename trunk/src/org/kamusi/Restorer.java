@@ -33,9 +33,13 @@ public class Restorer extends KamusiLogger
      * The restore URL
      */
     public static final String UPDATE_URL =
-            "http://localhost:8084/kamusiproject/kamusiproject.db";
-//            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
+//            "http://localhost:8084/kamusiproject/kamusiproject.db";
+            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
     private static URL url;
+    /**
+     * Loads system properties
+     */
+    private KamusiProperties props = new KamusiProperties();
 
     public Restorer()
     {
@@ -66,7 +70,7 @@ public class Restorer extends KamusiLogger
 
         int choice = JOptionPane.showOptionDialog(null,
                 message,
-                "Kamusi Desktop",
+                props.getName(),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null, //do not use a custom Icon
@@ -166,7 +170,8 @@ public class Restorer extends KamusiLogger
                 if (ex.getMessage().contains("Permission denied"))
                 {
                     MainWindow.showError("An error occurred while updating database.\n" +
-                            "Do you have permissions to write to the Kamusi Desktop installation directory?");
+                            "Do you have permissions to write to the " + props.getName() +
+                            " installation directory?");
                 }
                 else
                 {

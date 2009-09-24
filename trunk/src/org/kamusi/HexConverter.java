@@ -28,7 +28,7 @@ public class HexConverter extends KamusiLogger
      * @param bitSize How many bit ASCII code is needed?
      * @return the hexadecimal equivalent of text
      */
-    public String getHex(String text, int bitSize)
+    protected String getHex(String text, int bitSize)
     {
         char[] characters = new char[text.length()];
 
@@ -45,7 +45,7 @@ public class HexConverter extends KamusiLogger
      * @param text the String to convert
      * @return the hexadecimal equivalent of text
      */
-    public String getHex(String text)
+    protected String getHex(String text)
     {
         return getHex(text, DEFAULT_BIT_SIZE);
     }
@@ -56,7 +56,7 @@ public class HexConverter extends KamusiLogger
      * @param bit The bit size of each ASCII character
      * @return the hexadecimal equivalent of text
      */
-    public String getAscii(String hexString, int bit)
+    protected String getAscii(String hexString, int bit)
     {
         String hex = "";
         StringBuffer ascii = new StringBuffer();
@@ -75,7 +75,7 @@ public class HexConverter extends KamusiLogger
      * @param hexString the String to convert
      * @return the hexadecimal equivalent of text
      */
-    public String getAscii(String hexString)
+    protected String getAscii(String hexString)
     {
         return getAscii(hexString, DEFAULT_BIT_SIZE);
     }

@@ -13,7 +13,10 @@ import javax.swing.ImageIcon;
  */
 public class AboutBox extends javax.swing.JDialog
 {
-
+/**
+     * Loads system properties
+     */
+    private KamusiProperties props = new KamusiProperties();
     /** 
      * Creates new form AboutBox
      * @param parent The parent of the box
@@ -110,12 +113,12 @@ public class AboutBox extends javax.swing.JDialog
         final String build = "1249930188890";
 
         final String about =
-                "Product Version: " + "Kamusi Project Desktop Build " + build + "\n" +
+                "Product Version: " + props.getName() + " Build " + props.getVersion() + "\n" +
                 "Java: " + System.getProperty("java.version") + "\n" +
                 "System: " + System.getProperty("os.name") + " version " + System.getProperty("os.version") + "\n\n";
 
         final String disclaimer =
-                "Kamusi Desktop and Kamusi Project are based on software from kamusi.org. " +
+                props.getName() + " and Kamusi Project are based on software from www.kamusi.org. " +
                 "For more information, please visit www.kamusi.org.\n\n";
 
         contentArea.setEditable(false);

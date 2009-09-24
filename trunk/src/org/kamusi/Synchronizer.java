@@ -53,8 +53,8 @@ public class Synchronizer extends KamusiLogger
     /**
      * The URL of the updates
      */
-    private final String UPDATE_URL = "http://localhost:8084/kamusiproject";
-//    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
+//    private final String UPDATE_URL = "http://localhost:8084/kamusiproject";
+    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
     /**
      * Logging facility
      */

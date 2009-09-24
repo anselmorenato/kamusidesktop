@@ -52,6 +52,10 @@ public class MainWindow extends JFrame implements TableModelListener
 {
 
     /**
+     * Loads system properties
+     */
+    private static KamusiProperties props = new KamusiProperties();
+    /**
      * The input field for the word to be translated
      */
     private static JTextField wordField;
@@ -151,7 +155,6 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     public static long downloadedSize = 0;
     public static long totalDownloadSize = 0;
-    private static final String APPLICATION_NAME = "Kamusi Desktop";
     /**
      * For the editing of cells
      */
@@ -161,10 +164,11 @@ public class MainWindow extends JFrame implements TableModelListener
      * Differentiates the different versions of the software
      */
     private final boolean isEditorVersion = true;
+    private static final String APPLICATION_NAME = props.getName();
     private final String TITLE =
             (isEditorVersion)
-            ? "Kamusi Project Desktop - Editor's Edition"
-            : "Kamusi Project Desktop";
+            ? APPLICATION_NAME + " - Editor's Edition"
+            : APPLICATION_NAME;
 
     /**
      * Initializes the display
@@ -278,7 +282,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
                 int choice = JOptionPane.showOptionDialog(null,
                         message,
-                        "Kamusi Desktop",
+                        props.getName(),
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE,
                         null, //do not use a custom Icon
@@ -684,7 +688,7 @@ public class MainWindow extends JFrame implements TableModelListener
                                                 (swahiliToEnglish.isSelected())
                                                 ? "Swahili" : "English";
                                         String searchKey = wordField.getText().trim();
-                                        
+
                                         editor.edit(row, columnName, fromLanguage,
                                                 oldWord, newWord, searchKey);
                                         fetchTranslation();
@@ -701,7 +705,7 @@ public class MainWindow extends JFrame implements TableModelListener
                                             (swahiliToEnglish.isSelected())
                                             ? "Swahili" : "English";
                                     String searchKey = wordField.getText().trim();
-                                    
+
                                     editor.deleteEntry(row, fromLanguage,
                                             oldWord, searchKey);
                                     fetchTranslation();
@@ -849,7 +853,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
             int choice = JOptionPane.showOptionDialog(null,
                     message,
-                    "Kamusi Desktop",
+                    props.getName(),
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null, //do not use a custom Icon
@@ -906,7 +910,7 @@ public class MainWindow extends JFrame implements TableModelListener
             double sizeInMBForm = (double) size / 1000 / 1000;
             DecimalFormat twoDForm = new DecimalFormat("#.##");
 
-            String message = "Kamusi Desktop will now download " +
+            String message = props.getName() + " will now download " +
                     Double.valueOf(twoDForm.format(sizeInMBForm)) +
                     " MB of database update. Proceed?";
 

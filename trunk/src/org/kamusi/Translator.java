@@ -12,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -60,6 +58,11 @@ public class Translator extends DefaultTableModel
      * Holds the number of records fetched
      */
     private int row = 0;
+
+     /**
+     * Loads system properties
+     */
+    private KamusiProperties props = new KamusiProperties();
 
     /**
      * Initializes the class
@@ -218,7 +221,7 @@ public class Translator extends DefaultTableModel
 
             if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
             {
-                MainWindow.showError("Kamusi Desktop Could not find database or " +
+                MainWindow.showError(props.getName() + " Could not find database or " +
                         "your database may be corrupted.\nCheck your working directory or\n" +
                         "select file -> Update in order to fetch a new database.");
             }

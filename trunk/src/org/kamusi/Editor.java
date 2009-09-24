@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,9 +17,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-//import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -61,6 +57,10 @@ public class Editor extends KamusiLogger
      * To identify the editor
      */
     private final String usernameFile = "./log/username.txt";
+     /**
+     * Loads system properties
+     */
+    private KamusiProperties props = new KamusiProperties();
 
     /**
      * Constructor
@@ -99,67 +99,112 @@ public class Editor extends KamusiLogger
     {
         log("Editing database entry from " + oldWord + " to " + newWord);
 
-        // Get the ID at the specified row and column
-        String id = getID(row, fromLanguage, searchKey);
+        String username = getUsername();
 
-        // We are now interested in the record of this id
-        String updateQuery = "UPDATE DICT SET " + formatColumnName(columnName) +
-                " = ? WHERE Id = ?";
-
-        String updateLog = formatColumnName(columnName) + "|" + newWord +
-                "|" + id + "|" + getUsername() + "|" + oldWord;
-
-        String message = "";
-
-        if (newWord.trim().length() == 0)
+        if (username == null || username.trim().length() == 0)
         {
-            message = "This will delete the entry \n" +
-                    "\"" + oldWord + "\"\n" +
-                    "Are you sure that you want to proceed?";
-        }
-        else if (newWord.equals(oldWord))
-        {
-            log("No changes applied.");
-            return;
+            String message = "You are not able to edit entried because Kamusi " +
+                    "Desktop does not know who you are.\n" +
+                    "Would you like to set your username now?";
+
+            Object[] options =
+            {
+                "Yes",
+                "No"
+            };
+
+            int choice = JOptionPane.showOptionDialog(null,
+                    message,
+                    props.getName(),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[0]); //default button title
+
+            switch (choice)
+            {
+                case 0: //YES
+                    if (askForUsername())
+                    {
+                        edit(row, columnName, fromLanguage, oldWord, newWord, searchKey);
+                    }
+                    break;
+
+                case 1: //NO
+                    break;
+
+                case -1: //Closed Window
+                    break;
+
+                default:
+                    break;
+            }
         }
         else
         {
-            message = "This will modify the entry from \n" +
-                    "\"" + oldWord + "\" to \"" + newWord + "\"\n" +
-                    "Are you sure that you want to proceed?";
-        }
+            // Get the ID at the specified row and column
+            String id = getID(row, fromLanguage, searchKey);
 
-        Object[] options =
-        {
-            "Yes",
-            "No"
-        };
+            // We are now interested in the record of this id
+            String updateQuery = "UPDATE DICT SET " + formatColumnName(columnName) +
+                    " = ? WHERE Id = ?";
 
-        int choice = JOptionPane.showOptionDialog(null,
-                message,
-                "Kamusi Desktop",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, //do not use a custom Icon
-                options, //the titles of buttons
-                options[1]); //default button title
+            String updateLog = formatColumnName(columnName) + "|" + newWord +
+                    "|" + id + "|" + getUsername() + "|" + oldWord;
 
-        switch (choice)
-        {
-            case 0: //YES
-                updateDatabase(updateQuery, id, newWord);
-                // Log these changes to file
-                logUpdate(updateLog);
-                break;
+            String message = "";
 
-            case 1: //NO
-                break;
+            if (newWord.trim().length() == 0)
+            {
+                message = "This will delete the entry \n" +
+                        "\"" + oldWord + "\"\n" +
+                        "Are you sure that you want to proceed?";
+            }
+            else if (newWord.equals(oldWord))
+            {
+                log("No changes applied.");
+                return;
+            }
+            else
+            {
+                message = "This will modify the entry from \n" +
+                        "\"" + oldWord + "\" to \"" + newWord + "\"\n" +
+                        "Are you sure that you want to proceed?";
+            }
 
-            case -1: //Closed Window
-                break;
+            Object[] options =
+            {
+                "Yes",
+                "No"
+            };
 
-            default:
-                break;
+            int choice = JOptionPane.showOptionDialog(null,
+                    message,
+                    props.getName(),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[1]); //default button title
+
+            switch (choice)
+            {
+                case 0: //YES
+                    // Log these changes to file
+                    logUpdate(updateLog);
+                    updateDatabase(updateQuery, id, newWord);
+                    break;
+
+                case 1: //NO
+                    break;
+
+                case -1: //Closed Window
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
@@ -186,7 +231,7 @@ public class Editor extends KamusiLogger
             {
                 query = Translator.getQuery("swahili");
             }
-            
+
             connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
             statement = connection.prepareStatement(query);
             statement.setString(1, searchKey);
@@ -278,11 +323,14 @@ public class Editor extends KamusiLogger
             StringBuffer oldUpdates = new StringBuffer();
             File editFile = new File(editLog);
 
-            //Append the new data
+            if (!editFile.exists())
+            {
+                throw new FileNotFoundException("Edit file does not exist!");
+            }
 
+            //Append the new data
             //Write out the new update file
             BufferedWriter writer = new BufferedWriter(new FileWriter(editFile, true));
-
             HexConverter converter = new HexConverter();
             writer.write(converter.getHex(update));
             writer.newLine();
@@ -292,8 +340,36 @@ public class Editor extends KamusiLogger
         }
         catch (FileNotFoundException ex)
         {
-            log("Failed to update edit log: " + ex.toString());
-            MainWindow.showError(ex.toString());
+            log(ex.toString() + "Attempting to create one");
+
+            FileWriter fstream;
+            BufferedWriter writer = null;
+            try
+            {
+                fstream = new FileWriter(editLog, false);
+                writer = new BufferedWriter(fstream);
+                HexConverter converter = new HexConverter();
+                writer.write("# DO NOT EDIT THIS FILE BY HAND");
+                writer.newLine();
+
+            }
+            catch (IOException exe)
+            {
+                log(exe.toString());
+            }
+            finally
+            {
+                try
+                {
+                    writer.close();
+                }
+                catch (IOException exe)
+                {
+                    log(exe.toString());
+                }
+
+                logUpdate(update);
+            }
         }
         catch (IOException ex)
         {
@@ -358,9 +434,14 @@ public class Editor extends KamusiLogger
 
         try
         {
+            File userFile = new File(usernameFile);
 
-            File inputFile = new File(usernameFile);
-            FileReader fileReader = new FileReader(inputFile);
+            if (!userFile.exists())
+            {
+                throw new FileNotFoundException("Edit file does not exist!");
+            }
+
+            FileReader fileReader = new FileReader(userFile);
             BufferedReader buff = new BufferedReader(fileReader);
 
             String line; // <<-- added
@@ -376,6 +457,10 @@ public class Editor extends KamusiLogger
                     username = line;
                 }
             }
+        }
+        catch (FileNotFoundException ex)
+        {
+            log(ex.toString());
         }
         catch (Exception ex)
         {
@@ -423,5 +508,64 @@ public class Editor extends KamusiLogger
                 return false;
             }
         }
+    }
+
+    /**
+     * Prompts for a kamusiproject username
+     * @return True for a successful setting of username, false otherwise
+     */
+    private boolean askForUsername()
+    {
+        boolean added = false;
+
+        String newUsername = JOptionPane.showInputDialog(null,
+                props.getName() + " needs your kamusi.org username" +
+                "\nin order to process your edits. You will not be asked for this again." +
+                "\n\nPlease enter your kamusi.org username");
+
+        if ((newUsername == null) || (newUsername.trim().length() == 0))
+        {
+            String message = "You will not be able to edit entries.\n\n" +
+                    "Proceed?";
+            Object[] options =
+            {
+                "Yes",
+                "No"
+            };
+
+            int choice = JOptionPane.showOptionDialog(null,
+                    message,
+                    props.getName(),
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, //do not use a custom Icon
+                    options, //the titles of buttons
+                    options[1]); //default button title
+
+            switch (choice)
+            {
+                case 0: //YES
+                    break;
+
+                case 1: //NO
+                    askForUsername();
+                    break;
+
+                case -1: //Closed Window
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        else
+        {
+            if (setUsername(newUsername))
+            {
+                added = true;
+            }
+        }
+
+        return added;
     }
 }
