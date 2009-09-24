@@ -79,7 +79,9 @@ public class KamusiLogger
      */
     private String getFileName()
     {
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        KamusiProperties props = new KamusiProperties();
+        String logFormat = props.getLogFormat();
+        SimpleDateFormat f = new SimpleDateFormat(logFormat.replace(".log", ""));
         String date = f.format(new Date());
         String fileName = "log/" + date + ".log";
         return fileName;
