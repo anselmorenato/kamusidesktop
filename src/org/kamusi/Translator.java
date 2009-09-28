@@ -49,7 +49,7 @@ public class Translator extends DefaultTableModel
      */
     private String englishWord, swahiliWord, englishExample, swahiliExample, swahiliPlural,
             englishPlural;
-    private String fieldsString = "";
+    
     private Vector<String> headers;
     private Vector<Vector<String>> data;
     private Vector<String> rows;
@@ -78,21 +78,11 @@ public class Translator extends DefaultTableModel
 
             StringBuffer fieldStringBuffer = new StringBuffer();
 
-            Enumeration<String> availableFieldsString = fields.elements();
-
-            while (availableFieldsString.hasMoreElements())
-            {
-                fieldStringBuffer.append(availableFieldsString.nextElement());
-            }
-
-            fieldsString = fieldStringBuffer.toString();
             connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
 
             String query = "";
 
             headers = new Vector<String>();
-
-            // TODO: Implement grouping
 
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
@@ -163,20 +153,19 @@ public class Translator extends DefaultTableModel
                     rows.addElement(englishWord);
                 }
 
-                // TODO: Convert these fieldsString to Vectors
-                if (fieldsString.contains("English Plural"))
+                if (fields.contains("English Plural"))
                 {
                     rows.addElement(englishPlural);
                 }
-                if (fieldsString.contains("Swahili Plural"))
+                if (fields.contains("Swahili Plural"))
                 {
                     rows.addElement(swahiliPlural);
                 }
-                if (fieldsString.contains("English Example"))
+                if (fields.contains("English Example"))
                 {
                     rows.addElement(englishExample);
                 }
-                if (fieldsString.contains("Swahili Example"))
+                if (fields.contains("Swahili Example"))
                 {
                     rows.addElement(swahiliExample);
                 }
