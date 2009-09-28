@@ -32,11 +32,26 @@ public class Main
     {
         logSystemProperties();
         initLookAndFeel();
-        if (askForUsername())
+        if (props.getEditor())
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.setVisible(true);
+            if (askForUsername())
+            {
+                runApplication();
+            }
         }
+        else
+        {
+            runApplication();
+        }
+    }
+
+    /**
+     * Starts up the main application
+     */
+    private static void runApplication()
+    {
+        MainWindow mainWindow = new MainWindow();
+        mainWindow.setVisible(true);
     }
 
     /**

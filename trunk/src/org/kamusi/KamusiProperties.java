@@ -25,6 +25,7 @@ public class KamusiProperties extends KamusiLogger
     private String fileMenu;
     private String fileSynchronize;
     private String filePrint;
+    private String editor;
 
     public boolean isDecorated()
     {
@@ -103,6 +104,12 @@ public class KamusiProperties extends KamusiLogger
     {
         return theme;
     }
+
+    public boolean getEditor()
+    {
+        return editor.equals("0")? false: true;
+    }
+
     private String fileQuit;
     private String editMenu;
     private String helpMenu;
@@ -141,6 +148,8 @@ public class KamusiProperties extends KamusiLogger
             helpAbout = System.getProperty("help.about").trim();
 
             logFormat = System.getProperty("log.format").trim();
+
+            editor = System.getProperty("app.editor").trim();
         }
         catch (Exception ex)
         {
