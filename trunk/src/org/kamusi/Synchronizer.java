@@ -14,9 +14,12 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+//import java.net.URLEncoder;
+import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -51,8 +54,8 @@ public class Synchronizer extends KamusiLogger
     /**
      * The URL of the updates
      */
-//    private final String UPDATE_URL = "http://localhost:8084/kamusiproject";
-    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
+    private final String UPDATE_URL = "http://localhost:8084/kamusiproject/";
+//    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
     /**
      * To denote whether we can synchronize
      */
@@ -80,7 +83,7 @@ public class Synchronizer extends KamusiLogger
         else
         {
             MainWindow.showError("An error has ocurred." +
-                        "\n\nCheck your log files for further details regarding this error.");
+                    "\n\nCheck your log files for further details regarding this error.");
         }
     }
 
@@ -299,7 +302,6 @@ public class Synchronizer extends KamusiLogger
                 else
                 {
                     // Call the URL
-//                http://localhost:8080/kamusiproject/?column=SwahiliExample&row=1&update=Maji+ya+kunde
                     HexConverter converter = new HexConverter();
                     String[] updateLog = converter.getAscii(line).split("\\|");
                     String column = updateLog[0];
@@ -308,24 +310,33 @@ public class Synchronizer extends KamusiLogger
                     String username = updateLog[3];
                     String oldValue = updateLog[4];
 
-                    String url = UPDATE_URL + "/?column=" + column +
-                            "&row=" + row + "&update=" + update + "&username=" + username +
-                            "&oldValue=" + oldValue;
+                    String data = URLEncoder.encode("column", "UTF-8") + "=" + URLEncoder.encode(column, "UTF-8");
+                    data += "&" + URLEncoder.encode("update", "UTF-8") + "=" + URLEncoder.encode(update, "UTF-8");
+                    data += "&" + URLEncoder.encode("row", "UTF-8") + "=" + URLEncoder.encode(row, "UTF-8");
+                    data += "&" + URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+                    data += "&" + URLEncoder.encode("oldValue", "UTF-8") + "=" + URLEncoder.encode(oldValue, "UTF-8");
 
-                    log("Posting: " + url);
+                    // Send data
+                    URL url = new URL(UPDATE_URL);
+                    URLConnection conn = url.openConnection();
+                    conn.setDoOutput(true);
+                    OutputStreamWriter streamWriter = new OutputStreamWriter(conn.getOutputStream());
 
-                    URL synchronize = new URL(url);
+                    log("Posting: " + converter.getHex(data));
 
+                    streamWriter.write(data);
+                    streamWriter.flush();
 
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(
-                            synchronize.openStream()));
-                    String inputLine;
-                    while ((inputLine = in.readLine()) != null)
+                    // Get the response
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    String responseLine;
+                    while ((responseLine = bufferedReader.readLine()) != null)
                     {
-                        //log(inputLine);
+                        // Process line...
                     }
-                    in.close();
+                    streamWriter.close();
+                    bufferedReader.close();
+
                     continue;
                 }
             }
