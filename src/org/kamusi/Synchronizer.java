@@ -17,14 +17,12 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 /**
  * Synchronizer.java
- * @author arthur
  */
 public class Synchronizer extends KamusiLogger
 {
@@ -56,9 +54,8 @@ public class Synchronizer extends KamusiLogger
 //    private final String UPDATE_URL = "http://localhost:8084/kamusiproject";
     private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
     /**
-     * Logging facility
+     * To denote whether we can synchronize
      */
-    private KamusiLogger logger = new KamusiLogger();
     private boolean canSync = false;
 
     /**
@@ -68,6 +65,7 @@ public class Synchronizer extends KamusiLogger
     public void synchronize(boolean isEditorsVersion)
     {
 
+//        TODO: Review this part. It may be failing on isEditorsVersion = false
         if (isEditorsVersion)
         {
             synchronizeDatabases();
@@ -332,7 +330,9 @@ public class Synchronizer extends KamusiLogger
             return false;
         }
     }
-
+/**
+ * Initializes the class
+ */
     public Synchronizer()
     {
         try

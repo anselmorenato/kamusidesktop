@@ -19,7 +19,7 @@ public class HexConverter extends KamusiLogger
      */
     public HexConverter()
     {
-        log("Encryption initiated");
+        log("Starting encryption\t\t[ OK ]");
     }
 
     /**

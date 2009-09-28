@@ -58,8 +58,7 @@ public class Translator extends DefaultTableModel
      * Holds the number of records fetched
      */
     private int row = 0;
-
-     /**
+    /**
      * Loads system properties
      */
     private KamusiProperties props = new KamusiProperties();
@@ -97,9 +96,6 @@ public class Translator extends DefaultTableModel
 
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
-//                query = "SELECT * FROM dict WHERE EnglishSortBy = ? " +
-//                        "ORDER BY EnglishWord ASC";
-
                 query = getQuery("english");
 
                 headers.addElement("English");
@@ -114,9 +110,6 @@ public class Translator extends DefaultTableModel
             }
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
-//                query = "SELECT * FROM dict WHERE SwahiliSortBy = ? " +
-//                        "ORDER BY SwahiliWord ASC";
-
                 query = getQuery("swahili");
 
                 headers.addElement("Swahili");
@@ -149,8 +142,6 @@ public class Translator extends DefaultTableModel
             {
                 row++;
 
-//                englishWord = resultSet.getString("EnglishSortBy");
-//                swahiliWord = resultSet.getString("SwahiliSortBy");
                 englishWord = resultSet.getString("EnglishWord");
                 swahiliWord = resultSet.getString("SwahiliWord");
                 englishPlural = resultSet.getString("EnglishPlural");
@@ -165,45 +156,29 @@ public class Translator extends DefaultTableModel
                 {
                     rows.addElement(englishWord);
                     rows.addElement(swahiliWord);
-
-                    if (fieldsString.contains("English Plural"))
-                    {
-                        rows.addElement(englishPlural);
-                    }
-                    if (fieldsString.contains("Swahili Plural"))
-                    {
-                        rows.addElement(swahiliPlural);
-                    }
-                    if (fieldsString.contains("English Example"))
-                    {
-                        rows.addElement(englishExample);
-                    }
-                    if (fieldsString.contains("Swahili Example"))
-                    {
-                        rows.addElement(swahiliExample);
-                    }
                 }
                 else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
                 {
                     rows.addElement(swahiliWord);
                     rows.addElement(englishWord);
+                }
 
-                    if (fieldsString.contains("English Plural"))
-                    {
-                        rows.addElement(englishPlural);
-                    }
-                    if (fieldsString.contains("Swahili Plural"))
-                    {
-                        rows.addElement(swahiliPlural);
-                    }
-                    if (fieldsString.contains("English Example"))
-                    {
-                        rows.addElement(englishExample);
-                    }
-                    if (fieldsString.contains("Swahili Example"))
-                    {
-                        rows.addElement(swahiliExample);
-                    }
+                // TODO: Convert these fieldsString to Vectors
+                if (fieldsString.contains("English Plural"))
+                {
+                    rows.addElement(englishPlural);
+                }
+                if (fieldsString.contains("Swahili Plural"))
+                {
+                    rows.addElement(swahiliPlural);
+                }
+                if (fieldsString.contains("English Example"))
+                {
+                    rows.addElement(englishExample);
+                }
+                if (fieldsString.contains("Swahili Example"))
+                {
+                    rows.addElement(swahiliExample);
                 }
 
                 //add to model
@@ -222,8 +197,8 @@ public class Translator extends DefaultTableModel
             if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
             {
                 MainWindow.showError(props.getName() + " Could not find database or " +
-                        "your database may be corrupted.\nCheck your working directory or\n" +
-                        "select file -> Update in order to fetch a new database.");
+                        "your database may be corrupt.\nYou may " +
+                        "select Help -> Restore in order to fetch a new database.");
             }
             else
             {

@@ -20,20 +20,44 @@ import javax.swing.JOptionPane;
 public class Restorer extends KamusiLogger
 {
 
+    /**
+     * Holds the size of the current database
+     */
     private long sizeOfDatabase = 0;
+    /**
+     * Holds the size of the update
+     */
     private long sizeOfUpdate = 0;
+    /**
+     * The name of the app database
+     */
     private static final String originaldb = "kamusiproject.db";
+    /**
+     * Temporary name to hold the update
+     */
     private final String updatedb = "kamusiproject.db_bakup";
-    private long totalSizeOfUpdate = 0;
-    private RestorerProgress progress;
+    /**
+     * Thread to show the update progress
+     */
+    private RestoreProgress progress;
+    /**
+     * Thread that runs to perform the actual update
+     */
     private RestorerThread restorer;
+    /**
+     * Denotes whether we can pick the poriginal database
+     */
     private boolean canRestore;
-    private KamusiLogger logger;
+    /**
+     * Message to be displayed in case of an error
+     */
+    private String updateErrorMessage = "An error occurred while restoring database.\n" +
+            "Check your connection to the Internet or try again later.";
     /**
      * The restore URL
      */
     public static final String UPDATE_URL =
-//            "http://localhost:8084/kamusiproject/kamusiproject.db";
+            //            "http://localhost:8084/kamusiproject/kamusiproject.db";
             "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
     private static URL url;
     /**
@@ -41,21 +65,30 @@ public class Restorer extends KamusiLogger
      */
     private KamusiProperties props = new KamusiProperties();
 
+    /**
+     * Initializes the class
+     */
     public Restorer()
     {
         canRestore = false;
-        logger = new KamusiLogger();
     }
 
+    /**
+     * Start the restore process
+     */
     public synchronized void restore()
     {
         // Create and run the two threads
-        progress = new RestorerProgress();
+        progress = new RestoreProgress();
         restorer = new RestorerThread();
         restorer.start();
         progress.start();
     }
 
+    /**
+     * Cancels the restoration
+     * @return True is cancel was successful, false otherwise
+     */
     protected boolean cancelUpdate()
     {
         boolean updateCancelled = false;
@@ -108,6 +141,9 @@ public class Restorer extends KamusiLogger
         return updateCancelled;
     }
 
+    /**
+     * The thread that does the restoration
+     */
     class RestorerThread extends Thread
     {
 
@@ -123,9 +159,6 @@ public class Restorer extends KamusiLogger
 
                 url = new URL(UPDATE_URL);
                 URLConnection connection = url.openConnection();
-
-                // Get size of restore
-                totalSizeOfUpdate = getSizeOfUpdate();
 
                 BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
                 FileOutputStream ftpFileOutputStream = new FileOutputStream(updatedb);
@@ -152,14 +185,14 @@ public class Restorer extends KamusiLogger
                 log(ex.toString());
                 // Restore the original file
                 restoreOriginal();
-                MainWindow.showError("An error occurred while connecting to the update server.");
+                MainWindow.showError(updateErrorMessage);
             }
             catch (MalformedURLException ex)
             {
                 log(ex.toString());
                 // Restore the original file
                 restoreOriginal();
-                MainWindow.showError("An error occurred while updating database.");
+                MainWindow.showError(updateErrorMessage);
             }
             catch (IOException ex)
             {
@@ -167,19 +200,14 @@ public class Restorer extends KamusiLogger
                 // Restore the original file
                 restoreOriginal();
 
-                if (ex.getMessage().contains("Permission denied"))
-                {
-                    MainWindow.showError("An error occurred while updating database.\n" +
-                            "Do you have permissions to write to the " + props.getName() +
-                            " installation directory?");
-                }
-                else
-                {
-                    MainWindow.showError("An error occurred while updating database.");
-                }
+                MainWindow.showError(updateErrorMessage +
+                        "\n\nCheck your log files for further details regarding this error.");
             }
         }
 
+        /**
+         * Run the thread
+         */
         @Override
         public void run()
         {
@@ -218,21 +246,21 @@ public class Restorer extends KamusiLogger
             log(ex.toString());
             // Restore the original file
             restoreOriginal();
-            MainWindow.showError("An error occurred while connecting to the update server.");
+            MainWindow.showError(updateErrorMessage);
         }
         catch (MalformedURLException ex)
         {
             log(ex.toString());
             // Restore the original file
             restoreOriginal();
-            MainWindow.showError("An error occurred while updating database.");
+            MainWindow.showError(updateErrorMessage);
         }
         catch (IOException ex)
         {
             log(ex.toString());
             // Restore the original file
             restoreOriginal();
-            MainWindow.showError("An error occurred while updating database.");
+            MainWindow.showError(updateErrorMessage);
         }
 
         return sizeOfUpdate;
@@ -249,7 +277,10 @@ public class Restorer extends KamusiLogger
         return sizeOfDatabase;
     }
 
-    class RestorerProgress extends Thread
+    /**
+     * Thread that shows the progress of the restoration
+     */
+    class RestoreProgress extends Thread
     {
 
         private boolean running = true;
@@ -269,6 +300,9 @@ public class Restorer extends KamusiLogger
             }
         }
 
+        /**
+         * Run the thread
+         */
         @Override
         public void run()
         {

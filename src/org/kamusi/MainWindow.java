@@ -128,7 +128,7 @@ public class MainWindow extends JFrame implements TableModelListener
      * File Menu
      */
     private JMenu fileMenu;
-    private static JMenuItem fileUpdate;
+    private static JMenuItem fileSynchronize;
     private JMenuItem filePrint;
     private JMenuItem fileQuit;
     private JMenu helpMenu;
@@ -163,7 +163,7 @@ public class MainWindow extends JFrame implements TableModelListener
     /**
      * Differentiates the different versions of the software
      */
-    private final boolean isEditorVersion = true;
+    private final boolean isEditorVersion = props.getEditor();
     private static final String APPLICATION_NAME = props.getName();
     private final String TITLE =
             (isEditorVersion)
@@ -196,7 +196,7 @@ public class MainWindow extends JFrame implements TableModelListener
             {
                 if (restorer.cancelUpdate())
                 {
-                    fileUpdate.setEnabled(true);
+                    fileSynchronize.setEnabled(true);
                     helpDownloadOriginal.setEnabled(true);
                     // Reset the output display
                     statusPanel.removeAll();
@@ -238,29 +238,19 @@ public class MainWindow extends JFrame implements TableModelListener
         /**
          * Add a listener for the file-restore menu item
          */
-        fileUpdate.addActionListener(new ActionListener()
+        fileSynchronize.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
             {
-
-                progressBar.setIndeterminate(true);
-                progressBar.setString("Synchronizing databases...");
-                JPanel updatePanel = new JPanel();
-                updatePanel.setLayout(new BorderLayout());
-                updatePanel.add(progressBar, BorderLayout.CENTER);
-                updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
-                statusPanel.add(updatePanel, BorderLayout.CENTER);
-                pack();
-
                 String message;
 
                 if (isEditorVersion)
                 {
                     message = "You will not be able to use the application " +
-                            "until all the updates have been fetched.\nThis might take" +
-                            "some time depending on your internet connection.\n\n" +
-                            "Further to this, any editings that you may have done will be " +
+                            "until all the updates have been fetched.\nThis may take" +
+                            "a while depending on your Internet connection.\n\n" +
+                            "Further to this, any edits that you may have done will be " +
                             "committed to the server and\n" +
                             "be made available for download " +
                             "to other " + APPLICATION_NAME + " users.\n\n" +
@@ -269,8 +259,8 @@ public class MainWindow extends JFrame implements TableModelListener
                 else
                 {
                     message = "You will not be able to use the application " +
-                            "until all the updates have been fetched.\nThis might take" +
-                            "some time depending on your internet connection.\n\n" +
+                            "until all the updates have been fetched.\nThis may take " +
+                            "a while depending on your Internet connection.\n\n" +
                             "Are you sure that you want to proceed?";
                 }
 
@@ -292,16 +282,33 @@ public class MainWindow extends JFrame implements TableModelListener
                 switch (choice)
                 {
                     case 0: //YES
+
+
+                        progressBar.setIndeterminate(true);
+                        progressBar.setString("Synchronizing databases...");
+                        JPanel updatePanel = new JPanel();
+                        updatePanel.setLayout(new BorderLayout());
+                        updatePanel.add(progressBar, BorderLayout.CENTER);
+                        updatePanel.add(cancelUpdateButton, BorderLayout.EAST);
+                        statusPanel.add(updatePanel, BorderLayout.CENTER);
+                        pack();
+
                         synchronizeDatabases();
                         break;
 
                     case 1: //NO
+                        updating = false;
+                        reset();
                         break;
 
                     case -1: //Closed Window
+                        updating = false;
+                        reset();
                         break;
 
                     default:
+                        updating = false;
+                        reset();
                         break;
                 }
             }
@@ -510,7 +517,7 @@ public class MainWindow extends JFrame implements TableModelListener
         outputPanel = new JPanel();
         outputPanel.setLayout(new BorderLayout());
 
-        statusLabel = new JLabel("The Kamusi Project", JLabel.LEFT);
+        statusLabel = new JLabel(props.getName(), JLabel.LEFT);
         staticLabel = new JLabel("The Kamusi Project", JLabel.LEFT);
         statusPanel = new JPanel();
         statusPanel.setLayout(new BorderLayout());
@@ -518,18 +525,18 @@ public class MainWindow extends JFrame implements TableModelListener
         statusPanel.add(staticLabel, BorderLayout.EAST);
 
         //Populate the menu
-        fileUpdate = new JMenuItem("Synchronize");
-        filePrint = new JMenuItem("Print");
-        fileQuit = new JMenuItem("Quit");
-        helpAbout = new JMenuItem("About");
-        fileMenu = new JMenu("File");
-        helpMenu = new JMenu("Help");
-        helpDownloadOriginal = new JMenuItem("Download Original Database");
+        fileSynchronize = new JMenuItem(props.getFileSynchronize());
+        filePrint = new JMenuItem(props.getFilePrint());
+        fileQuit = new JMenuItem(props.getFileQuit());
+        helpAbout = new JMenuItem(props.getHelpAbout());
+        fileMenu = new JMenu(props.getFileMenu());
+        helpMenu = new JMenu(props.getHelpMenu());
+        helpDownloadOriginal = new JMenuItem(props.getHelpRestore());
         menuBar = new JMenuBar();
 
         editor = new Editor();
 
-        fileMenu.add(fileUpdate);
+        fileMenu.add(fileSynchronize);
 //        fileMenu.add(filePrint);
         fileMenu.addSeparator();
         fileMenu.add(fileQuit);
@@ -577,7 +584,7 @@ public class MainWindow extends JFrame implements TableModelListener
         }
         else
         {
-            updateStatusBar("The Kamusi Project");
+            updateStatusBar(props.getName());
         }
 
         pack();
@@ -639,7 +646,6 @@ public class MainWindow extends JFrame implements TableModelListener
                     new Translator(languageToTranslateFrom, word, fields);
 
             final JTable newTable = resultTable.getTable();
-
             newTable.setRowSelectionAllowed(true);
             newTable.setColumnSelectionAllowed(false);
 
@@ -729,7 +735,10 @@ public class MainWindow extends JFrame implements TableModelListener
                 });
             }
 
-            outputPanel.add(scrollPane, BorderLayout.CENTER);
+            if (resultTable.getResultCount() > 0)
+            {
+                outputPanel.add(scrollPane, BorderLayout.CENTER);
+            }
 
             // Update the status bar
             updateStatusBar(resultTable.getResultCount() + " Rows fetched");
@@ -755,10 +764,9 @@ public class MainWindow extends JFrame implements TableModelListener
 
                             public void actionPerformed(ActionEvent e)
                             {
-                                String exception = String.valueOf(
-                                        new UnsupportedOperationException(
-                                        "Adding new entries is not yet implemented"));
-                                MainWindow.showWarning(exception);
+                                Exception exception = new UnsupportedOperationException(
+                                        "Adding new entries is not yet implemented");
+                                MainWindow.showWarning(exception.toString());
                             }
                         });
                         popupMenu.show(scrollPane, point.x, point.y);
@@ -883,8 +891,10 @@ public class MainWindow extends JFrame implements TableModelListener
         }
         else
         {
+            updating = false;
             MainWindow.showError("An error occurred while synchronizing.\n" +
                     "Check your connection to the Internet or try again later.");
+
         }
         reset();
     }
@@ -932,7 +942,7 @@ public class MainWindow extends JFrame implements TableModelListener
             switch (choice)
             {
                 case 0: //YES
-                    fileUpdate.setEnabled(false);
+                    fileSynchronize.setEnabled(false);
                     helpDownloadOriginal.setEnabled(false);
                     updateStatusBar("Downloading update");
                     JPanel updatePanel = new JPanel();
@@ -982,7 +992,7 @@ public class MainWindow extends JFrame implements TableModelListener
         logger.log("Downloaded update: " + downloadedInInt + " out of " + totalInInt);
         if (percentage >= 100)
         {
-            fileUpdate.setEnabled(false);
+            fileSynchronize.setEnabled(false);
             helpDownloadOriginal.setEnabled(false);
             cancelUpdateButton.setEnabled(false);
             updating = false;
