@@ -153,6 +153,7 @@ public class KamusiProperties extends KamusiLogger
         }
         catch (Exception ex)
         {
+            ex.printStackTrace();
             log(ex.toString());
         }
     }

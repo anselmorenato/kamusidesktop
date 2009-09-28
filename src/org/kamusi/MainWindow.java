@@ -283,6 +283,7 @@ public class MainWindow extends JFrame implements TableModelListener
                 {
                     case 0: //YES
 
+                        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
                         progressBar.setIndeterminate(true);
                         progressBar.setString("Synchronizing databases...");
@@ -846,6 +847,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private void synchronizeDatabases()
     {
+
         Synchronizer synchronizer = new Synchronizer();
         String size = String.valueOf(synchronizer.getSizeOfUpdate());
 
@@ -871,10 +873,8 @@ public class MainWindow extends JFrame implements TableModelListener
             switch (choice)
             {
                 case 0: //YES
-//                    setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
                     wordField.setEnabled(false);
                     synchronizer.synchronize(isEditorVersion);
-//                    synchronizer.run();
                     setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                     wordField.setEnabled(true);
                     break;
