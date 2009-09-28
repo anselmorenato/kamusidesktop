@@ -423,7 +423,6 @@ public class Editor extends KamusiLogger
         MainWindow.showWarning(exception);
     }
 
-//    TODO: Add authentication mechanism
     /**
      * Gets the username for kamusi edits
      * @return The username
