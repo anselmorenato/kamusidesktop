@@ -18,7 +18,6 @@ import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-//import java.net.URLEncoder;
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -54,8 +53,8 @@ public class Synchronizer extends KamusiLogger
     /**
      * The URL of the updates
      */
-    private final String UPDATE_URL = "http://localhost:8084/kamusiproject/";
-//    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
+//    private final String UPDATE_URL = "http://localhost:8084/kamusiproject/";
+    private final String UPDATE_URL = "http://pm.suuch.com:8080/kamusiproject/";
     /**
      * To denote whether we can synchronize
      */
