@@ -108,6 +108,14 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private JButton resetButton;
     /**
+     * For adding a new word
+     */
+    private JButton addNewWordButton;
+    /**
+     * For holding the button for ading a new word
+     */
+    JPanel tempPanel;
+    /**
      * Button for cancelling the restore
      */
     private static JButton cancelUpdateButton;
@@ -202,7 +210,7 @@ public class MainWindow extends JFrame implements TableModelListener
                     statusPanel.removeAll();
                     statusPanel.add(statusLabel, BorderLayout.WEST);
                     statusPanel.add(staticLabel, BorderLayout.EAST);
-                    updateStatusBar("Database update has been cancelled");
+                    updateStatusBar(MessageLocalizer.formatMessage("download_cancelled", null));
                     pack();
                 }
             }
@@ -247,21 +255,19 @@ public class MainWindow extends JFrame implements TableModelListener
 
                 if (isEditorVersion)
                 {
-                    message = "You will not be able to use the application " +
-                            "until all the updates have been fetched.\nThis may take" +
-                            "a while depending on your Internet connection.\n\n" +
-                            "Further to this, any edits that you may have done will be " +
-                            "committed to the server and\n" +
-                            "be made available for download " +
-                            "to other " + APPLICATION_NAME + " users.\n\n" +
-                            "Are you sure that you want to proceed?";
+                    message =
+                            MessageLocalizer.formatMessage("confirm_update", null) +
+                            MessageLocalizer.formatMessage("further_details_editor_confirm_update",
+                            new Object[]
+                            {
+                                APPLICATION_NAME
+                            }) +
+                            MessageLocalizer.formatMessage("proceed", null);
                 }
                 else
                 {
-                    message = "You will not be able to use the application " +
-                            "until all the updates have been fetched.\nThis may take " +
-                            "a while depending on your Internet connection.\n\n" +
-                            "Are you sure that you want to proceed?";
+                    message = MessageLocalizer.formatMessage("confirm_update", null) +
+                            MessageLocalizer.formatMessage("proceed", null);
                 }
 
                 Object[] options =
@@ -286,7 +292,7 @@ public class MainWindow extends JFrame implements TableModelListener
                         setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 
                         progressBar.setIndeterminate(true);
-                        progressBar.setString("Synchronizing databases...");
+                        progressBar.setString(MessageLocalizer.formatMessage("synchronizing", null));
                         JPanel updatePanel = new JPanel();
                         updatePanel.setLayout(new BorderLayout());
                         updatePanel.add(progressBar, BorderLayout.CENTER);
@@ -336,6 +342,17 @@ public class MainWindow extends JFrame implements TableModelListener
             public void actionPerformed(ActionEvent e)
             {
                 print();
+            }
+        });
+        /**
+         * Add a listener for the file-addword menu item
+         */
+        addNewWordButton.addActionListener(new ActionListener()
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                new WordAdder().setVisible(true);
             }
         });
 
@@ -466,11 +483,11 @@ public class MainWindow extends JFrame implements TableModelListener
         progressBar.setValue(0);
         progressBar.setStringPainted(true);
 
-        wordLabel = new JLabel("Word", JLabel.LEFT);
+        wordLabel = new JLabel(MessageLocalizer.formatMessage("word_label", null), JLabel.LEFT);
         wordField = new JTextField(70);
         language = new ButtonGroup();
-        swahiliToEnglish = new JRadioButton("Swa to Eng", false);
-        englishToSwahili = new JRadioButton("Eng to Swa", true);
+        swahiliToEnglish = new JRadioButton(MessageLocalizer.formatMessage("swahili_to_english", null), false);
+        englishToSwahili = new JRadioButton(MessageLocalizer.formatMessage("english_to_swahili", null), true);
         language.add(swahiliToEnglish);
         language.add(englishToSwahili);
         languagePanel = new JPanel();
@@ -481,21 +498,21 @@ public class MainWindow extends JFrame implements TableModelListener
         cancelUpdateButton = new JButton("x");
         cancelUpdateButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
         cancelUpdateButton.setBorderPainted(true);
-        cancelUpdateButton.setToolTipText("Cancel Database Update");
-        resetButton = new JButton("RESET");
+        cancelUpdateButton.setToolTipText(MessageLocalizer.formatMessage("cancel_update", null));
+        resetButton = new JButton(MessageLocalizer.formatMessage("reset_button", null));
 
-        englishWord = new JCheckBox("English", true);
+        englishWord = new JCheckBox(MessageLocalizer.formatMessage("english", null), true);
         englishWord.setEnabled(false);
-        swahiliWord = new JCheckBox("Swahili", true);
+        swahiliWord = new JCheckBox(MessageLocalizer.formatMessage("swahili", null), true);
         swahiliWord.setEnabled(false);
-        englishExample = new JCheckBox("English Example");
-        swahiliExample = new JCheckBox("Swahili Example");
-        englishPlural = new JCheckBox("English Plural");
-        swahiliPlural = new JCheckBox("Swahili Plural");
+        englishExample = new JCheckBox(MessageLocalizer.formatMessage("english_example", null));
+        swahiliExample = new JCheckBox(MessageLocalizer.formatMessage("swahili_example", null));
+        englishPlural = new JCheckBox(MessageLocalizer.formatMessage("english_plural", null));
+        swahiliPlural = new JCheckBox(MessageLocalizer.formatMessage("swahili_plural", null));
 
         fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new FlowLayout());
-        fieldsPanel.add(new JLabel("Show Fields: ", JLabel.LEFT));
+        fieldsPanel.add(new JLabel(MessageLocalizer.formatMessage("show_fields", null), JLabel.LEFT));
         fieldsPanel.add(englishWord);
         fieldsPanel.add(swahiliWord);
         fieldsPanel.add(englishPlural);
@@ -525,14 +542,24 @@ public class MainWindow extends JFrame implements TableModelListener
         statusPanel.add(statusLabel, BorderLayout.WEST);
         statusPanel.add(staticLabel, BorderLayout.EAST);
 
+        addNewWordButton = new JButton(
+                MessageLocalizer.formatMessage("add_entry", null));
+
+        tempPanel = new JPanel();
+        tempPanel.setLayout(new BorderLayout());
+
+        tempPanel.add(addNewWordButton, BorderLayout.WEST);
+        statusPanel.add(tempPanel, BorderLayout.CENTER);
+        addNewWordButton.setVisible(false);
+
         //Populate the menu
-        fileSynchronize = new JMenuItem(props.getFileSynchronize());
-        filePrint = new JMenuItem(props.getFilePrint());
-        fileQuit = new JMenuItem(props.getFileQuit());
-        helpAbout = new JMenuItem(props.getHelpAbout());
-        fileMenu = new JMenu(props.getFileMenu());
-        helpMenu = new JMenu(props.getHelpMenu());
-        helpDownloadOriginal = new JMenuItem(props.getHelpRestore());
+        fileSynchronize = new JMenuItem(MessageLocalizer.formatMessage("file_synchronize", null));
+        filePrint = new JMenuItem(MessageLocalizer.formatMessage("file_print", null));
+        fileQuit = new JMenuItem(MessageLocalizer.formatMessage("file_quit", null));
+        helpAbout = new JMenuItem(MessageLocalizer.formatMessage("help_about", null));
+        fileMenu = new JMenu(MessageLocalizer.formatMessage("file_menu", null));
+        helpMenu = new JMenu(MessageLocalizer.formatMessage("help_menu", null));
+        helpDownloadOriginal = new JMenuItem(MessageLocalizer.formatMessage("help_restore", null));
         menuBar = new JMenuBar();
 
         editor = new Editor();
@@ -582,6 +609,8 @@ public class MainWindow extends JFrame implements TableModelListener
             statusPanel.removeAll();
             statusPanel.add(statusLabel, BorderLayout.WEST);
             statusPanel.add(staticLabel, BorderLayout.EAST);
+            statusPanel.add(tempPanel, BorderLayout.CENTER);
+            addNewWordButton.setVisible(false);
         }
         else
         {
@@ -601,19 +630,19 @@ public class MainWindow extends JFrame implements TableModelListener
 
         if (englishPlural.isSelected())
         {
-            fields.add("English Plural");
+            fields.add(MessageLocalizer.formatMessage("english_plural", null));
         }
         if (swahiliPlural.isSelected())
         {
-            fields.add("Swahili Plural");
+            fields.add(MessageLocalizer.formatMessage("swahili_plural", null));
         }
         if (englishExample.isSelected())
         {
-            fields.add("English Example");
+            fields.add(MessageLocalizer.formatMessage("english_example", null));
         }
         if (swahiliExample.isSelected())
         {
-            fields.add("Swahili Example");
+            fields.add(MessageLocalizer.formatMessage("swahili_example", null));
         }
 
         return fields;
@@ -625,159 +654,193 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private void displayTable(String word)
     {
-        String languageToTranslateFrom = "";
+        double startTimestamp = java.util.Calendar.getInstance().getTimeInMillis();
 
-        Vector<String> fields = getDisplayableFields();
+        final String searchKey = wordField.getText().trim();
 
-        if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
+        try
         {
+            String languageToTranslateFrom = "";
 
-            if (swahiliToEnglish.isSelected())
+            Vector<String> fields = getDisplayableFields();
+
+            if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
             {
-                languageToTranslateFrom = "SWAHILI";
-            }
-            else if (englishToSwahili.isSelected())
-            {
-                languageToTranslateFrom = "ENGLISH";
-            }
 
-            outputPanel.removeAll();
-
-            Translator resultTable =
-                    new Translator(languageToTranslateFrom, word, fields);
-
-            final JTable newTable = resultTable.getTable();
-            newTable.setRowSelectionAllowed(true);
-            newTable.setColumnSelectionAllowed(false);
-
-            final JScrollPane scrollPane = new JScrollPane(newTable);
-
-            if (isEditorVersion)
-            {
-                newTable.getModel().addTableModelListener(this);
-
-                newTable.addMouseListener(new MouseAdapter()
+                if (swahiliToEnglish.isSelected())
                 {
+                    languageToTranslateFrom = "SWAHILI";
+                }
+                else if (englishToSwahili.isSelected())
+                {
+                    languageToTranslateFrom = "ENGLISH";
+                }
 
-                    @Override
-                    public void mouseClicked(MouseEvent e)
+                outputPanel.removeAll();
+
+                Translator resultTable =
+                        new Translator(languageToTranslateFrom, word, fields);
+
+                final JTable newTable = resultTable.getTable();
+                newTable.setRowSelectionAllowed(true);
+                newTable.setColumnSelectionAllowed(false);
+
+                final JScrollPane scrollPane = new JScrollPane(newTable);
+
+                if (isEditorVersion)
+                {
+                    newTable.getModel().addTableModelListener(this);
+
+                    newTable.addMouseListener(new MouseAdapter()
                     {
-                        Point point = e.getPoint();
-                        int column = newTable.columnAtPoint(point);
-                        final int row = newTable.rowAtPoint(point);
-                        final String columnName = newTable.getColumnName(column);
-                        String cellValue = (String) newTable.getValueAt(row, column);
-                        oldWord = (cellValue);
 
-                        if (e.isMetaDown())
+                        @Override
+                        public void mouseClicked(MouseEvent e)
                         {
-                            //Display a popup menu
-                            JPopupMenu popupMenu = new JPopupMenu();
-                            JMenuItem editEntry = new JMenuItem("Edit Value");
-                            JMenuItem deleteEntry = new JMenuItem("Delete Word");
-                            JMenuItem addNewEntry = new JMenuItem("Add New Word");
-                            popupMenu.add(editEntry);
-                            popupMenu.add(deleteEntry);
-                            popupMenu.addSeparator();
-                            popupMenu.add(addNewEntry);
-                            editEntry.addActionListener(new ActionListener()
+                            Point point = e.getPoint();
+                            int column = newTable.columnAtPoint(point);
+                            final int row = newTable.rowAtPoint(point);
+                            final String columnName = newTable.getColumnName(column);
+                            String cellValue = (String) newTable.getValueAt(row, column);
+                            oldWord = (cellValue);
+
+                            if (e.isMetaDown())
                             {
-
-                                public void actionPerformed(ActionEvent e)
+                                //Display a popup menu
+                                JPopupMenu popupMenu = new JPopupMenu();
+                                JMenuItem editEntry = new JMenuItem(MessageLocalizer.formatMessage("edit_entry", null));
+                                JMenuItem deleteEntry = new JMenuItem(MessageLocalizer.formatMessage("delete_entry", null));
+                                JMenuItem addNewEntry = new JMenuItem(MessageLocalizer.formatMessage("add_entry", null));
+                                popupMenu.add(editEntry);
+                                popupMenu.add(deleteEntry);
+                                popupMenu.addSeparator();
+                                popupMenu.add(addNewEntry);
+                                editEntry.addActionListener(new ActionListener()
                                 {
-                                    String newWord =
-                                            JOptionPane.showInputDialog(null,
-                                            "Please enter the New Word", oldWord);
 
-                                    if ((newWord != null))
+                                    public void actionPerformed(ActionEvent e)
+                                    {
+                                        String newWord =
+                                                JOptionPane.showInputDialog(null,
+                                                MessageLocalizer.formatMessage("add_entry", null), oldWord);
+
+                                        if ((newWord != null))
+                                        {
+                                            String fromLanguage =
+                                                    (swahiliToEnglish.isSelected())
+                                                    ? "Swahili" : "English";
+
+                                            editor.edit(row, columnName, fromLanguage,
+                                                    oldWord, newWord, searchKey);
+                                            fetchTranslation();
+                                            return;
+                                        }
+                                    }
+                                });
+                                deleteEntry.addActionListener(new ActionListener()
+                                {
+
+                                    public void actionPerformed(ActionEvent e)
                                     {
                                         String fromLanguage =
                                                 (swahiliToEnglish.isSelected())
                                                 ? "Swahili" : "English";
                                         String searchKey = wordField.getText().trim();
 
-                                        editor.edit(row, columnName, fromLanguage,
-                                                oldWord, newWord, searchKey);
+                                        editor.deleteEntry(row, fromLanguage,
+                                                oldWord, searchKey);
                                         fetchTranslation();
                                         return;
                                     }
-                                }
-                            });
-                            deleteEntry.addActionListener(new ActionListener()
-                            {
-
-                                public void actionPerformed(ActionEvent e)
+                                });
+                                addNewEntry.addActionListener(new ActionListener()
                                 {
-                                    String fromLanguage =
-                                            (swahiliToEnglish.isSelected())
-                                            ? "Swahili" : "English";
-                                    String searchKey = wordField.getText().trim();
 
-                                    editor.deleteEntry(row, fromLanguage,
-                                            oldWord, searchKey);
-                                    fetchTranslation();
-                                    return;
-                                }
-                            });
+                                    public void actionPerformed(ActionEvent e)
+                                    {
+                                        new WordAdder().setVisible(true);
+                                    }
+                                });
+                                popupMenu.show(newTable, point.x, point.y);
+                            }
+                        }
+                    });
+                }
+
+                if (resultTable.getResultCount() > 0)
+                {
+                    outputPanel.add(scrollPane, BorderLayout.CENTER);
+                }
+
+                int count = resultTable.getResultCount();
+
+                double finishTimestamp = java.util.Calendar.getInstance().getTimeInMillis();
+
+                Object[] messageArguments =
+                {
+                    count,
+                    ((finishTimestamp - startTimestamp) / 1000)
+                };
+
+                // Update the status bar
+
+
+                if (count == 0)
+                {
+                    updateStatusBar(MessageLocalizer.formatMessage("found_rows", messageArguments));
+                }
+                else
+                {
+                    updateStatusBar(MessageLocalizer.formatMessage("fetched_rows", messageArguments));
+                }
+
+                if (count == 0 && !searchKey.contains("*"))
+                {
+                    addNewWordButton.setVisible(true);
+                }
+                else
+                {
+                    addNewWordButton.setVisible(false);
+                }
+
+                pack();
+
+                scrollPane.addMouseListener(new MouseAdapter()
+                {
+
+                    @Override
+                    public void mouseClicked(MouseEvent e)
+                    {
+                        Point point = e.getPoint();
+
+                        if (e.isMetaDown())
+                        {
+                            //Display a popup menu
+                            JPopupMenu popupMenu = new JPopupMenu();
+                            JMenuItem addNewEntry = new JMenuItem(
+                                    MessageLocalizer.formatMessage("add_entry", null));
+                            popupMenu.add(addNewEntry);
                             addNewEntry.addActionListener(new ActionListener()
                             {
 
                                 public void actionPerformed(ActionEvent e)
                                 {
-                                    String exception = String.valueOf(
-                                            new UnsupportedOperationException(
-                                            "Adding new entries is not yet implemented"));
-                                    MainWindow.showWarning(exception);
+                                    new WordAdder().setVisible(true);
                                 }
                             });
-                            popupMenu.show(newTable, point.x, point.y);
+                            popupMenu.show(scrollPane, point.x, point.y);
                         }
                     }
                 });
             }
-
-            if (resultTable.getResultCount() > 0)
+            else
             {
-                outputPanel.add(scrollPane, BorderLayout.CENTER);
+                showWarning(MessageLocalizer.formatMessage("select_language", null));
             }
-
-            // Update the status bar
-            updateStatusBar(resultTable.getResultCount() + " Rows fetched");
-
-            pack();
-
-            scrollPane.addMouseListener(new MouseAdapter()
-            {
-
-                @Override
-                public void mouseClicked(MouseEvent e)
-                {
-                    Point point = e.getPoint();
-
-                    if (e.isMetaDown())
-                    {
-                        //Display a popup menu
-                        JPopupMenu popupMenu = new JPopupMenu();
-                        JMenuItem addNewEntry = new JMenuItem("Add New Word");
-                        popupMenu.add(addNewEntry);
-                        addNewEntry.addActionListener(new ActionListener()
-                        {
-
-                            public void actionPerformed(ActionEvent e)
-                            {
-                                Exception exception = new UnsupportedOperationException(
-                                        "Adding new entries is not yet implemented");
-                                MainWindow.showWarning(exception.toString());
-                            }
-                        });
-                        popupMenu.show(scrollPane, point.x, point.y);
-                    }
-                }
-            });
         }
-        else
+        catch (Exception ex)
         {
-            showWarning("Please select the desired language first");
+            showError(new Exception(MessageLocalizer.formatMessage("general_error", null)));
         }
     }
 
@@ -785,7 +848,7 @@ public class MainWindow extends JFrame implements TableModelListener
      * Updates the status bar with the new status message
      * @param newMessage the new message to be displayed
      */
-    private void updateStatusBar(String newMessage)
+    private static void updateStatusBar(String newMessage)
     {
         statusLabel.setText(newMessage);
     }
@@ -799,28 +862,60 @@ public class MainWindow extends JFrame implements TableModelListener
     {
         String word = wordField.getText().trim();
 
-        if (e.isActionKey())
+        if (word.contains("*"))
+        {
+
+            Object[] options =
+            {
+                "Yes",
+                "No"
+            };
+
+            int choice = 0;
+
+//                    JOptionPane.showOptionDialog(null,
+//                    MessageLocalizer.formatMessage("wildcard_search", null),
+//                    props.getName(),
+//                    JOptionPane.YES_NO_OPTION,
+//                    JOptionPane.QUESTION_MESSAGE,
+//                    null, //do not use a custom Icon
+//                    options, //the titles of buttons
+//                    options[1]); //default button title
+
+            switch (choice)
+            {
+                case 0: //YES
+                    break;
+
+                default:
+                    word = word.replaceAll("\\*", "");
+                    wordField.setText(word);
+                    break;
+            }
+
+        }
+
+        int keyCode = e.getKeyCode();
+
+//        System.out.println(keyCode);
+
+        if (e.isActionKey() || keyCode == 16 || // Shift
+                keyCode == 17 || // CTRL
+                keyCode == 18 // ALT
+                )
         {
         }
-        else if (e.getKeyCode() == 8) // Backspace
+        else if (e.getKeyCode() == 8 && word.length() == 0) // Backspace
         {
-            if (word.length() == 0) // Backspace
-            {
-                reset();
-            }
-            else
-            {
-                setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-                displayTable(word);
-                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-            }
+            reset();
         }
         else
         {
             setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
             displayTable(word);
-            setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
         }
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+        resetButton.setText(MessageLocalizer.formatMessage("reset_button", null));
     }
 
     /**
@@ -853,12 +948,16 @@ public class MainWindow extends JFrame implements TableModelListener
 
         if (synchronizer.canSync())
         {
-            String message = "We will now fetch " + size + " bytes of updates.\n\n" +
-                    "Proceed?";
+            Object[] messageArguments =
+            {
+                size
+            };
+            String message = MessageLocalizer.formatMessage("download_update_confirm", messageArguments);
+
             Object[] options =
             {
-                "Yes",
-                "No"
+                MessageLocalizer.formatMessage("yes", null),
+                MessageLocalizer.formatMessage("no", null)
             };
 
             int choice = JOptionPane.showOptionDialog(null,
@@ -892,8 +991,7 @@ public class MainWindow extends JFrame implements TableModelListener
         else
         {
             updating = false;
-            MainWindow.showError("An error occurred while synchronizing.\n" +
-                    "Check your connection to the Internet or try again later.");
+            showError(new Exception(MessageLocalizer.formatMessage("synch_error", null)));
 
         }
         reset();
@@ -926,8 +1024,8 @@ public class MainWindow extends JFrame implements TableModelListener
 
             Object[] options =
             {
-                "Yes",
-                "No"
+                MessageLocalizer.formatMessage("yes", null),
+                MessageLocalizer.formatMessage("no", null)
             };
 
             int choice = JOptionPane.showOptionDialog(null,
@@ -944,7 +1042,7 @@ public class MainWindow extends JFrame implements TableModelListener
                 case 0: //YES
                     fileSynchronize.setEnabled(false);
                     helpDownloadOriginal.setEnabled(false);
-                    updateStatusBar("Downloading update");
+                    updateStatusBar(MessageLocalizer.formatMessage("downloading_update", null));
                     JPanel updatePanel = new JPanel();
                     updatePanel.setLayout(new BorderLayout());
                     updatePanel.add(progressBar, BorderLayout.CENTER);
@@ -955,12 +1053,12 @@ public class MainWindow extends JFrame implements TableModelListener
                     break;
 
                 case 1: //NO
-                    updateStatusBar("Database update cancelled.");
+                    updateStatusBar(MessageLocalizer.formatMessage("update_cancelled", null));
                     updating = false;
                     break;
 
                 case -1: //Closed Window
-                    updateStatusBar("Database update cancelled.");
+                    updateStatusBar(MessageLocalizer.formatMessage("update_cancelled", null));
                     updating = false;
                     break;
 
@@ -986,30 +1084,73 @@ public class MainWindow extends JFrame implements TableModelListener
         int totalInInt = (int) totalDownloadSize;
         int percentage = (int) Math.ceil((downloadedInInt * 100) / totalInInt);
 //        int percentage = (downloadedInInt * 100) / totalInInt;
-        progressBar.setString("Updating database. Downloaded " + downloadedInInt +
-                " out of " + totalInInt + " bytes (" + percentage + "% )");
+        Object[] messageArguments =
+        {
+            downloadedInInt,
+            totalInInt,
+            percentage
+        };
+
+        progressBar.setString(MessageLocalizer.formatMessage("download_progress", messageArguments));
         progressBar.setValue(percentage);
-        logger.log("Downloaded update: " + downloadedInInt + " out of " + totalInInt);
+        logger.log(MessageLocalizer.formatMessage("download_progress", messageArguments));
+
         if (percentage >= 100)
         {
-            fileSynchronize.setEnabled(false);
+//            fileSynchronize.setEnabled(false);
             helpDownloadOriginal.setEnabled(false);
             cancelUpdateButton.setEnabled(false);
             updating = false;
 
-            showInfo("Database has been updated successfully.");
+            showInfo(MessageLocalizer.formatMessage("update_success", null));
         }
     }
 
     /**
      * Displays an error message
-     * @param message The error message
+     * @param exception The exception itself
      */
-    protected static void showError(String message)
+    protected static void showError(Exception exception)
     {
-        logger.log(message);
-        JOptionPane.showMessageDialog(null, message,
-                APPLICATION_NAME, JOptionPane.ERROR_MESSAGE);
+        if (props.printStackTrace())
+        {
+            exception.printStackTrace();
+        }
+
+        logger.log(exception.getMessage());
+
+        Object[] options =
+        {
+            MessageLocalizer.formatMessage("send_bug_report", null),
+            MessageLocalizer.formatMessage("close", null)
+        };
+
+        int choice = JOptionPane.showOptionDialog(null,
+                exception.getMessage(),
+                props.getName(),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, //do not use a custom Icon
+                options, //the titles of buttons
+                options[1]); //default button title
+
+        switch (choice)
+        {
+            case 0: //YES
+//                    TODO Add code to send a bug report
+                DebugTool kamusiDebugger = new DebugTool();
+                kamusiDebugger.sendErrorDetails();
+                break;
+
+            case 1: //NO
+                break;
+
+            case -1: //Closed Window
+                break;
+
+            default:
+                break;
+        }
     }
 
     /**

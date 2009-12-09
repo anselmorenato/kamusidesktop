@@ -31,11 +31,11 @@ public class Restorer extends KamusiLogger
     /**
      * The name of the app database
      */
-    private static final String originaldb = "kamusiproject.db";
+    private static final String originaldb = "jdbc:sqlite:" + System.getProperty("database");
     /**
      * Temporary name to hold the update
      */
-    private final String updatedb = "kamusiproject.db_bakup";
+    private final String updatedb = "jdbc:sqlite:" + System.getProperty("database") + "_bakup";
     /**
      * Thread to show the update progress
      */
@@ -51,14 +51,11 @@ public class Restorer extends KamusiLogger
     /**
      * Message to be displayed in case of an error
      */
-    private String updateErrorMessage = "An error occurred while restoring database.\n" +
-            "Check your connection to the Internet or try again later.";
+    private String restoreErrorMessage = MessageLocalizer.formatMessage("restore_error", null);
     /**
      * The restore URL
      */
-    public static final String UPDATE_URL =
-            //            "http://localhost:8084/kamusiproject/kamusiproject.db";
-            "http://pm.suuch.com:8080/kamusiproject/kamusiproject.db";
+    public static final String RESTORE_URL = new KamusiProperties().getRestoreURL();
     private static URL url;
     /**
      * Loads system properties
@@ -93,12 +90,12 @@ public class Restorer extends KamusiLogger
     {
         boolean updateCancelled = false;
 
-        String message = "Are you sure you want to cancel the database update?";
+        String message = MessageLocalizer.formatMessage("confirm_restore_cancel", null);
 
         Object[] options =
         {
-            "Yes",
-            "No"
+            MessageLocalizer.formatMessage("yes", null),
+            MessageLocalizer.formatMessage("no", null)
         };
 
         int choice = JOptionPane.showOptionDialog(null,
@@ -157,7 +154,7 @@ public class Restorer extends KamusiLogger
                 // Leave the original db intact
                 // Save the new restore as a temporary file
 
-                url = new URL(UPDATE_URL);
+                url = new URL(RESTORE_URL);
                 URLConnection connection = url.openConnection();
 
                 BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
@@ -180,28 +177,13 @@ public class Restorer extends KamusiLogger
 
                 cleanUp();
             }
-            catch (java.net.UnknownHostException ex)
-            {
-                log(ex.toString());
-                // Restore the original file
-                restoreOriginal();
-                MainWindow.showError(updateErrorMessage);
-            }
-            catch (MalformedURLException ex)
-            {
-                log(ex.toString());
-                // Restore the original file
-                restoreOriginal();
-                MainWindow.showError(updateErrorMessage);
-            }
-            catch (IOException ex)
+            catch (Exception ex)
             {
                 log(ex.toString());
                 // Restore the original file
                 restoreOriginal();
 
-                MainWindow.showError(updateErrorMessage +
-                        "\n\nCheck your log files for further details regarding this error.");
+                MainWindow.showError(ex);
             }
         }
 
@@ -233,7 +215,7 @@ public class Restorer extends KamusiLogger
     {
         try
         {
-            url = new URL(UPDATE_URL);
+            url = new URL(RESTORE_URL);
 
             URLConnection connection = url.openConnection();
             sizeOfUpdate = connection.getContentLength();
@@ -241,26 +223,12 @@ public class Restorer extends KamusiLogger
             connection.getInputStream().close();
             canRestore = true;
         }
-        catch (java.net.UnknownHostException ex)
+        catch (Exception ex)
         {
             log(ex.toString());
             // Restore the original file
             restoreOriginal();
-            MainWindow.showError(updateErrorMessage);
-        }
-        catch (MalformedURLException ex)
-        {
-            log(ex.toString());
-            // Restore the original file
-            restoreOriginal();
-            MainWindow.showError(updateErrorMessage);
-        }
-        catch (IOException ex)
-        {
-            log(ex.toString());
-            // Restore the original file
-            restoreOriginal();
-            MainWindow.showError(updateErrorMessage);
+            MainWindow.showError(ex);
         }
 
         return sizeOfUpdate;

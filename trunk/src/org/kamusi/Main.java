@@ -30,8 +30,24 @@ public class Main
      */
     public static void main(String[] args)
     {
+        String language;
+        String country;
+
+        if (args.length != 2)
+        {
+            language = new String("en");
+            country = new String("US");
+        }
+        else
+        {
+            language = new String(args[0]);
+            country = new String(args[1]);
+        }
+
         logSystemProperties();
         initLookAndFeel();
+        initDatabaseDriver();
+
         if (props.getEditor())
         {
             if (askForUsername())
@@ -51,6 +67,7 @@ public class Main
     private static void runApplication()
     {
         MainWindow mainWindow = new MainWindow();
+        mainWindow.setResizable(false);
         mainWindow.setVisible(true);
     }
 
@@ -227,5 +244,20 @@ public class Main
         systemProperties.append(" " + System.getProperty("java.vendor"));
         systemProperties.append(" ]");
         logger.log(systemProperties.toString());
+    }
+
+    /**
+     * Initializes the database driver
+     */
+    private static void initDatabaseDriver()
+    {
+        try
+        {
+            Class.forName("org.sqlite.JDBC").newInstance();
+        }
+        catch (Exception ex)
+        {
+            logger.log(ex.toString());
+        }
     }
 }

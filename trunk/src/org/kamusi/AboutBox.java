@@ -48,7 +48,7 @@ public class AboutBox extends javax.swing.JDialog
         setAlwaysOnTop(true);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setIconImage(null);
-        setMinimumSize(new java.awt.Dimension(500, 250));
+        setMinimumSize(new java.awt.Dimension(500, 300));
         setResizable(false);
 
         okButton.setFont(new java.awt.Font("Dialog", 0, 12));
@@ -110,15 +110,15 @@ public class AboutBox extends javax.swing.JDialog
     private void updateAboutBox()
     {
 
-        final String build = "1249930188890";
+        final String build = "1266233191845";
 
         final String about =
-                "Product Version: " + props.getName() + " Build " + props.getVersion() + "\n" +
+                "Product Version: " + props.getName() + " Build " + build + "\n" +
                 "Java: " + System.getProperty("java.version") + "\n" +
                 "System: " + System.getProperty("os.name") + " version " + System.getProperty("os.version") + "\n\n";
 
         final String disclaimer =
-                props.getName() + " and Kamusi Project are based on software from www.kamusi.org. " +
+                props.getName() + " and Kamusi Project are based on data and software from www.kamusi.org. " +
                 "For more information, please visit www.kamusi.org.\n\n";
 
         contentArea.setEditable(false);
