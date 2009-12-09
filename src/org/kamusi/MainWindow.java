@@ -6,6 +6,7 @@
 package org.kamusi;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -678,30 +679,36 @@ public class MainWindow extends JFrame implements TableModelListener
 
                 outputPanel.removeAll();
 
-                Translator resultTable =
+                Translator translator =
                         new Translator(languageToTranslateFrom, word, fields);
+                
+                final JTable resultsTable = translator.getTable();
 
-                final JTable newTable = resultTable.getTable();
-                newTable.setRowSelectionAllowed(true);
-                newTable.setColumnSelectionAllowed(false);
+//                resultsTable.print();
+//                final JTable resultsTable = new JTable(new Translator(languageToTranslateFrom, word, fields));
 
-                final JScrollPane scrollPane = new JScrollPane(newTable);
+                resultsTable.setRowSelectionAllowed(true);
+                resultsTable.setColumnSelectionAllowed(false);
+
+                final JScrollPane scrollPane = new JScrollPane(resultsTable);
+
+                scrollPane.setBackground(Color.WHITE);
 
                 if (isEditorVersion)
                 {
-                    newTable.getModel().addTableModelListener(this);
+                    resultsTable.getModel().addTableModelListener(this);
 
-                    newTable.addMouseListener(new MouseAdapter()
+                    resultsTable.addMouseListener(new MouseAdapter()
                     {
 
                         @Override
                         public void mouseClicked(MouseEvent e)
                         {
                             Point point = e.getPoint();
-                            int column = newTable.columnAtPoint(point);
-                            final int row = newTable.rowAtPoint(point);
-                            final String columnName = newTable.getColumnName(column);
-                            String cellValue = (String) newTable.getValueAt(row, column);
+                            int column = resultsTable.columnAtPoint(point);
+                            final int row = resultsTable.rowAtPoint(point);
+                            final String columnName = resultsTable.getColumnName(column);
+                            String cellValue = (String) resultsTable.getValueAt(row, column);
                             oldWord = (cellValue);
 
                             if (e.isMetaDown())
@@ -761,18 +768,18 @@ public class MainWindow extends JFrame implements TableModelListener
                                         new WordAdder().setVisible(true);
                                     }
                                 });
-                                popupMenu.show(newTable, point.x, point.y);
+                                popupMenu.show(resultsTable, point.x, point.y);
                             }
                         }
                     });
                 }
 
-                if (resultTable.getResultCount() > 0)
+                if (translator.getResultCount() > 0)
                 {
                     outputPanel.add(scrollPane, BorderLayout.CENTER);
                 }
 
-                int count = resultTable.getResultCount();
+                int count = translator.getResultCount();
 
                 double finishTimestamp = java.util.Calendar.getInstance().getTimeInMillis();
 
