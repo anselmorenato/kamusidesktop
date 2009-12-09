@@ -6,6 +6,8 @@
 package org.kamusi;
 
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +16,8 @@ import java.sql.SQLException;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.swing.JTable;
+import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -169,6 +173,12 @@ public class Translator extends DefaultTableModel
             {
                 logger.log(row + " results matched for \"" + word + "\" from " + fromLanguage);
                 table = new JTable(data, headers);
+                table.getTableHeader().setDefaultRenderer(new MyHeaderRenderer());
+                table.setDefaultRenderer(Object.class, new MyCellRenderer());
+                table.setIntercellSpacing(new Dimension(1, 1));
+                table.setShowHorizontalLines(false);
+                table.setShowVerticalLines(true);
+                table.setGridColor(Color.lightGray);
 
 //                table.print();
 
@@ -226,6 +236,70 @@ public class Translator extends DefaultTableModel
     public int getResultCount()
     {
         return row;
+    }
+
+    /**
+     * The cell renderer.
+     */
+    private class MyCellRenderer extends DefaultTableCellRenderer
+    {
+
+        private Color whiteColor = Color.WHITE;
+        private Color alternateColor = new Color(237, 243, 254);
+        private Color selectedColor = new Color(153, 153, 204);
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table,
+                Object value, boolean selected, boolean focused,
+                int row, int column)
+        {
+            super.getTableCellRendererComponent(table, value,
+                    selected, focused, row, column);
+
+// Set the background color
+            Color bg;
+            if (!selected)
+            {
+                bg = (row % 2 == 0 ? alternateColor : whiteColor);
+            }
+            else
+            {
+                bg = selectedColor;
+            }
+            setBackground(bg);
+
+// Set the foreground to white when selected
+            Color fg;
+            if (selected)
+            {
+                fg = Color.white;
+            }
+            else
+            {
+                fg = Color.black;
+            }
+            setForeground(fg);
+
+            return this;
+        }
+    }
+
+    /**
+     * The header renderer. All this does is make the text left aligned.
+     */
+    public class MyHeaderRenderer extends DefaultTableCellRenderer
+    {
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table,
+                Object value, boolean selected, boolean focused,
+                int row, int column)
+        {
+            super.getTableCellRendererComponent(table, value,
+                    selected, focused, row, column);
+            setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+            return this;
+        }
     }
 
     /**
