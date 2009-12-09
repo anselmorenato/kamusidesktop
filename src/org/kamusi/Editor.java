@@ -32,15 +32,15 @@ public class Editor extends KamusiLogger
     /**
      * Database URL
      */
-    private final String DATABASE = "jdbc:sqlite:kamusiproject.db";
+    private final String DATABASE = "jdbc:sqlite:" + System.getProperty("database");
     /**
      * Database username
      */
-    private final String USERNAME = "";
+    private final String USERNAME = System.getProperty("database_username");
     /**
      * Database password
      */
-    private final String PASSWORD = "";
+    private final String PASSWORD = System.getProperty("database_password");
     /**
      * The database connection
      */
@@ -67,22 +67,7 @@ public class Editor extends KamusiLogger
      */
     public Editor()
     {
-        try
-        {
-            Class.forName("org.sqlite.JDBC").newInstance();
-        }
-        catch (ClassNotFoundException ex)
-        {
-            log(ex.toString());
-        }
-        catch (InstantiationException ex)
-        {
-            log(ex.toString());
-        }
-        catch (IllegalAccessException ex)
-        {
-            log(ex.toString());
-        }
+        
     }
 
     /**
@@ -225,11 +210,11 @@ public class Editor extends KamusiLogger
 
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
-                query = Translator.getQuery("english");
+                query = Translator.getQuery("english", searchKey.contains("\\*"));
             }
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
-                query = Translator.getQuery("swahili");
+                query = Translator.getQuery("swahili", searchKey.contains("\\*"));
             }
 
             connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
@@ -259,12 +244,12 @@ public class Editor extends KamusiLogger
         catch (SQLException ex)
         {
             log(ex.toString());
-            MainWindow.showError(ex.toString());
+            MainWindow.showError(ex);
         }
         catch (Exception ex)
         {
             log(ex.toString());
-            MainWindow.showError(ex.toString());
+            MainWindow.showError(ex);
         }
         return id;
     }
@@ -374,7 +359,7 @@ public class Editor extends KamusiLogger
         catch (IOException ex)
         {
             log("Failed to update edit log: " + ex.toString());
-            MainWindow.showError(ex.toString());
+            MainWindow.showError(ex);
         }
     }
 
@@ -399,12 +384,12 @@ public class Editor extends KamusiLogger
         catch (SQLException ex)
         {
             log(ex.toString());
-            MainWindow.showError(ex.toString());
+            MainWindow.showError(ex);
         }
         catch (Exception ex)
         {
             log(ex.toString());
-            MainWindow.showError(ex.toString());
+            MainWindow.showError(ex);
         }
     }
 
@@ -418,8 +403,9 @@ public class Editor extends KamusiLogger
      */
     public void deleteEntry(int row, String fromLanguage, String oldWord, String searchKey)
     {
+        System.out.println("Deleting entry " + getID(row, fromLanguage, searchKey));
         String exception =
-                new UnsupportedOperationException("Deleting entries is not yet implemented").toString();
+                new UnsupportedOperationException("Deleting entries is not yet implemented").getMessage();
         MainWindow.showWarning(exception);
     }
 

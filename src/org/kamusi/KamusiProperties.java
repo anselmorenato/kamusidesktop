@@ -22,10 +22,10 @@ public class KamusiProperties extends KamusiLogger
     private boolean decorated;
     private String theme;
     private String lookAndFeel;
-    private String fileMenu;
-    private String fileSynchronize;
-    private String filePrint;
+    private String stackTrace;
     private String editor;
+    private String restore_url;
+    private String sync_url;
 
     public boolean isDecorated()
     {
@@ -39,47 +39,7 @@ public class KamusiProperties extends KamusiLogger
         }
         return decorated;
     }
-
-    public String getEditMenu()
-    {
-        return editMenu;
-    }
-
-    public String getFileMenu()
-    {
-        return fileMenu;
-    }
-
-    public String getFilePrint()
-    {
-        return filePrint;
-    }
-
-    public String getFileQuit()
-    {
-        return fileQuit;
-    }
-
-    public String getFileSynchronize()
-    {
-        return fileSynchronize;
-    }
-
-    public String getHelpAbout()
-    {
-        return helpAbout;
-    }
-
-    public String getHelpMenu()
-    {
-        return helpMenu;
-    }
-
-    public String getHelpRestore()
-    {
-        return helpRestore;
-    }
-
+    
     public String getLogFormat()
     {
         return logFormat;
@@ -105,16 +65,26 @@ public class KamusiProperties extends KamusiLogger
         return theme;
     }
 
+    public String getRestoreURL()
+    {
+        return restore_url;
+    }
+
+    public String getSyncURL()
+    {
+        return sync_url;
+    }
+
     public boolean getEditor()
     {
         return editor.equals("0")? false: true;
     }
 
-    private String fileQuit;
-    private String editMenu;
-    private String helpMenu;
-    private String helpRestore;
-    private String helpAbout;
+    public boolean printStackTrace()
+    {
+        return stackTrace.equals("1")? true: false;
+    }
+
     private String logFormat;
 
     public KamusiProperties()
@@ -128,32 +98,24 @@ public class KamusiProperties extends KamusiLogger
             // set the system properties
             System.setProperties(properties);
 
-
-            name = System.getProperty("app.name").trim();
+            name = "Kamusi Desktop";
 //            version = System.getProperty("app.version").trim();
-            version = "2.0.1_Beta";
+            version = "2.6_Alpha";
             decorated = false;
             lookAndFeel = System.getProperty("app.lookAndFeel").trim();
             theme = System.getProperty("app.theme").trim();
 
-            fileMenu = System.getProperty("file.menu").trim();
-            fileSynchronize = System.getProperty("file.synchronize").trim();
-            filePrint = System.getProperty("file.print").trim();
-            fileQuit = System.getProperty("file.quit").trim();
-
-            editMenu = System.getProperty("edit.menu").trim();
-
-            helpMenu = System.getProperty("help.menu").trim();
-            helpRestore = System.getProperty("help.restore").trim();
-            helpAbout = System.getProperty("help.about").trim();
+            stackTrace = System.getProperty("app.print_stack_trace").trim();
 
             logFormat = System.getProperty("log.format").trim();
 
             editor = System.getProperty("app.editor").trim();
+            restore_url = System.getProperty("restore_url").trim();
+            sync_url = System.getProperty("sync_url").trim();
         }
         catch (Exception ex)
         {
-            ex.printStackTrace();
+            MainWindow.showError(ex);
             log(ex.toString());
         }
     }

@@ -41,14 +41,14 @@ public class KamusiLogger
         BufferedWriter writer = null;
         try
         {
-            fstream = new FileWriter(getFileName(), true);
+            fstream = new FileWriter(getLogFileName(), true);
             writer = new BufferedWriter(fstream);
             writer.write(getTimeStamp() + " " + message);
             writer.newLine();
         }
         catch (IOException ex)
         {
-            MainWindow.showError(ex.toString());
+            MainWindow.showError(ex);
         }
         finally
         {
@@ -58,7 +58,7 @@ public class KamusiLogger
             }
             catch (IOException ex)
             {
-                MainWindow.showError(ex.toString());
+                MainWindow.showError(ex);
             }
         }
     }
@@ -77,7 +77,7 @@ public class KamusiLogger
      * Gets the name of the log file
      * @return The log file in the form yyyy-MM-dd.log
      */
-    private String getFileName()
+    public String getLogFileName()
     {
         KamusiProperties props = new KamusiProperties();
         String logFormat = props.getLogFormat();

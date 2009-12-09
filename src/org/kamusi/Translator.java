@@ -5,6 +5,7 @@
  */
 package org.kamusi;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -25,15 +26,15 @@ public class Translator extends DefaultTableModel
     /**
      * The translation SQLite3 database
      */
-    private final String DATABASE = "jdbc:sqlite:kamusiproject.db";
+    private final String DATABASE = "jdbc:sqlite:" + System.getProperty("database");
     /**
      * Translation database username. Defaults to blank
      */
-    private final String USERNAME = "";
+    private final String USERNAME = System.getProperty("database_username");
     /**
      * Translation database password. Defaults to blank
      */
-    private final String PASSWORD = "";
+    private final String PASSWORD = System.getProperty("database_password");
     /**
      * Table to display the output
      */
@@ -49,7 +50,6 @@ public class Translator extends DefaultTableModel
      */
     private String englishWord, swahiliWord, englishExample, swahiliExample, swahiliPlural,
             englishPlural;
-    
     private Vector<String> headers;
     private Vector<Vector<String>> data;
     private Vector<String> rows;
@@ -72,12 +72,10 @@ public class Translator extends DefaultTableModel
     public Translator(String fromLanguage, String word, Vector<String> fields)
     {
 
+        boolean wildCardSearch = word.contains("*");
+
         try
         {
-            Class.forName("org.sqlite.JDBC").newInstance();
-
-            StringBuffer fieldStringBuffer = new StringBuffer();
-
             connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
 
             String query = "";
@@ -86,41 +84,36 @@ public class Translator extends DefaultTableModel
 
             if (fromLanguage.equalsIgnoreCase("ENGLISH"))
             {
-                query = getQuery("english");
+                query = getQuery("english", wildCardSearch);
 
                 headers.addElement("English");
                 headers.addElement("Swahili");
-
-                Enumeration<String> availableFields = fields.elements();
-
-                while (availableFields.hasMoreElements())
-                {
-                    headers.addElement(availableFields.nextElement());
-                }
             }
             else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
             {
-                query = getQuery("swahili");
+                query = getQuery("swahili", wildCardSearch);
 
                 headers.addElement("Swahili");
                 headers.addElement("English");
-
-                Enumeration<String> availableFields = fields.elements();
-
-                while (availableFields.hasMoreElements())
-                {
-                    headers.addElement(availableFields.nextElement());
-                }
             }
             else
             {
                 throw new Exception("Undefined language!");
             }
 
+            Enumeration<String> availableFields = fields.elements();
+
+            while (availableFields.hasMoreElements())
+            {
+                headers.addElement(availableFields.nextElement());
+            }
+
             statement = connection.prepareStatement(query);
 
-//            statement.setString(1, "%" + word + "%");
-            statement.setString(1, word);
+            String parameter = wildCardSearch ? word.replaceAll("\\*", "%") : word;
+
+            statement.setString(1, parameter);
+            statement.setString(2, parameter);
 
             resultSet = statement.executeQuery();
 
@@ -152,7 +145,6 @@ public class Translator extends DefaultTableModel
                     rows.addElement(swahiliWord);
                     rows.addElement(englishWord);
                 }
-
                 if (fields.contains("English Plural"))
                 {
                     rows.addElement(englishPlural);
@@ -176,28 +168,30 @@ public class Translator extends DefaultTableModel
             if (row > 0)
             {
                 logger.log(row + " results matched for \"" + word + "\" from " + fromLanguage);
-                table.setModel(new JTable(data, headers).getModel());
-            }
-        }
-        catch (SQLException ex)
-        {
-            logger.log(ex.toString());
+                table = new JTable(data, headers);
 
-            if (ex.getMessage().equalsIgnoreCase("no such table: dict"))
-            {
-                MainWindow.showError(props.getName() + " Could not find database or " +
-                        "your database may be corrupt.\nYou may " +
-                        "select Help -> Restore in order to fetch a new database.");
-            }
-            else
-            {
-                MainWindow.showError(ex.toString());
+//                table.print();
+
+//                for (int i = 0; i < table.getRowCount(); i++)
+//                {
+//
+//                    int rowToSelect = i;
+//
+//                    if ((rowToSelect % 2) == 0)
+//                    {
+//                        table.setRowSelectionInterval(rowToSelect, rowToSelect);
+//                    }
+//                }
             }
         }
         catch (Exception ex)
         {
             logger.log(ex.toString());
-            MainWindow.showError(ex.toString());
+
+//                MainWindow.showError(props.getName() + " Could not find database or " +
+//                        "your database may be corrupt.\nYou may " +
+//                        "select Help -> Restore in order to fetch a new database.");
+            MainWindow.showError(ex);
         }
         finally
         {
@@ -210,8 +204,9 @@ public class Translator extends DefaultTableModel
             catch (SQLException ex)
             {
                 logger.log(ex.toString());
-                MainWindow.showError(ex.toString());
+                MainWindow.showError(ex);
             }
+
         }
     }
 
@@ -236,18 +231,33 @@ public class Translator extends DefaultTableModel
     /**
      * The query used to perform serches in the database
      * @param language The language from which we are translating
+     * @param wildcardSearch Is the search a wild card search?
      * @return The appropriate SQL query
      */
-    public static String getQuery(String language)
+    public static String getQuery(String language, boolean wildcardSearch)
     {
+//        return MessageLocalizer.getQuery(language);
+
         language = language.trim();
 
-        String query =
-                "SELECT DISTINCT di.*, wg.GroupNum, wg.InGroupPos " +
-                "FROM dict AS di " +
-                "LEFT JOIN word_grouping AS wg " +
-                "WHERE wg.WordId = di.Id AND " + language + "SortBy = ? " +
-                "ORDER BY di." + language + "Word ASC";
+//        String query = (wildcardSearch) ? "SELECT DISTINCT di.*, wg.GroupNum, wg.InGroupPos " +
+//                "FROM dict AS di " +
+//                "LEFT JOIN word_grouping AS wg " +
+//                "WHERE wg.WordId = di.Id AND (" + language + "SortBy LIKE ? OR " +
+//                language + "Plural LIKE ?) " +
+//                "ORDER BY di." + language + "Word ASC"
+//                : "SELECT DISTINCT di.*, wg.GroupNum, wg.InGroupPos " +
+//                "FROM dict AS di " +
+//                "LEFT JOIN word_grouping AS wg " +
+//                "WHERE wg.WordId = di.Id AND (" + language + "SortBy = ? OR " +
+//                language + "Plural = ?) " +
+//                "ORDER BY di." + language + "Word ASC";
+        String query = (wildcardSearch) ? "SELECT * FROM dict where " + language + "SortBy LIKE ? OR " +
+                language + "Plural LIKE ? " +
+                "ORDER BY " + language + "Word ASC"
+                : "SELECT * FROM dict where " + language + "SortBy = ? OR " +
+                language + "Plural = ? " +
+                "ORDER BY " + language + "Word ASC";
 
         return query;
     }
