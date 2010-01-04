@@ -21,6 +21,7 @@ import java.awt.event.MouseEvent;
 import java.awt.print.PrinterException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.text.DecimalFormat;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -93,13 +94,18 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     private JPanel languagePanel;
     /**
-     * Radio for Swahili to English translation
+     * The languages
      */
-    private JRadioButton swahiliToEnglish;
+    String language1 = System.getProperty("language1");
+    String language2 = System.getProperty("language2");
     /**
-     * Radio for English to Swahili translation
+     * Radio for language2 to language1 translation
      */
-    private JRadioButton englishToSwahili;
+    private JRadioButton language2Tolanguage1;
+    /**
+     * Radio for language1 to language2 translation
+     */
+    private JRadioButton language1Tolanguage2;
     /**
      * Button group for the languages
      */
@@ -123,12 +129,12 @@ public class MainWindow extends JFrame implements TableModelListener
     /**
      * Checkboxes for the fields to be displayed
      */
-    private JCheckBox swahiliWord;
-    private JCheckBox englishWord;
-    private JCheckBox englishExample;
-    private JCheckBox swahiliExample;
-    private JCheckBox englishPlural;
-    private JCheckBox swahiliPlural;
+    private JCheckBox language2Word;
+    private JCheckBox language1Word;
+    private JCheckBox language1Example;
+    private JCheckBox language2Example;
+    private JCheckBox language1Plural;
+    private JCheckBox language2Plural;
     /**
      * The MenuBar
      */
@@ -257,18 +263,18 @@ public class MainWindow extends JFrame implements TableModelListener
                 if (isEditorVersion)
                 {
                     message =
-                            MessageLocalizer.formatMessage("confirm_update", null) +
-                            MessageLocalizer.formatMessage("further_details_editor_confirm_update",
+                            MessageLocalizer.formatMessage("confirm_update", null)
+                            + MessageLocalizer.formatMessage("further_details_editor_confirm_update",
                             new Object[]
                             {
                                 APPLICATION_NAME
-                            }) +
-                            MessageLocalizer.formatMessage("proceed", null);
+                            })
+                            + MessageLocalizer.formatMessage("proceed", null);
                 }
                 else
                 {
-                    message = MessageLocalizer.formatMessage("confirm_update", null) +
-                            MessageLocalizer.formatMessage("proceed", null);
+                    message = MessageLocalizer.formatMessage("confirm_update", null)
+                            + MessageLocalizer.formatMessage("proceed", null);
                 }
 
                 Object[] options =
@@ -301,7 +307,22 @@ public class MainWindow extends JFrame implements TableModelListener
                         statusPanel.add(updatePanel, BorderLayout.CENTER);
                         pack();
 
-                        synchronizeDatabases();
+                        try
+                        {
+                            synchronizeDatabases();
+                        }
+                        catch (UnknownHostException ex)
+                        {
+                            showError(ex);
+                        }
+                        catch (MalformedURLException ex)
+                        {
+                            showError(ex);
+                        }
+                        catch (IOException ex)
+                        {
+                            showError(ex);
+                        }
                         break;
 
                     case 1: //NO
@@ -319,6 +340,7 @@ public class MainWindow extends JFrame implements TableModelListener
                         reset();
                         break;
                 }
+                setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
 
@@ -353,7 +375,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
             public void actionPerformed(ActionEvent e)
             {
-                new WordAdder().setVisible(true);
+                new WordAdder(wordField.getText(), language1Tolanguage2.isSelected()).setVisible(true);
             }
         });
 
@@ -378,13 +400,20 @@ public class MainWindow extends JFrame implements TableModelListener
 
             public void actionPerformed(ActionEvent e)
             {
-                downloadOriginalDatabase();
+                try
+                {
+                    downloadOriginalDatabase();
+                }
+                catch (IOException ex)
+                {
+                    showError(ex);
+                }
             }
         });
         /**
          * Add a listener for the radio buttons
          */
-        swahiliToEnglish.addActionListener(new ActionListener()
+        language2Tolanguage1.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
@@ -392,7 +421,7 @@ public class MainWindow extends JFrame implements TableModelListener
                 fetchTranslation();
             }
         });
-        englishToSwahili.addActionListener(new ActionListener()
+        language1Tolanguage2.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
@@ -403,7 +432,7 @@ public class MainWindow extends JFrame implements TableModelListener
         /**
          * Add a listener for the checkboxes
          */
-        englishExample.addActionListener(new ActionListener()
+        language1Example.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
@@ -411,7 +440,7 @@ public class MainWindow extends JFrame implements TableModelListener
                 fetchTranslation();
             }
         });
-        englishPlural.addActionListener(new ActionListener()
+        language1Plural.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
@@ -419,7 +448,7 @@ public class MainWindow extends JFrame implements TableModelListener
                 fetchTranslation();
             }
         });
-        swahiliExample.addActionListener(new ActionListener()
+        language2Example.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
@@ -427,7 +456,7 @@ public class MainWindow extends JFrame implements TableModelListener
                 fetchTranslation();
             }
         });
-        swahiliPlural.addActionListener(new ActionListener()
+        language2Plural.addActionListener(new ActionListener()
         {
 
             public void actionPerformed(ActionEvent e)
@@ -448,13 +477,13 @@ public class MainWindow extends JFrame implements TableModelListener
 
         Vector<String> fields = getDisplayableFields();
 
-        if (swahiliToEnglish.isSelected())
+        if (language2Tolanguage1.isSelected())
         {
-            languageToTranslateFrom = "SWAHILI";
+            languageToTranslateFrom = language2;
         }
-        else if (englishToSwahili.isSelected())
+        else if (language1Tolanguage2.isSelected())
         {
-            languageToTranslateFrom = "ENGLISH";
+            languageToTranslateFrom = language1;
         }
 
         TableModel model = new Translator(languageToTranslateFrom, word, fields);
@@ -487,14 +516,21 @@ public class MainWindow extends JFrame implements TableModelListener
         wordLabel = new JLabel(MessageLocalizer.formatMessage("word_label", null), JLabel.LEFT);
         wordField = new JTextField(70);
         language = new ButtonGroup();
-        swahiliToEnglish = new JRadioButton(MessageLocalizer.formatMessage("swahili_to_english", null), false);
-        englishToSwahili = new JRadioButton(MessageLocalizer.formatMessage("english_to_swahili", null), true);
-        language.add(swahiliToEnglish);
-        language.add(englishToSwahili);
+
+        Object[] languages =
+        {
+            language1,
+            language2
+        };
+
+        language1Tolanguage2 = new JRadioButton(language1 + " to " + language2, true);
+        language2Tolanguage1 = new JRadioButton(language2 + " to " + language1, false);
+        language.add(language2Tolanguage1);
+        language.add(language1Tolanguage2);
         languagePanel = new JPanel();
         languagePanel.setLayout(new GridLayout(0, 1));
-        languagePanel.add(englishToSwahili);
-        languagePanel.add(swahiliToEnglish);
+        languagePanel.add(language1Tolanguage2);
+        languagePanel.add(language2Tolanguage1);
 
         cancelUpdateButton = new JButton("x");
         cancelUpdateButton.setFont(new Font("Tahoma", Font.PLAIN, 8));
@@ -502,24 +538,24 @@ public class MainWindow extends JFrame implements TableModelListener
         cancelUpdateButton.setToolTipText(MessageLocalizer.formatMessage("cancel_update", null));
         resetButton = new JButton(MessageLocalizer.formatMessage("reset_button", null));
 
-        englishWord = new JCheckBox(MessageLocalizer.formatMessage("english", null), true);
-        englishWord.setEnabled(false);
-        swahiliWord = new JCheckBox(MessageLocalizer.formatMessage("swahili", null), true);
-        swahiliWord.setEnabled(false);
-        englishExample = new JCheckBox(MessageLocalizer.formatMessage("english_example", null));
-        swahiliExample = new JCheckBox(MessageLocalizer.formatMessage("swahili_example", null));
-        englishPlural = new JCheckBox(MessageLocalizer.formatMessage("english_plural", null));
-        swahiliPlural = new JCheckBox(MessageLocalizer.formatMessage("swahili_plural", null));
+        language1Word = new JCheckBox(language1, true);
+        language1Word.setEnabled(false);
+        language2Word = new JCheckBox(language2, true);
+        language2Word.setEnabled(false);
+        language1Example = new JCheckBox(MessageLocalizer.formatMessage("language1_example", languages));
+        language2Example = new JCheckBox(MessageLocalizer.formatMessage("language2_example", languages));
+        language1Plural = new JCheckBox(MessageLocalizer.formatMessage("language1_plural", languages));
+        language2Plural = new JCheckBox(MessageLocalizer.formatMessage("language2_plural", languages));
 
         fieldsPanel = new JPanel();
         fieldsPanel.setLayout(new FlowLayout());
         fieldsPanel.add(new JLabel(MessageLocalizer.formatMessage("show_fields", null), JLabel.LEFT));
-        fieldsPanel.add(englishWord);
-        fieldsPanel.add(swahiliWord);
-        fieldsPanel.add(englishPlural);
-        fieldsPanel.add(swahiliPlural);
-        fieldsPanel.add(englishExample);
-        fieldsPanel.add(swahiliExample);
+        fieldsPanel.add(language1Word);
+        fieldsPanel.add(language2Word);
+        fieldsPanel.add(language1Plural);
+        fieldsPanel.add(language2Plural);
+        fieldsPanel.add(language1Example);
+        fieldsPanel.add(language2Example);
 
         wordInputPanel = new JPanel();
         wordInputPanel.setLayout(new FlowLayout());
@@ -629,21 +665,27 @@ public class MainWindow extends JFrame implements TableModelListener
     {
         Vector<String> fields = new Vector<String>();
 
-        if (englishPlural.isSelected())
+        Object[] languages =
         {
-            fields.add(MessageLocalizer.formatMessage("english_plural", null));
+            language1,
+            language2
+        };
+
+        if (language1Plural.isSelected())
+        {
+            fields.add(MessageLocalizer.formatMessage("language1_plural", languages));
         }
-        if (swahiliPlural.isSelected())
+        if (language2Plural.isSelected())
         {
-            fields.add(MessageLocalizer.formatMessage("swahili_plural", null));
+            fields.add(MessageLocalizer.formatMessage("language2_plural", languages));
         }
-        if (englishExample.isSelected())
+        if (language1Example.isSelected())
         {
-            fields.add(MessageLocalizer.formatMessage("english_example", null));
+            fields.add(MessageLocalizer.formatMessage("language1_example", languages));
         }
-        if (swahiliExample.isSelected())
+        if (language2Example.isSelected())
         {
-            fields.add(MessageLocalizer.formatMessage("swahili_example", null));
+            fields.add(MessageLocalizer.formatMessage("language2_example", languages));
         }
 
         return fields;
@@ -665,23 +707,23 @@ public class MainWindow extends JFrame implements TableModelListener
 
             Vector<String> fields = getDisplayableFields();
 
-            if (swahiliToEnglish.isSelected() || englishToSwahili.isSelected())
+            if (language2Tolanguage1.isSelected() || language1Tolanguage2.isSelected())
             {
 
-                if (swahiliToEnglish.isSelected())
+                if (language2Tolanguage1.isSelected())
                 {
-                    languageToTranslateFrom = "SWAHILI";
+                    languageToTranslateFrom = System.getProperty("language2");
                 }
-                else if (englishToSwahili.isSelected())
+                else if (language1Tolanguage2.isSelected())
                 {
-                    languageToTranslateFrom = "ENGLISH";
+                    languageToTranslateFrom = System.getProperty("language1");
                 }
 
                 outputPanel.removeAll();
 
                 Translator translator =
                         new Translator(languageToTranslateFrom, word, fields);
-                
+
                 final JTable resultsTable = translator.getTable();
 
 //                resultsTable.print();
@@ -729,13 +771,13 @@ public class MainWindow extends JFrame implements TableModelListener
                                     {
                                         String newWord =
                                                 JOptionPane.showInputDialog(null,
-                                                MessageLocalizer.formatMessage("add_entry", null), oldWord);
+                                                MessageLocalizer.formatMessage("edit_entry", null), oldWord);
 
                                         if ((newWord != null))
                                         {
                                             String fromLanguage =
-                                                    (swahiliToEnglish.isSelected())
-                                                    ? "Swahili" : "English";
+                                                    (language2Tolanguage1.isSelected())
+                                                    ? language2 : language1;
 
                                             editor.edit(row, columnName, fromLanguage,
                                                     oldWord, newWord, searchKey);
@@ -744,14 +786,15 @@ public class MainWindow extends JFrame implements TableModelListener
                                         }
                                     }
                                 });
+
                                 deleteEntry.addActionListener(new ActionListener()
                                 {
 
                                     public void actionPerformed(ActionEvent e)
                                     {
                                         String fromLanguage =
-                                                (swahiliToEnglish.isSelected())
-                                                ? "Swahili" : "English";
+                                                (language2Tolanguage1.isSelected())
+                                                ? language2 : language1;
                                         String searchKey = wordField.getText().trim();
 
                                         editor.deleteEntry(row, fromLanguage,
@@ -765,7 +808,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
                                     public void actionPerformed(ActionEvent e)
                                     {
-                                        new WordAdder().setVisible(true);
+                                        new WordAdder(wordField.getText(), language1Tolanguage2.isSelected()).setVisible(true);
                                     }
                                 });
                                 popupMenu.show(resultsTable, point.x, point.y);
@@ -832,7 +875,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
                                 public void actionPerformed(ActionEvent e)
                                 {
-                                    new WordAdder().setVisible(true);
+                                    new WordAdder(wordField.getText(), language1Tolanguage2.isSelected()).setVisible(true);
                                 }
                             });
                             popupMenu.show(scrollPane, point.x, point.y);
@@ -904,8 +947,6 @@ public class MainWindow extends JFrame implements TableModelListener
 
         int keyCode = e.getKeyCode();
 
-//        System.out.println(keyCode);
-
         if (e.isActionKey() || keyCode == 16 || // Shift
                 keyCode == 17 || // CTRL
                 keyCode == 18 // ALT
@@ -947,10 +988,12 @@ public class MainWindow extends JFrame implements TableModelListener
     /**
      * Fetches an updates for the database
      */
-    private void synchronizeDatabases()
+    private void synchronizeDatabases() throws UnknownHostException,
+            MalformedURLException, IOException
     {
 
         Synchronizer synchronizer = new Synchronizer();
+
         String size = String.valueOf(synchronizer.getSizeOfUpdate());
 
         if (synchronizer.canSync())
@@ -1007,7 +1050,8 @@ public class MainWindow extends JFrame implements TableModelListener
     /**
      * Fetches the original database
      */
-    private void downloadOriginalDatabase()
+    private void downloadOriginalDatabase() throws
+            IOException
     {
         updating = true;
 
@@ -1025,9 +1069,9 @@ public class MainWindow extends JFrame implements TableModelListener
             double sizeInMBForm = (double) size / 1000 / 1000;
             DecimalFormat twoDForm = new DecimalFormat("#.##");
 
-            String message = props.getName() + " will now download " +
-                    Double.valueOf(twoDForm.format(sizeInMBForm)) +
-                    " MB of database update. Proceed?";
+            String message = props.getName() + " will now download "
+                    + Double.valueOf(twoDForm.format(sizeInMBForm))
+                    + " MB of database update. Proceed?";
 
             Object[] options =
             {
@@ -1100,7 +1144,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
         progressBar.setString(MessageLocalizer.formatMessage("download_progress", messageArguments));
         progressBar.setValue(percentage);
-        logger.log(MessageLocalizer.formatMessage("download_progress", messageArguments));
+        logger.logApplicationMessage(MessageLocalizer.formatMessage("download_progress", messageArguments));
 
         if (percentage >= 100)
         {
@@ -1119,12 +1163,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     protected static void showError(Exception exception)
     {
-        if (props.printStackTrace())
-        {
-            exception.printStackTrace();
-        }
-
-        logger.log(exception.getMessage());
+        logger.logExceptionStackTrace(exception);
 
         Object[] options =
         {
@@ -1133,7 +1172,7 @@ public class MainWindow extends JFrame implements TableModelListener
         };
 
         int choice = JOptionPane.showOptionDialog(null,
-                exception.getMessage(),
+                exception.toString(),
                 props.getName(),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
@@ -1166,7 +1205,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     protected static void showInfo(String message)
     {
-        logger.log(message);
+        logger.logApplicationMessage("[ INFO ] " + message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -1177,7 +1216,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     protected static void showWarning(String message)
     {
-        logger.log(message);
+        logger.logApplicationMessage("[ WARNING ] " + message);
         JOptionPane.showMessageDialog(null, message,
                 APPLICATION_NAME, JOptionPane.WARNING_MESSAGE);
     }
@@ -1196,7 +1235,7 @@ public class MainWindow extends JFrame implements TableModelListener
 
         Object newWord = model.getValueAt(row, column);
 
-        String fromLanguage = (swahiliToEnglish.isSelected()) ? "Swahili" : "English";
+        String fromLanguage = (language2Tolanguage1.isSelected()) ? language2 : language1;
         String searchKey = wordField.getText().trim();
 
         editor.edit(row, columnName, fromLanguage, oldWord, (String) newWord, searchKey);

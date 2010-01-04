@@ -5,14 +5,7 @@
  */
 package org.kamusi;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 /**
  * class WordAdder
@@ -27,6 +20,27 @@ public class WordAdder extends javax.swing.JFrame
         setIconImage(new ImageIcon(getClass().
                 getResource("/org/kamusi/resources/favicon.png")).getImage());
         setLocationRelativeTo(null);
+    }
+
+    /** Creates new form WordAdder
+     * @param text
+     * @param firstToSecond 
+     */
+    public WordAdder(String text, boolean firstToSecond)
+    {
+        initComponents();
+        setIconImage(new ImageIcon(getClass().
+                getResource("/org/kamusi/resources/favicon.png")).getImage());
+        setLocationRelativeTo(null);
+
+        if (firstToSecond)
+        {
+            englishWord.setText(text);
+        }
+        else
+        {
+            swahiliWord.setText(text);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -68,7 +82,6 @@ public class WordAdder extends javax.swing.JFrame
         swaDefLabel = new javax.swing.JLabel();
         derivedWordLabel = new javax.swing.JLabel();
         noteLabel = new javax.swing.JLabel();
-        swaExampleLabel = new javax.swing.JLabel();
         swahiliPlural = new javax.swing.JTextField();
         alternateSwahiliSingular = new javax.swing.JTextField();
         alternateSwahiliPlural = new javax.swing.JTextField();
@@ -80,7 +93,6 @@ public class WordAdder extends javax.swing.JFrame
         swahiliExample = new javax.swing.JTextArea();
         taxonomy = new javax.swing.JTextField();
         relatedWord = new javax.swing.JTextField();
-        derivedLanguage = new javax.swing.JTextField();
         englishDefinition = new javax.swing.JTextField();
         alternateEnglishPlural = new javax.swing.JTextField();
         alternateEnglishSingular = new javax.swing.JTextField();
@@ -91,6 +103,8 @@ public class WordAdder extends javax.swing.JFrame
         terminologyLabel = new javax.swing.JLabel();
         dialectComboBox = new javax.swing.JComboBox();
         terminologyComboBox = new javax.swing.JComboBox();
+        swaExampleLabel = new javax.swing.JLabel();
+        derivedLanguageCombo = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Kamusi Desktop - Word Adder");
@@ -137,10 +151,12 @@ public class WordAdder extends javax.swing.JFrame
 
         classLabel.setText("Class");
 
-        partOfSpeechComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Please Select", "Verb", "Noun", "Pronoun", "Adverb" }));
+        partOfSpeechComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "abbreviation", "adj/adv", "adjective", "adverb", "conjuction", "infix", "interjection", "interrogative", "name", "noun", "phrase", "prefix", "preposition", "pronoun", "verb", "verb subject", "verb tense", "verb relative", "verb object", "verb suffix" }));
+        partOfSpeechComboBox.setSelectedIndex(-1);
         partOfSpeechComboBox.setToolTipText("Select part of speech");
 
-        classComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Please Select", "1", "2", "3", "4", "5" }));
+        classComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "applicative", "appl-assoc", "appl-assoc-caus", "appl-caus", "appl-caus-intr", "appl-caus-pass", "appl-caus-recip", "appl-caus-refl", "appl-conv", "appl-intr", "appl-inver", "appl-pass", "appl-pass-poten", "appl-poten", "appl-recip", "appl-refl", "associative", "assoc-caus", "assoc-intr", "assoc-inver", "assoc-stat", "auxiliary", "aux-det", "causative", "caus-intr", "caus-inver", "caus-pass", "caus-poten", "caus-recip", "caus-refl", "caus-stat", "caus-trans", "conjugated", "contactive", "converse", "conv-poten", "determinative", "durative", "imperative", "infinitive", "intensive", "intransitive", "intr-inver", "intr-inver-stat", "inversive", "inver-poten-trans", "negative", "passive", "pass-poten", "possessive", "potential", "poten-recip", "poten-trans", "reciprocal", "reflexive", "relative", "stative", "transitive", "1", "1/2", "2", "3", "3/4", "3/4an", "3/10", "4", "5", "5/6", "5/6an", "5/6ca", "6", "6/6", "6an", "7", "7/8", "7/8an", "8", "9", "9/10", "9/10an", "9/10ca", "9an", "10", "11", "11/4", "11/6", "11/6an", "11/8", "11/10", "11/10an", "14", "15", "16", "16/17/18", "17", "18" }));
+        classComboBox.setSelectedIndex(-1);
         classComboBox.setToolTipText("Select class of word (Noun class, verb type etc.)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -169,9 +185,9 @@ public class WordAdder extends javax.swing.JFrame
                     .addComponent(classLabel))
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(swahiliHeadword, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                    .addComponent(swahiliWord, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
-                    .addComponent(classComboBox, 0, 297, Short.MAX_VALUE))
+                    .addComponent(swahiliHeadword, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                    .addComponent(swahiliWord, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                    .addComponent(classComboBox, 0, 305, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -227,8 +243,6 @@ public class WordAdder extends javax.swing.JFrame
 
         noteLabel.setText("Note");
 
-        swaExampleLabel.setText("Swa Example");
-
         swahiliPlural.setToolTipText("Swahili plural");
 
         alternateSwahiliSingular.setToolTipText("Alternative Swahili singular word");
@@ -257,8 +271,6 @@ public class WordAdder extends javax.swing.JFrame
 
         relatedWord.setToolTipText("Related word");
 
-        derivedLanguage.setToolTipText("Derived language");
-
         englishDefinition.setToolTipText("English definition");
 
         alternateEnglishPlural.setToolTipText("Alternative English plural word");
@@ -278,9 +290,18 @@ public class WordAdder extends javax.swing.JFrame
 
         terminologyLabel.setText("Terminology");
 
-        dialectComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        dialectComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Kiamu", "Kimvita", "Kipemba", "Kitanga", "Kiunguja", "Sheng", "archaic", "colloquial", "dialectical", "obsolete", "recent" }));
+        dialectComboBox.setSelectedIndex(-1);
+        dialectComboBox.setToolTipText("Select dialect");
 
-        terminologyComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        terminologyComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "general", "Christian", "IT-klnX", "Islamic", "agriculture", "anatomy", "anthropology", "astronomy", "automotive", "aviation", "biblical", "biology", "botany", "chemistry", "culinary", "economics", "electricity", "enclitic", "entomology", "finance", "games (cards)", "geography", "grammar", "historical", "legal", "linguistics", "literary", "marine", "mathematics", "mechanics", "medical", "meteorology", "military", "minerals", "music", "mythology", "names", "nautical", "optics", "ornithology", "pejorative", "personal", "pharmacy", "phonetics", "photography", "physics", "physiology", "poetic", "political", "polygamy", "psychology", "railway", "religious", "slang", "sport", "technology", "typography", "vulgar", "zoology" }));
+        terminologyComboBox.setToolTipText("Select terminology");
+
+        swaExampleLabel.setText("Swa Example");
+
+        derivedLanguageCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Afrikaans", "Arabic", "Bantu", "Chinese", "English", "Farsi", "French", "German", "Gujerati", "Hebrew", "Hindi", "Japanese", "Latin", "Luganda", "Malay", "Portuguese", "Russian", "Spanish", "Turkish", "Zulu" }));
+        derivedLanguageCombo.setSelectedIndex(-1);
+        derivedLanguageCombo.setToolTipText("Select derived language");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -296,42 +317,43 @@ public class WordAdder extends javax.swing.JFrame
                     .addComponent(derivedLangLabel)
                     .addComponent(relatedWordLabel)
                     .addComponent(taxonomyLabel)
-                    .addComponent(engExampleLabel))
+                    .addComponent(engExampleLabel)
+                    .addComponent(dialectLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(derivedLanguageCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dialectComboBox, 0, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                     .addComponent(taxonomy)
                     .addComponent(relatedWord)
-                    .addComponent(derivedLanguage)
                     .addComponent(englishDefinition)
                     .addComponent(alternateEnglishPlural)
                     .addComponent(alternateEnglishSingular)
                     .addComponent(englishPlural))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(altSwaPluLabel)
-                    .addComponent(swaDefLabel)
-                    .addComponent(altSwaSingLabel)
-                    .addComponent(swaPluralLabel)
-                    .addComponent(derivedWordLabel)
-                    .addComponent(swaExampleLabel)
-                    .addComponent(noteLabel)
-                    .addComponent(dialectLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(derivedWord, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(alternateSwahiliSingular, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(swahiliDefinition, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(alternateSwahiliPlural, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addComponent(swahiliPlural, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(dialectComboBox, 0, 78, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(terminologyLabel)
+                        .addGap(18, 18, 18)
+                        .addComponent(terminologyComboBox, 0, 290, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(altSwaPluLabel)
+                            .addComponent(swaDefLabel)
+                            .addComponent(altSwaSingLabel)
+                            .addComponent(swaPluralLabel)
+                            .addComponent(derivedWordLabel)
+                            .addComponent(noteLabel)
+                            .addComponent(swaExampleLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(terminologyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(derivedWord, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(alternateSwahiliSingular, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(swahiliDefinition, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(alternateSwahiliPlural, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                            .addComponent(swahiliPlural, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -365,8 +387,8 @@ public class WordAdder extends javax.swing.JFrame
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(derivedLangLabel)
                     .addComponent(derivedWordLabel)
-                    .addComponent(derivedLanguage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(derivedWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(derivedWord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(derivedLanguageCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -379,23 +401,20 @@ public class WordAdder extends javax.swing.JFrame
                             .addComponent(taxonomyLabel)
                             .addComponent(taxonomy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(engExampleLabel)
-                                    .addComponent(swaExampleLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(dialectLabel)
-                                    .addComponent(terminologyLabel)
-                                    .addComponent(dialectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(terminologyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(swaExampleLabel)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(engExampleLabel)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dialectLabel)
+                    .addComponent(dialectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(terminologyLabel)
+                    .addComponent(terminologyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -450,7 +469,7 @@ public class WordAdder extends javax.swing.JFrame
 
     private void cancelAddNewWordButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_cancelAddNewWordButtonActionPerformed
     {//GEN-HEADEREND:event_cancelAddNewWordButtonActionPerformed
-        // TODO add your handling code here:
+
         dispose();
     }//GEN-LAST:event_cancelAddNewWordButtonActionPerformed
 
@@ -482,7 +501,7 @@ public class WordAdder extends javax.swing.JFrame
     private javax.swing.JComboBox classComboBox;
     private javax.swing.JLabel classLabel;
     private javax.swing.JLabel derivedLangLabel;
-    private javax.swing.JTextField derivedLanguage;
+    private javax.swing.JComboBox derivedLanguageCombo;
     private javax.swing.JTextField derivedWord;
     private javax.swing.JLabel derivedWordLabel;
     private javax.swing.JComboBox dialectComboBox;
@@ -530,139 +549,28 @@ public class WordAdder extends javax.swing.JFrame
      */
     private boolean addWord()
     {
-        String EnglishWord = englishWord.getText().trim();
-        String SwahiliWord = swahiliWord.getText().trim();
-        String EnglishSortBy = englishHeadword.getText().trim();
-        String SwahiliSortBy = swahiliHeadword.getText().trim();
-        String PartOfSpeech = (String) partOfSpeechComboBox.getItemAt(partOfSpeechComboBox.getSelectedIndex());
-        String Class = String.valueOf(classComboBox.getSelectedIndex());
-        String SwahiliPlural = swahiliPlural.getText().trim();
-        String EnglishPlural = englishPlural.getText().trim();
-        String EngAlt = alternateEnglishSingular.getText().trim();
-        String SwaAlt = alternateSwahiliSingular.getText().trim();
-        String EngPluralAlt = alternateEnglishPlural.getText().trim();
-        String SwaPluralAlt = alternateSwahiliPlural.getText().trim();
-        String EnglishDef = englishDefinition.getText().trim();
-        String SwahiliDefinition = swahiliDefinition.getText().trim();
-        String Derived = derivedWord.getText().trim();
-        String DerivedLang = derivedLanguage.getText().trim();
-        String RelatedWords = relatedWord.getText().trim();
-        String DialectNote = note.getText().trim();
-        String Taxonomy = taxonomy.getText().trim();
-        String EnglishExample = englishExample.getText().trim();
-        String SwahiliExample = swahiliExample.getText().trim();
-        String Dialect = (String) dialectComboBox.getItemAt(dialectComboBox.getSelectedIndex());
-        String Terminology = (String) terminologyComboBox.getItemAt(terminologyComboBox.getSelectedIndex());
-
-        // Confirm minimum requirements
-        if (SwahiliWord == null || SwahiliWord.trim().length() == 0 ||
-                EnglishWord == null || EnglishWord.trim().length() == 0 ||
-                SwahiliSortBy == null || SwahiliSortBy.trim().length() == 0 ||
-                EnglishSortBy == null || EnglishSortBy.trim().length() == 0 ||
-                PartOfSpeech == null || PartOfSpeech.trim().length() == 0 ||
-                Class == null || Class.trim().length() == 0 ||
-                PartOfSpeech.trim().equalsIgnoreCase("Please Select") ||
-                Class.trim().equalsIgnoreCase("Please Select"))
-        {
-            MainWindow.showWarning("Mandatory field(s) missing values");
-        }
-        else
-        {
-            PreparedStatement statement = null;
-            Connection connection = null;
-
-            try
-            {
-                String query = "INSERT INTO dict (PartOfSpeech, Class, SwahiliSortBy, EnglishSortBy, " +
-                        "SwahiliWord, EnglishWord, SwahiliPlural, EnglishPlural, SwahiliDefinition, " +
-                        "SwahiliExample, EnglishExample, Derived, DialectNote, Dialect, Terminology, " +
-                        "EnglishDef, DerivedLang, Taxonomy, RelatedWords, EngAlt, SwaAlt, EngPluralAlt, " +
-                        "SwaPluralAlt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, " +
-                        "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-                connection = DriverManager.getConnection(
-                        "jdbc:sqlite:" + System.getProperty("database"),
-                        System.getProperty("database_username"),
-                        System.getProperty("database_password"));
-
-                statement = connection.prepareStatement(query);
-
-                statement.setString(1, PartOfSpeech);
-                statement.setString(2, Class);
-                statement.setString(3, SwahiliSortBy);
-                statement.setString(4, EnglishSortBy);
-                statement.setString(5, SwahiliWord);
-                statement.setString(6, EnglishWord);
-                statement.setString(7, SwahiliPlural);
-                statement.setString(8, EnglishPlural);
-                statement.setString(9, SwahiliDefinition);
-                statement.setString(10, SwahiliExample);
-                statement.setString(11, EnglishExample);
-                statement.setString(12, Derived);
-                statement.setString(13, DialectNote);
-                statement.setString(14, Dialect);
-                statement.setString(15, Terminology);
-                statement.setString(16, EnglishDef);
-                statement.setString(17, DerivedLang);
-                statement.setString(18, Taxonomy);
-                statement.setString(19, RelatedWords);
-                statement.setString(20, EngAlt);
-                statement.setString(21, SwaAlt);
-                statement.setString(22, EngPluralAlt);
-                statement.setString(23, SwaPluralAlt);
-
-                System.out.println(statement.executeUpdate());
-
-
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MainWindow.showError(ex);
-                return false;
-            }
-            finally
-            {
-                try
-                {
-                    statement.close();
-                    connection.close();
-                }
-                catch (SQLException ex)
-                {
-                    MainWindow.showError(ex);
-                }
-            }
-            /*CREATE TABLE "dict" (
-            "Id" integer NOT NULL primary key autoincrement,
-            "PartOfSpeech" integer unsigned NOT NULL default '0',
-            "Class" integer unsigned NOT NULL default '0',
-            "SwahiliSortBy" varchar(16) NOT NULL default '',
-            "EnglishSortBy" varchar(17) NOT NULL default '',
-            "SwahiliWord" varchar(53) NOT NULL default '',
-            "EnglishWord" varchar(175) NOT NULL default '',
-            "SwahiliPlural" varchar(255) NOT NULL default '',
-            "EnglishPlural" varchar(255) NOT NULL default '',
-            "SwahiliDefinition" varchar(174) NOT NULL default '',
-            "SwahiliExample" text,
-            "EnglishExample" text,
-            "Derived" varchar(82) NOT NULL default '',
-            "DialectNote" varchar(255) NOT NULL default '',
-            "Dialect" text NOT NULL,
-            "Terminology" text NOT NULL,
-            "EnglishDef" text,
-            "DerivedLang" integer unsigned default NULL,
-            "Taxonomy" text NOT NULL,
-            "RelatedWords" text NOT NULL,
-            "EngAlt" varchar(255) NOT NULL default '',
-            "SwaAlt" varchar(255) NOT NULL default '',
-            "EngPluralAlt" varchar(255) NOT NULL default '',
-            "SwaPluralAlt" varchar(255) NOT NULL default ''
-             */
-        }
-
-        return false;
-
+        return new Editor().addWord(englishWord.getText().trim(),
+                swahiliWord.getText().trim(),
+                englishHeadword.getText().trim(),
+                swahiliHeadword.getText().trim(),
+                (String) partOfSpeechComboBox.getItemAt(partOfSpeechComboBox.getSelectedIndex()),
+                String.valueOf(classComboBox.getSelectedIndex()),
+                swahiliPlural.getText().trim(),
+                englishPlural.getText().trim(),
+                alternateEnglishSingular.getText().trim(),
+                alternateSwahiliSingular.getText().trim(),
+                alternateEnglishPlural.getText().trim(),
+                alternateSwahiliPlural.getText().trim(),
+                englishDefinition.getText().trim(),
+                swahiliDefinition.getText().trim(),
+                derivedWord.getText().trim(),
+                (String) derivedLanguageCombo.getItemAt(derivedLanguageCombo.getSelectedIndex()),
+                relatedWord.getText().trim(),
+                note.getText().trim(),
+                taxonomy.getText().trim(),
+                englishExample.getText().trim(),
+                swahiliExample.getText().trim(),
+                (String) dialectComboBox.getItemAt(dialectComboBox.getSelectedIndex()),
+                (String) terminologyComboBox.getItemAt(terminologyComboBox.getSelectedIndex()));
     }
 }

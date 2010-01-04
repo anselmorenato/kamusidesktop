@@ -116,7 +116,7 @@ public class KamusiProperties extends KamusiLogger
         catch (Exception ex)
         {
             MainWindow.showError(ex);
-            log(ex.toString());
+            logApplicationMessage(ex.toString());
         }
     }
 }
