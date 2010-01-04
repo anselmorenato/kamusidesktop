@@ -188,7 +188,7 @@ public class Main
             }
             else
             {
-                logger.log("Unexpected value of LOOKANDFEEL specified: " + LOOKANDFEEL);
+                logger.logApplicationMessage("Unexpected value of LOOKANDFEEL specified: " + LOOKANDFEEL);
                 lookAndFeel = UIManager.getCrossPlatformLookAndFeelClassName();
             }
 
@@ -211,20 +211,20 @@ public class Main
             }
             catch (ClassNotFoundException e)
             {
-                logger.log("Couldn't find class for specified look and feel:" + lookAndFeel);
-                logger.log("Did you include the L&F library in the class path?");
-                logger.log("Using the default look and feel.");
+                logger.logApplicationMessage("Couldn't find class for specified look and feel:" + lookAndFeel);
+                logger.logApplicationMessage("Did you include the L&F library in the class path?");
+                logger.logApplicationMessage("Using the default look and feel.");
             }
             catch (UnsupportedLookAndFeelException e)
             {
-                logger.log("Can't use the specified look and feel (" + lookAndFeel + ") on this platform.");
-                logger.log("Using the default look and feel.");
+                logger.logApplicationMessage("Can't use the specified look and feel (" + lookAndFeel + ") on this platform.");
+                logger.logApplicationMessage("Using the default look and feel.");
             }
             catch (Exception e)
             {
-                logger.log("Couldn't get specified look and feel (" + lookAndFeel + "), for some reason.");
-                logger.log("Using the default look and feel.");
-                logger.log(e.toString());
+                logger.logApplicationMessage("Couldn't get specified look and feel (" + lookAndFeel + "), for some reason.");
+                logger.logApplicationMessage("Using the default look and feel.");
+                logger.logApplicationMessage(e.toString());
             }
         }
     }
@@ -243,7 +243,7 @@ public class Main
         systemProperties.append(" " + System.getProperty("java.version"));
         systemProperties.append(" " + System.getProperty("java.vendor"));
         systemProperties.append(" ]");
-        logger.log(systemProperties.toString());
+        logger.logApplicationMessage(systemProperties.toString());
     }
 
     /**
@@ -257,7 +257,7 @@ public class Main
         }
         catch (Exception ex)
         {
-            logger.log(ex.toString());
+            logger.logApplicationMessage(ex.toString());
         }
     }
 }

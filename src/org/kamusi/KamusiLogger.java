@@ -23,7 +23,7 @@ public class KamusiLogger
      */
     public KamusiLogger()
     {
-        //Start by creating the log folder if it does not exist
+        //Start by creating the logApplicationMessage folder if it does not exist
         File logFolder = new File("log");
         if (!logFolder.exists())
         {
@@ -35,7 +35,7 @@ public class KamusiLogger
      * Logs system events to a file
      * @param message The message to be logged
      */
-    public void log(String message)
+    public void logApplicationMessage(String message)
     {
         FileWriter fstream;
         BufferedWriter writer = null;
@@ -64,6 +64,39 @@ public class KamusiLogger
     }
 
     /**
+     * Logs the stack trace of an exception
+     * @param exception The exception to log the stack trace of
+     */
+    public void logExceptionStackTrace(Exception exception)
+    {
+        KamusiProperties props = new KamusiProperties();
+
+        if (props.printStackTrace())
+        {
+            exception.printStackTrace();
+        }
+
+        String exceptionStacktrace = "";
+
+        StackTraceElement[] ex = exception.getStackTrace();
+
+        for (StackTraceElement e : ex)
+        {
+            exceptionStacktrace += ("at " + e.getClassName() + ".");
+            exceptionStacktrace += (e.getMethodName());
+            exceptionStacktrace += ("(");
+            exceptionStacktrace += (e.getFileName());
+            exceptionStacktrace += (":");
+            exceptionStacktrace += (e.getLineNumber());
+            exceptionStacktrace += (")");
+            exceptionStacktrace += ("\n");
+        }
+
+        logApplicationMessage("[ System Error ]" + "\r\n"
+                + exception.toString() + "\r\n" + exceptionStacktrace);
+    }
+
+    /**
      * Gets the current system time
      * @return The time in the form yyyy-MM-dd HH:mm:ss
      */
@@ -74,8 +107,8 @@ public class KamusiLogger
     }
 
     /**
-     * Gets the name of the log file
-     * @return The log file in the form yyyy-MM-dd.log
+     * Gets the name of the logApplicationMessage file
+     * @return The logApplicationMessage file in the form yyyy-MM-dd.logApplicationMessage
      */
     public String getLogFileName()
     {

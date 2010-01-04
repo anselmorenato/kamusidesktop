@@ -179,10 +179,8 @@ public class Restorer extends KamusiLogger
             }
             catch (Exception ex)
             {
-                log(ex.toString());
                 // Restore the original file
                 restoreOriginal();
-
                 MainWindow.showError(ex);
             }
         }
@@ -210,26 +208,18 @@ public class Restorer extends KamusiLogger
     /**
      * Gets the size of the new restore
      * @return The size of restore to be downloaded
+     * @throws IOException 
      */
-    public long getSizeOfUpdate()
+    public long getSizeOfUpdate() throws
+            IOException
     {
-        try
-        {
-            url = new URL(RESTORE_URL);
+        url = new URL(RESTORE_URL);
 
-            URLConnection connection = url.openConnection();
-            sizeOfUpdate = connection.getContentLength();
+        URLConnection connection = url.openConnection();
+        sizeOfUpdate = connection.getContentLength();
 
-            connection.getInputStream().close();
-            canRestore = true;
-        }
-        catch (Exception ex)
-        {
-            log(ex.toString());
-            // Restore the original file
-            restoreOriginal();
-            MainWindow.showError(ex);
-        }
+        connection.getInputStream().close();
+        canRestore = true;
 
         return sizeOfUpdate;
     }
@@ -264,7 +254,8 @@ public class Restorer extends KamusiLogger
             }
             catch (IOException ex)
             {
-                log(ex.toString());
+                MainWindow.showError(ex);
+//                logApplicationMessage(ex.toString());
             }
         }
 
@@ -293,27 +284,18 @@ public class Restorer extends KamusiLogger
     /**
      * Cleans up after an restore
      */
-    private void cleanUp()
+    private void cleanUp() throws
+            IOException, MalformedURLException
     {
         restorer.interrupt();
         progress.running = false;
         progress.interrupt();
 
-        try
-        {
-            MainWindow.updateProgressBar();
-        }
-        catch (MalformedURLException ex)
-        {
-            log(ex.toString());
-        }
-        catch (IOException ex)
-        {
-            log(ex.toString());
-        }
+        MainWindow.updateProgressBar();
+
         //Rename the temp db appropriately
         File updateFile = new File(updatedb);
         updateFile.renameTo(new File(originaldb));
-        log("Cleanup successful");
+        logApplicationMessage("Cleanup successful");
     }
 }

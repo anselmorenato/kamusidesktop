@@ -52,8 +52,10 @@ public class Translator extends DefaultTableModel
     /**
      * The fields available to be fetched
      */
-    private String englishWord, swahiliWord, englishExample, swahiliExample, swahiliPlural,
-            englishPlural;
+    private String language1 = System.getProperty("language1");
+    private String language2 = System.getProperty("language2");
+    private String language1Word, language2Word, language1Example, language2Example, language2Plural,
+            language1Plural;
     private Vector<String> headers;
     private Vector<Vector<String>> data;
     private Vector<String> rows;
@@ -75,7 +77,6 @@ public class Translator extends DefaultTableModel
      */
     public Translator(String fromLanguage, String word, Vector<String> fields)
     {
-
         boolean wildCardSearch = word.contains("*");
 
         try
@@ -86,19 +87,19 @@ public class Translator extends DefaultTableModel
 
             headers = new Vector<String>();
 
-            if (fromLanguage.equalsIgnoreCase("ENGLISH"))
+            if (fromLanguage.equalsIgnoreCase(language1))
             {
-                query = getQuery("english", wildCardSearch);
+                query = getQuery(language1, wildCardSearch);
 
-                headers.addElement("English");
-                headers.addElement("Swahili");
+                headers.addElement(System.getProperty("language1"));
+                headers.addElement(System.getProperty("language2"));
             }
-            else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
+            else if (fromLanguage.equalsIgnoreCase(language2))
             {
-                query = getQuery("swahili", wildCardSearch);
+                query = getQuery(language2, wildCardSearch);
 
-                headers.addElement("Swahili");
-                headers.addElement("English");
+                headers.addElement(System.getProperty("language2"));
+                headers.addElement(System.getProperty("language1"));
             }
             else
             {
@@ -109,7 +110,9 @@ public class Translator extends DefaultTableModel
 
             while (availableFields.hasMoreElements())
             {
-                headers.addElement(availableFields.nextElement());
+                headers.addElement(availableFields.nextElement()
+                        .replaceFirst("language1", System.getProperty("language1"))
+                        .replaceFirst("language2", System.getProperty("language2")));
             }
 
             statement = connection.prepareStatement(query);
@@ -129,41 +132,41 @@ public class Translator extends DefaultTableModel
             {
                 row++;
 
-                englishWord = resultSet.getString("EnglishWord");
-                swahiliWord = resultSet.getString("SwahiliWord");
-                englishPlural = resultSet.getString("EnglishPlural");
-                swahiliPlural = resultSet.getString("SwahiliPlural");
-                englishExample = resultSet.getString("EnglishExample");
-                swahiliExample = resultSet.getString("SwahiliExample");
+                language1Word = resultSet.getString(language1 + "Word");
+                language2Word = resultSet.getString(language2 + "Word");
+                language1Plural = resultSet.getString(language1 + "Plural");
+                language2Plural = resultSet.getString(language2 + "Plural");
+                language1Example = resultSet.getString(language1 + "Example");
+                language2Example = resultSet.getString(language2 + "Example");
 
                 //create a row
                 rows = new Vector<String>();
 
-                if (fromLanguage.equalsIgnoreCase("ENGLISH"))
+                if (fromLanguage.equalsIgnoreCase(language1))
                 {
-                    rows.addElement(englishWord);
-                    rows.addElement(swahiliWord);
+                    rows.addElement(language1Word);
+                    rows.addElement(language2Word);
                 }
-                else if (fromLanguage.equalsIgnoreCase("SWAHILI"))
+                else if (fromLanguage.equalsIgnoreCase(language2))
                 {
-                    rows.addElement(swahiliWord);
-                    rows.addElement(englishWord);
+                    rows.addElement(language2Word);
+                    rows.addElement(language1Word);
                 }
-                if (fields.contains("English Plural"))
+                if (fields.contains(language1 + " Plural"))
                 {
-                    rows.addElement(englishPlural);
+                    rows.addElement(language1Plural);
                 }
-                if (fields.contains("Swahili Plural"))
+                if (fields.contains(language2 + " Plural"))
                 {
-                    rows.addElement(swahiliPlural);
+                    rows.addElement(language2Plural);
                 }
-                if (fields.contains("English Example"))
+                if (fields.contains(language1 + " Example"))
                 {
-                    rows.addElement(englishExample);
+                    rows.addElement(language1Example);
                 }
-                if (fields.contains("Swahili Example"))
+                if (fields.contains(language2 + " Example"))
                 {
-                    rows.addElement(swahiliExample);
+                    rows.addElement(language2Example);
                 }
 
                 //add to model
@@ -171,14 +174,11 @@ public class Translator extends DefaultTableModel
             }
             if (row > 0)
             {
-                logger.log(row + " results matched for \"" + word + "\" from " + fromLanguage);
+                logger.logApplicationMessage(row + " results matched for \"" + word + "\" from " + fromLanguage);
                 table = new JTable(data, headers);
                 table.getTableHeader().setDefaultRenderer(new MyHeaderRenderer());
                 table.setDefaultRenderer(Object.class, new MyCellRenderer());
-                table.setIntercellSpacing(new Dimension(1, 1));
-                table.setShowHorizontalLines(false);
-                table.setShowVerticalLines(true);
-                table.setGridColor(Color.lightGray);
+                table.setGridColor(new Color(205, 213, 226));
 
 //                table.print();
 
@@ -196,7 +196,7 @@ public class Translator extends DefaultTableModel
         }
         catch (Exception ex)
         {
-            logger.log(ex.toString());
+            logger.logApplicationMessage(ex.toString());
 
 //                MainWindow.showError(props.getName() + " Could not find database or " +
 //                        "your database may be corrupt.\nYou may " +
@@ -213,7 +213,7 @@ public class Translator extends DefaultTableModel
             }
             catch (SQLException ex)
             {
-                logger.log(ex.toString());
+                logger.logApplicationMessage(ex.toString());
                 MainWindow.showError(ex);
             }
 

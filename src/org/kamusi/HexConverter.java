@@ -18,9 +18,7 @@ public class HexConverter extends KamusiLogger
      * Entry point of the class
      */
     public HexConverter()
-    {
-        log("Starting encryption\t\t[ OK ]");
-    }
+    {}
 
     /**
      * Converts a String to its hexadecimal equivaent

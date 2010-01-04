@@ -5,19 +5,14 @@
  */
 package org.kamusi;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.util.Properties;
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.Message;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,72 +21,60 @@ import javax.swing.JOptionPane;
 public class DebugTool extends KamusiLogger
 {
 
+    private HexConverter converter = new HexConverter();
+
     public void sendErrorDetails()
     {
-        // Send an email to the developer. Attach the log file
         try
         {
-            String server = "kamusi.org";
-            String from = "arthur@kamusi.org";
-            String to = "arthur@kamusi.org";
-            String subject = "Kamusi Desktop Error Report";
-            String fileAttachment = getLogFileName();
-            String messageBody =
-                    "This email is sent automatically by a computer. Do NOT reply to it.\n\n" +
-                    "This is an error report sent in by a Kamusi Desktop user\n\n" +
-                    "SYSTEM DETAILS\n" +
-                    "Java Vendor: " + System.getProperty("java.vendor") + "\n" +
-                    "Java vendor URL: " + System.getProperty("java.vendor.url") + "\n" +
-                    "Java Version: " + System.getProperty("java.version") + "\n" +
-                    "Operating System Architecture: " + System.getProperty("os.arch") + "\n" +
-                    "Operating System Name: " + System.getProperty("os.name") + "\n" +
-                    "Operating System Version: " + System.getProperty("os.version") +
-                    "\n\n\n\n---------------------------\n" +
-                    "End Of Message";
-            // Get system properties
-            Properties props = System.getProperties();
+            File inputFile = new File(getLogFileName());
+            FileReader fileReader = new FileReader(inputFile);
+            BufferedReader buff = new BufferedReader(fileReader);
 
-            // Setup mail server
-            props.put("mail.smtp.host", server);
+            StringBuffer log = new StringBuffer();
 
-            // Get session
-            Session sess = Session.getInstance(props, null);
+            String line; // <<-- added
+            while (((line = buff.readLine()) != null)) // <<-- modified
+            {
+                log.append(line);
+                log.append("\n");
+            }
 
-            // Define message
-            MimeMessage message = new MimeMessage(sess);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(subject);
+            // Send data
+            String toSend = converter.getHex(log.toString());
 
-            // create the message part
-            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            String data = URLEncoder.encode("report", "UTF-8") + "=" + URLEncoder.encode(toSend, "UTF-8");
+            final String SYNC_URL = System.getProperty("bug_report_url");
+            URL url = new URL(SYNC_URL);
+            URLConnection conn = url.openConnection();
+            conn.setDoOutput(true);
+            OutputStreamWriter streamWriter = new OutputStreamWriter(conn.getOutputStream());
 
-            //fill message
-            messageBodyPart.setText(messageBody);
+            streamWriter.write(data);
+            streamWriter.flush();
 
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(messageBodyPart);
+            // Get the response
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String responseLine;
+            while ((responseLine = bufferedReader.readLine()) != null)
+            {
+                // Process line...
+                String response = converter.getHex("Server response from bug report - > " + line);
+                logApplicationMessage(response);
+            }
+            streamWriter.close();
+            bufferedReader.close();
 
-            // Part two is attachment
-            messageBodyPart = new MimeBodyPart();
-            DataSource source = new FileDataSource(fileAttachment);
-            messageBodyPart.setDataHandler(new DataHandler(source));
-            messageBodyPart.setFileName(new File(fileAttachment).getName());
-            multipart.addBodyPart(messageBodyPart);
-
-            // Put parts in message
-            message.setContent(multipart);
-
-            // Send the message
-            Transport.send(message);
+            fileReader.close();
 
             MainWindow.showInfo("Thank you for sending the report.");
 
         }
         catch (Exception e)
         {
-            JOptionPane.showMessageDialog(null, e.getMessage(),
-                "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
+            logExceptionStackTrace(e);
+            JOptionPane.showMessageDialog(null, e.toString(),
+                    "Kamusi Desktop", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
