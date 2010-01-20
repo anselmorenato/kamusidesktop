@@ -1,0 +1,822 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
+    <Property name="title" type="java.lang.String" value="Kamusi Desktop - Word Adder"/>
+    <Property name="alwaysOnTop" type="boolean" value="true"/>
+    <Property name="resizable" type="boolean" value="false"/>
+  </Properties>
+  <AccessibilityProperties>
+    <Property name="AccessibleContext.accessibleParent" type="javax.accessibility.Accessible" editor="org.netbeans.modules.form.RADVisualComponent$AccessibleParentEditor">
+      <ComponentRef name="Form"/>
+    </Property>
+  </AccessibilityProperties>
+  <SyntheticProperties>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jPanel2" alignment="1" max="32767" attributes="0"/>
+                          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="addNewWordButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="cancelAddNewWordButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jPanel2" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="cancelAddNewWordButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="addNewWordButton" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="cancelAddNewWordButton">
+      <Properties>
+        <Property name="mnemonic" type="int" value="67"/>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="toolTipText" type="java.lang.String" value="Cancel the addition of a new word"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelAddNewWordButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="addNewWordButton">
+      <Properties>
+        <Property name="mnemonic" type="int" value="65"/>
+        <Property name="text" type="java.lang.String" value="ADD"/>
+        <Property name="toolTipText" type="java.lang.String" value="Add the new word to the database"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addNewWordButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Required Fields">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="partOfSpeechLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="partOfSpeechComboBox" min="-2" pref="257" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="engHeadwordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="engWordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="englishWord" max="32767" attributes="1"/>
+                              <Component id="englishHeadword" alignment="0" pref="257" max="32767" attributes="1"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="swaHeadwordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="swaWordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="classLabel" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="swahiliHeadword" alignment="0" pref="305" max="32767" attributes="0"/>
+                      <Component id="swahiliWord" alignment="0" pref="305" max="32767" attributes="0"/>
+                      <Component id="classComboBox" alignment="0" pref="305" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="engWordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="englishWord" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swaWordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swahiliWord" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="engHeadwordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="englishHeadword" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swaHeadwordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swahiliHeadword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="partOfSpeechLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="partOfSpeechComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="classLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="classComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="engWordLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eng Word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="engHeadwordLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eng Headword"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="swaWordLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Swa Word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="swaHeadwordLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Swa Headword"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="partOfSpeechLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Part Of Speech"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="englishWord">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="English word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="englishHeadword">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="English headword"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="swahiliWord">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Swahili word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="swahiliHeadword">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Swahili headword"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="classLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Class"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="partOfSpeechComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="20">
+                <StringItem index="0" value="abbreviation"/>
+                <StringItem index="1" value="adj/adv"/>
+                <StringItem index="2" value="adjective"/>
+                <StringItem index="3" value="adverb"/>
+                <StringItem index="4" value="conjuction"/>
+                <StringItem index="5" value="infix"/>
+                <StringItem index="6" value="interjection"/>
+                <StringItem index="7" value="interrogative"/>
+                <StringItem index="8" value="name"/>
+                <StringItem index="9" value="noun"/>
+                <StringItem index="10" value="phrase"/>
+                <StringItem index="11" value="prefix"/>
+                <StringItem index="12" value="preposition"/>
+                <StringItem index="13" value="pronoun"/>
+                <StringItem index="14" value="verb"/>
+                <StringItem index="15" value="verb subject"/>
+                <StringItem index="16" value="verb tense"/>
+                <StringItem index="17" value="verb relative"/>
+                <StringItem index="18" value="verb object"/>
+                <StringItem index="19" value="verb suffix"/>
+              </StringArray>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Select part of speech"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="classComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="96">
+                <StringItem index="0" value="applicative"/>
+                <StringItem index="1" value="appl-assoc"/>
+                <StringItem index="2" value="appl-assoc-caus"/>
+                <StringItem index="3" value="appl-caus"/>
+                <StringItem index="4" value="appl-caus-intr"/>
+                <StringItem index="5" value="appl-caus-pass"/>
+                <StringItem index="6" value="appl-caus-recip"/>
+                <StringItem index="7" value="appl-caus-refl"/>
+                <StringItem index="8" value="appl-conv"/>
+                <StringItem index="9" value="appl-intr"/>
+                <StringItem index="10" value="appl-inver"/>
+                <StringItem index="11" value="appl-pass"/>
+                <StringItem index="12" value="appl-pass-poten"/>
+                <StringItem index="13" value="appl-poten"/>
+                <StringItem index="14" value="appl-recip"/>
+                <StringItem index="15" value="appl-refl"/>
+                <StringItem index="16" value="associative"/>
+                <StringItem index="17" value="assoc-caus"/>
+                <StringItem index="18" value="assoc-intr"/>
+                <StringItem index="19" value="assoc-inver"/>
+                <StringItem index="20" value="assoc-stat"/>
+                <StringItem index="21" value="auxiliary"/>
+                <StringItem index="22" value="aux-det"/>
+                <StringItem index="23" value="causative"/>
+                <StringItem index="24" value="caus-intr"/>
+                <StringItem index="25" value="caus-inver"/>
+                <StringItem index="26" value="caus-pass"/>
+                <StringItem index="27" value="caus-poten"/>
+                <StringItem index="28" value="caus-recip"/>
+                <StringItem index="29" value="caus-refl"/>
+                <StringItem index="30" value="caus-stat"/>
+                <StringItem index="31" value="caus-trans"/>
+                <StringItem index="32" value="conjugated"/>
+                <StringItem index="33" value="contactive"/>
+                <StringItem index="34" value="converse"/>
+                <StringItem index="35" value="conv-poten"/>
+                <StringItem index="36" value="determinative"/>
+                <StringItem index="37" value="durative"/>
+                <StringItem index="38" value="imperative"/>
+                <StringItem index="39" value="infinitive"/>
+                <StringItem index="40" value="intensive"/>
+                <StringItem index="41" value="intransitive"/>
+                <StringItem index="42" value="intr-inver"/>
+                <StringItem index="43" value="intr-inver-stat"/>
+                <StringItem index="44" value="inversive"/>
+                <StringItem index="45" value="inver-poten-trans"/>
+                <StringItem index="46" value="negative"/>
+                <StringItem index="47" value="passive"/>
+                <StringItem index="48" value="pass-poten"/>
+                <StringItem index="49" value="possessive"/>
+                <StringItem index="50" value="potential"/>
+                <StringItem index="51" value="poten-recip"/>
+                <StringItem index="52" value="poten-trans"/>
+                <StringItem index="53" value="reciprocal"/>
+                <StringItem index="54" value="reflexive"/>
+                <StringItem index="55" value="relative"/>
+                <StringItem index="56" value="stative"/>
+                <StringItem index="57" value="transitive"/>
+                <StringItem index="58" value="1"/>
+                <StringItem index="59" value="1/2"/>
+                <StringItem index="60" value="2"/>
+                <StringItem index="61" value="3"/>
+                <StringItem index="62" value="3/4"/>
+                <StringItem index="63" value="3/4an"/>
+                <StringItem index="64" value="3/10"/>
+                <StringItem index="65" value="4"/>
+                <StringItem index="66" value="5"/>
+                <StringItem index="67" value="5/6"/>
+                <StringItem index="68" value="5/6an"/>
+                <StringItem index="69" value="5/6ca"/>
+                <StringItem index="70" value="6"/>
+                <StringItem index="71" value="6/6"/>
+                <StringItem index="72" value="6an"/>
+                <StringItem index="73" value="7"/>
+                <StringItem index="74" value="7/8"/>
+                <StringItem index="75" value="7/8an"/>
+                <StringItem index="76" value="8"/>
+                <StringItem index="77" value="9"/>
+                <StringItem index="78" value="9/10"/>
+                <StringItem index="79" value="9/10an"/>
+                <StringItem index="80" value="9/10ca"/>
+                <StringItem index="81" value="9an"/>
+                <StringItem index="82" value="10"/>
+                <StringItem index="83" value="11"/>
+                <StringItem index="84" value="11/4"/>
+                <StringItem index="85" value="11/6"/>
+                <StringItem index="86" value="11/6an"/>
+                <StringItem index="87" value="11/8"/>
+                <StringItem index="88" value="11/10"/>
+                <StringItem index="89" value="11/10an"/>
+                <StringItem index="90" value="14"/>
+                <StringItem index="91" value="15"/>
+                <StringItem index="92" value="16"/>
+                <StringItem index="93" value="16/17/18"/>
+                <StringItem index="94" value="17"/>
+                <StringItem index="95" value="18"/>
+              </StringArray>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Select class of word (Noun class, verb type etc.)"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Container class="javax.swing.JPanel" name="jPanel2">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Optional Fields">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="engPluLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="altEngSingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="altEngPluLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="engDefLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="derivedLangLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="relatedWordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="taxonomyLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="engExampleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="dialectLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="derivedLanguageCombo" max="32767" attributes="1"/>
+                      <Component id="dialectComboBox" min="0" pref="0" max="32767" attributes="1"/>
+                      <Component id="jScrollPane1" alignment="0" pref="264" max="32767" attributes="1"/>
+                      <Component id="taxonomy" alignment="0" max="32767" attributes="1"/>
+                      <Component id="relatedWord" alignment="0" max="32767" attributes="1"/>
+                      <Component id="englishDefinition" alignment="0" max="32767" attributes="1"/>
+                      <Component id="alternateEnglishPlural" alignment="0" max="32767" attributes="1"/>
+                      <Component id="alternateEnglishSingular" alignment="0" max="32767" attributes="1"/>
+                      <Component id="englishPlural" alignment="0" max="32767" attributes="1"/>
+                  </Group>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="terminologyLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="terminologyComboBox" pref="290" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="altSwaPluLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="swaDefLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="altSwaSingLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="swaPluralLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="derivedWordLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="noteLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="swaExampleLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jScrollPane3" pref="288" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="288" max="32767" attributes="0"/>
+                              <Component id="derivedWord" alignment="0" pref="288" max="32767" attributes="0"/>
+                              <Component id="alternateSwahiliSingular" alignment="0" pref="288" max="32767" attributes="0"/>
+                              <Component id="swahiliDefinition" alignment="0" pref="288" max="32767" attributes="0"/>
+                              <Component id="alternateSwahiliPlural" alignment="0" pref="288" max="32767" attributes="0"/>
+                              <Component id="swahiliPlural" alignment="0" pref="288" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="engPluLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swaPluralLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="englishPlural" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swahiliPlural" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="altEngSingLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="altSwaSingLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="alternateEnglishSingular" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="alternateSwahiliSingular" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="altEngPluLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="altSwaPluLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="alternateEnglishPlural" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="alternateSwahiliPlural" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="engDefLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swaDefLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="englishDefinition" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="swahiliDefinition" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="derivedLangLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="derivedWordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="derivedWord" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="derivedLanguageCombo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="relatedWordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="noteLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="relatedWord" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="taxonomyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="taxonomy" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="swaExampleLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="0" pref="117" max="32767" attributes="0"/>
+                              <Component id="engExampleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jScrollPane3" min="-2" pref="55" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" pref="118" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="dialectLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="dialectComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="terminologyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="terminologyComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="engPluLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eng Plural"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="altEngSingLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Alt Eng Sing"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="altEngPluLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Alt Eng Plu"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="engDefLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eng Def"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="derivedLangLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Derived Lang"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="relatedWordLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Related word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="taxonomyLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Taxonomy"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="engExampleLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Eng Example"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="swaPluralLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Swa Plural"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="altSwaSingLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Alt Swa Sing"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="altSwaPluLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Alt Swa Plu"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="swaDefLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Swa Def"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="derivedWordLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Derived Word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="noteLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Note"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="swahiliPlural">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Swahili plural"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="alternateSwahiliSingular">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Alternative Swahili singular word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="alternateSwahiliPlural">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Alternative Swahili plural word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="swahiliDefinition">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Swahili definition"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="derivedWord">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Derived word"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="englishExample">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="toolTipText" type="java.lang.String" value="English example"/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="swahiliExample">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="toolTipText" type="java.lang.String" value="Swahili Example"/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JTextField" name="taxonomy">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Taxonomy"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="relatedWord">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Related word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="englishDefinition">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="English definition"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="alternateEnglishPlural">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Alternative English plural word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="alternateEnglishSingular">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="Alternative English singular word"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="englishPlural">
+          <Properties>
+            <Property name="toolTipText" type="java.lang.String" value="English plural word"/>
+          </Properties>
+        </Component>
+        <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+          <AuxValues>
+            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+          </AuxValues>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="javax.swing.JTextArea" name="note">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="lineWrap" type="boolean" value="true"/>
+                <Property name="rows" type="int" value="5"/>
+                <Property name="toolTipText" type="java.lang.String" value="Notes"/>
+                <Property name="wrapStyleWord" type="boolean" value="true"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="javax.swing.JLabel" name="dialectLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Dialect"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="terminologyLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Terminology"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="dialectComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="11">
+                <StringItem index="0" value="Kiamu"/>
+                <StringItem index="1" value="Kimvita"/>
+                <StringItem index="2" value="Kipemba"/>
+                <StringItem index="3" value="Kitanga"/>
+                <StringItem index="4" value="Kiunguja"/>
+                <StringItem index="5" value="Sheng"/>
+                <StringItem index="6" value="archaic"/>
+                <StringItem index="7" value="colloquial"/>
+                <StringItem index="8" value="dialectical"/>
+                <StringItem index="9" value="obsolete"/>
+                <StringItem index="10" value="recent"/>
+              </StringArray>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Select dialect"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="terminologyComboBox">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="59">
+                <StringItem index="0" value="general"/>
+                <StringItem index="1" value="Christian"/>
+                <StringItem index="2" value="IT-klnX"/>
+                <StringItem index="3" value="Islamic"/>
+                <StringItem index="4" value="agriculture"/>
+                <StringItem index="5" value="anatomy"/>
+                <StringItem index="6" value="anthropology"/>
+                <StringItem index="7" value="astronomy"/>
+                <StringItem index="8" value="automotive"/>
+                <StringItem index="9" value="aviation"/>
+                <StringItem index="10" value="biblical"/>
+                <StringItem index="11" value="biology"/>
+                <StringItem index="12" value="botany"/>
+                <StringItem index="13" value="chemistry"/>
+                <StringItem index="14" value="culinary"/>
+                <StringItem index="15" value="economics"/>
+                <StringItem index="16" value="electricity"/>
+                <StringItem index="17" value="enclitic"/>
+                <StringItem index="18" value="entomology"/>
+                <StringItem index="19" value="finance"/>
+                <StringItem index="20" value="games (cards)"/>
+                <StringItem index="21" value="geography"/>
+                <StringItem index="22" value="grammar"/>
+                <StringItem index="23" value="historical"/>
+                <StringItem index="24" value="legal"/>
+                <StringItem index="25" value="linguistics"/>
+                <StringItem index="26" value="literary"/>
+                <StringItem index="27" value="marine"/>
+                <StringItem index="28" value="mathematics"/>
+                <StringItem index="29" value="mechanics"/>
+                <StringItem index="30" value="medical"/>
+                <StringItem index="31" value="meteorology"/>
+                <StringItem index="32" value="military"/>
+                <StringItem index="33" value="minerals"/>
+                <StringItem index="34" value="music"/>
+                <StringItem index="35" value="mythology"/>
+                <StringItem index="36" value="names"/>
+                <StringItem index="37" value="nautical"/>
+                <StringItem index="38" value="optics"/>
+                <StringItem index="39" value="ornithology"/>
+                <StringItem index="40" value="pejorative"/>
+                <StringItem index="41" value="personal"/>
+                <StringItem index="42" value="pharmacy"/>
+                <StringItem index="43" value="phonetics"/>
+                <StringItem index="44" value="photography"/>
+                <StringItem index="45" value="physics"/>
+                <StringItem index="46" value="physiology"/>
+                <StringItem index="47" value="poetic"/>
+                <StringItem index="48" value="political"/>
+                <StringItem index="49" value="polygamy"/>
+                <StringItem index="50" value="psychology"/>
+                <StringItem index="51" value="railway"/>
+                <StringItem index="52" value="religious"/>
+                <StringItem index="53" value="slang"/>
+                <StringItem index="54" value="sport"/>
+                <StringItem index="55" value="technology"/>
+                <StringItem index="56" value="typography"/>
+                <StringItem index="57" value="vulgar"/>
+                <StringItem index="58" value="zoology"/>
+              </StringArray>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Select terminology"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="swaExampleLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Swa Example"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="derivedLanguageCombo">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="20">
+                <StringItem index="0" value="Afrikaans"/>
+                <StringItem index="1" value="Arabic"/>
+                <StringItem index="2" value="Bantu"/>
+                <StringItem index="3" value="Chinese"/>
+                <StringItem index="4" value="English"/>
+                <StringItem index="5" value="Farsi"/>
+                <StringItem index="6" value="French"/>
+                <StringItem index="7" value="German"/>
+                <StringItem index="8" value="Gujerati"/>
+                <StringItem index="9" value="Hebrew"/>
+                <StringItem index="10" value="Hindi"/>
+                <StringItem index="11" value="Japanese"/>
+                <StringItem index="12" value="Latin"/>
+                <StringItem index="13" value="Luganda"/>
+                <StringItem index="14" value="Malay"/>
+                <StringItem index="15" value="Portuguese"/>
+                <StringItem index="16" value="Russian"/>
+                <StringItem index="17" value="Spanish"/>
+                <StringItem index="18" value="Turkish"/>
+                <StringItem index="19" value="Zulu"/>
+              </StringArray>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Select derived language"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

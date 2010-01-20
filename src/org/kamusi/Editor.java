@@ -191,8 +191,7 @@ public class Editor extends KamusiLogger
                         statement.setString(1, newWord);
                         statement.setString(2, id);
 
-                        //TODO: Enable this
-                        //            statement.executeUpdate();
+                        statement.executeUpdate();
 
                         logUpdate(query + "|" + newWord + "|" + id + "|" + getUsername());
 
@@ -452,8 +451,8 @@ public class Editor extends KamusiLogger
                     connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
                     statement = connection.prepareStatement(query);
                     statement.setString(1, id);
-                    //TODO Enable this
-//            statement.executeUpdate();
+
+                    statement.executeUpdate();
                     logUpdate(query + "|" + id + "|" + getUsername());
                 }
                 catch (Exception ex)
@@ -718,8 +717,7 @@ public class Editor extends KamusiLogger
                 statement.setString(22, EngPluralAlt);
                 statement.setString(23, SwaPluralAlt);
 
-                //TODO Enable this
-//                statement.executeUpdate();
+                statement.executeUpdate();
 
                 String updateLog = query + "|";
                 updateLog += PartOfSpeech + "|";
