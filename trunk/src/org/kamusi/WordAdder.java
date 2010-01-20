@@ -456,7 +456,7 @@ public class WordAdder extends javax.swing.JFrame
 
     private void addNewWordButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_addNewWordButtonActionPerformed
     {//GEN-HEADEREND:event_addNewWordButtonActionPerformed
-        // TODO add your handling code here:
+
         if (addWord())
         {
             MainWindow.showInfo("Word added successfully!");

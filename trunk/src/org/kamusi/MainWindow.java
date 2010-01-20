@@ -1161,7 +1161,7 @@ public class MainWindow extends JFrame implements TableModelListener
      * Displays an error message
      * @param exception The exception itself
      */
-    protected static void showError(Exception exception)
+    static protected void showError(Exception exception)
     {
         logger.logExceptionStackTrace(exception);
 
@@ -1183,7 +1183,6 @@ public class MainWindow extends JFrame implements TableModelListener
         switch (choice)
         {
             case 0: //YES
-//                    TODO Add code to send a bug report
                 DebugTool kamusiDebugger = new DebugTool();
                 kamusiDebugger.sendErrorDetails();
                 break;
