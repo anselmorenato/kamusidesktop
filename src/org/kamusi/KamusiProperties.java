@@ -26,6 +26,7 @@ public class KamusiProperties extends KamusiLogger
     private String editor;
     private String restore_url;
     private String sync_url;
+    private String port;
 
     public boolean isDecorated()
     {
@@ -75,6 +76,11 @@ public class KamusiProperties extends KamusiLogger
         return sync_url;
     }
 
+    public String getBindPort()
+    {
+        return port;
+    }
+
     public boolean getEditor()
     {
         return editor.equals("0")? false: true;
@@ -106,6 +112,8 @@ public class KamusiProperties extends KamusiLogger
             theme = System.getProperty("app.theme").trim();
 
             stackTrace = System.getProperty("app.print_stack_trace").trim();
+
+            port = System.getProperty("app.bindsocket").trim();
 
             logFormat = System.getProperty("log.format").trim();
 

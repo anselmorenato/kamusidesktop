@@ -121,6 +121,8 @@ public class Translator extends DefaultTableModel
 
             statement.setString(1, parameter);
             statement.setString(2, parameter);
+            statement.setString(3, parameter);
+            statement.setString(4, parameter);
 
             resultSet = statement.executeQuery();
 
@@ -314,24 +316,41 @@ public class Translator extends DefaultTableModel
 
         language = language.trim();
 
-//        String query = (wildcardSearch) ? "SELECT DISTINCT di.*, wg.GroupNum, wg.InGroupPos " +
-//                "FROM dict AS di " +
-//                "LEFT JOIN word_grouping AS wg " +
-//                "WHERE wg.WordId = di.Id AND (" + language + "SortBy LIKE ? OR " +
-//                language + "Plural LIKE ?) " +
-//                "ORDER BY di." + language + "Word ASC"
-//                : "SELECT DISTINCT di.*, wg.GroupNum, wg.InGroupPos " +
-//                "FROM dict AS di " +
-//                "LEFT JOIN word_grouping AS wg " +
-//                "WHERE wg.WordId = di.Id AND (" + language + "SortBy = ? OR " +
-//                language + "Plural = ?) " +
-//                "ORDER BY di." + language + "Word ASC";
-        String query = (wildcardSearch) ? "SELECT * FROM dict where " + language + "SortBy LIKE ? OR " +
-                language + "Plural LIKE ? " +
-                "ORDER BY " + language + "Word ASC"
-                : "SELECT * FROM dict where " + language + "SortBy = ? OR " +
-                language + "Plural = ? " +
-                "ORDER BY " + language + "Word ASC";
+        String order = language.equals("Swahili")?"English":
+            language.equals("English")?"Swahili":"";
+
+        System.out.println("Order -> " + order);
+
+        String query = (wildcardSearch) ?
+
+            "SELECT DISTINCT di.*, wg.GroupNum FROM dict AS di " +
+            "LEFT JOIN word_grouping AS wg ON ( di.Id = wg.WordId ) " +
+            "WHERE" + language + "Word like ? " +
+            "OR " + language + "Plural like ? " +
+            "OR" + language.substring(0, 3) + "Alt like ? " +
+            "OR" + language.substring(0, 3) + "PluralAlt like ? " +
+            "Group By di.Id " +
+            "ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC, " +
+            "LOWER(di." + order + "Word) DESC, di.Id ASC"
+
+                :
+
+            "SELECT DISTINCT di.*, wg.GroupNum,wg.InGroupPos FROM dict AS di " +
+            "LEFT JOIN word_grouping AS wg ON ( di.Id = wg.WordId ) " +
+            "WHERE di." + language + "SortBy = ? " +
+            "OR di." + language + "Plural = ? " +
+            "OR di." + language.substring(0, 3) + "Alt = ? " +
+            "OR di." + language.substring(0, 3) + "PluralAlt = ? " +
+            "Group By di.Id " +
+            "ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC, " +
+            "LOWER(di." + order + "Word) DESC, di.Id ASC";
+
+//        String query = (wildcardSearch) ? "SELECT * FROM dict where " + language + "SortBy LIKE ? OR " +
+//                language + "Plural LIKE ? " +
+//                "ORDER BY " + language + "Word ASC"
+//                : "SELECT * FROM dict where " + language + "SortBy = ? OR " +
+//                language + "Plural = ? " +
+//                "ORDER BY " + language + "Word ASC";
 
         return query;
     }

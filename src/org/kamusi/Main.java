@@ -5,6 +5,9 @@
  */
 package org.kamusi;
 
+import java.io.IOException;
+import java.net.BindException;
+import java.net.ServerSocket;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -47,6 +50,25 @@ public class Main
         logSystemProperties();
         initLookAndFeel();
         initDatabaseDriver();
+
+        final int port = Integer.parseInt(props.getBindPort());
+
+        try
+        {
+            ServerSocket serverSocket = new ServerSocket(port);
+        }
+        catch (BindException e)
+        {
+            JOptionPane.showMessageDialog(null,
+                    "Another instance of KamusiDesktop is already running!", "KamusiDesktop",
+                    JOptionPane.WARNING_MESSAGE);
+            System.exit(1);
+        }
+        catch (IOException e)
+        {
+            MainWindow.showError(e);
+            System.exit(1);
+        }
 
         if (props.getEditor())
         {

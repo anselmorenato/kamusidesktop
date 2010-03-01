@@ -313,15 +313,22 @@ public class MainWindow extends JFrame implements TableModelListener
                         }
                         catch (UnknownHostException ex)
                         {
+                            updating = false;
                             showError(ex);
                         }
                         catch (MalformedURLException ex)
                         {
+                            updating = false;
                             showError(ex);
                         }
                         catch (IOException ex)
                         {
+                            updating = false;
                             showError(ex);
+                        }
+                        finally
+                        {
+                            reset();
                         }
                         break;
 
@@ -406,7 +413,9 @@ public class MainWindow extends JFrame implements TableModelListener
                 }
                 catch (IOException ex)
                 {
+                    updating = false;
                     showError(ex);
+                    reset();
                 }
             }
         });
@@ -641,6 +650,8 @@ public class MainWindow extends JFrame implements TableModelListener
         outputPanel.removeAll();
         System.gc();
 
+        System.out.println(updating);
+
         if (!updating)
         {
             statusPanel.removeAll();
@@ -655,6 +666,7 @@ public class MainWindow extends JFrame implements TableModelListener
         }
 
         pack();
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }
 
     /**
@@ -1042,8 +1054,8 @@ public class MainWindow extends JFrame implements TableModelListener
         {
             updating = false;
             showError(new Exception(MessageLocalizer.formatMessage("synch_error", null)));
-
         }
+        
         reset();
     }
 
@@ -1163,7 +1175,10 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     static protected void showError(Exception exception)
     {
+
+        System.out.println("Logging exception...");
         logger.logExceptionStackTrace(exception);
+        System.out.println("Done!");
 
         Object[] options =
         {

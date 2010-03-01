@@ -70,6 +70,8 @@ public class KamusiLogger
     public void logExceptionStackTrace(Exception exception)
     {
         KamusiProperties props = new KamusiProperties();
+        
+        System.out.println("props.printStackTrace() -> " + props.printStackTrace());
 
         if (props.printStackTrace())
         {

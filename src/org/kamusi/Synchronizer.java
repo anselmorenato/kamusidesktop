@@ -133,6 +133,9 @@ public class Synchronizer extends KamusiLogger
         long sizeOfUpdate = 0;
 
         URL url = new URL(SYNC_URL + "/fetchupdate.jsp?update=" + lastUpdate);
+
+        System.out.println(url.toString());
+
         URLConnection connection = url.openConnection();
         sizeOfUpdate = connection.getContentLength();
         connection.getInputStream().close();
