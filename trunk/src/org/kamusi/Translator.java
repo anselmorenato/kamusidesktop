@@ -7,7 +7,6 @@ package org.kamusi;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -52,8 +51,8 @@ public class Translator extends DefaultTableModel
     /**
      * The fields available to be fetched
      */
-    private String language1 = System.getProperty("language1");
-    private String language2 = System.getProperty("language2");
+    private static String language1 = System.getProperty("language1");
+    private static String language2 = System.getProperty("language2");
     private String language1Word, language2Word, language1Example, language2Example, language2Plural,
             language1Plural;
     private Vector<String> headers;
@@ -110,19 +109,24 @@ public class Translator extends DefaultTableModel
 
             while (availableFields.hasMoreElements())
             {
-                headers.addElement(availableFields.nextElement()
-                        .replaceFirst("language1", System.getProperty("language1"))
-                        .replaceFirst("language2", System.getProperty("language2")));
+                String element = availableFields.nextElement();
+
+                headers.addElement(element);
             }
 
             statement = connection.prepareStatement(query);
 
-            String parameter = wildCardSearch ? word.replaceAll("\\*", "%") : word;
+            String parameter1 = fromLanguage.trim().equalsIgnoreCase("English") ? "en"
+                    : fromLanguage.trim().equalsIgnoreCase("Swahili") ? "sw" : "";
 
-            statement.setString(1, parameter);
-            statement.setString(2, parameter);
-            statement.setString(3, parameter);
-            statement.setString(4, parameter);
+            String parameter2 = fromLanguage.trim().equalsIgnoreCase("English") ? "sw"
+                    : fromLanguage.trim().equalsIgnoreCase("Swahili") ? "en" : "";
+
+            String parameter3 = wildCardSearch ? word.replaceAll("\\*", "%") : word;
+
+            statement.setString(1, parameter1);
+            statement.setString(2, parameter2);
+            statement.setString(3, parameter3);
 
             resultSet = statement.executeQuery();
 
@@ -134,12 +138,18 @@ public class Translator extends DefaultTableModel
             {
                 row++;
 
-                language1Word = resultSet.getString(language1 + "Word");
-                language2Word = resultSet.getString(language2 + "Word");
-                language1Plural = resultSet.getString(language1 + "Plural");
-                language2Plural = resultSet.getString(language2 + "Plural");
-                language1Example = resultSet.getString(language1 + "Example");
-                language2Example = resultSet.getString(language2 + "Example");
+                language1Word = resultSet.getString("root").
+                        equalsIgnoreCase("null") ? "" : resultSet.getString("root");
+                language2Word = resultSet.getString("oroot").
+                        equalsIgnoreCase("null") ? "" : resultSet.getString("oroot");
+                language1Plural = resultSet.getString("title").
+                        equalsIgnoreCase("null") ? "" : resultSet.getString("title");
+                language2Plural = resultSet.getString("otitle").
+                        equalsIgnoreCase("null") ? "" : resultSet.getString("otitle");
+                language1Example = resultSet.getString("defn").
+                        equalsIgnoreCase("null") ? "" : resultSet.getString("defn");
+                language2Example = resultSet.getString("odefn").
+                        equalsIgnoreCase("null") ? "" : resultSet.getString("odefn");
 
                 //create a row
                 rows = new Vector<String>();
@@ -154,19 +164,25 @@ public class Translator extends DefaultTableModel
                     rows.addElement(language2Word);
                     rows.addElement(language1Word);
                 }
-                if (fields.contains(language1 + " Plural"))
+
+                Object[] languages = new Object[]
+                {
+                    language1, language2
+                };
+
+                if (fields.contains(MessageLocalizer.formatMessage("language1_plural", languages)))
                 {
                     rows.addElement(language1Plural);
                 }
-                if (fields.contains(language2 + " Plural"))
+                if (fields.contains(MessageLocalizer.formatMessage("language2_plural", languages)))
                 {
                     rows.addElement(language2Plural);
                 }
-                if (fields.contains(language1 + " Example"))
+                if (fields.contains(MessageLocalizer.formatMessage("language1_example", languages)))
                 {
                     rows.addElement(language1Example);
                 }
-                if (fields.contains(language2 + " Example"))
+                if (fields.contains(MessageLocalizer.formatMessage("language2_example", languages)))
                 {
                     rows.addElement(language2Example);
                 }
@@ -181,19 +197,6 @@ public class Translator extends DefaultTableModel
                 table.getTableHeader().setDefaultRenderer(new MyHeaderRenderer());
                 table.setDefaultRenderer(Object.class, new MyCellRenderer());
                 table.setGridColor(new Color(205, 213, 226));
-
-//                table.print();
-
-//                for (int i = 0; i < table.getRowCount(); i++)
-//                {
-//
-//                    int rowToSelect = i;
-//
-//                    if ((rowToSelect % 2) == 0)
-//                    {
-//                        table.setRowSelectionInterval(rowToSelect, rowToSelect);
-//                    }
-//                }
             }
         }
         catch (Exception ex)
@@ -312,45 +315,24 @@ public class Translator extends DefaultTableModel
      */
     public static String getQuery(String language, boolean wildcardSearch)
     {
-//        return MessageLocalizer.getQuery(language);
-
         language = language.trim();
 
-        String order = language.equals("Swahili")?"English":
-            language.equals("English")?"Swahili":"";
+        System.out.println("Wildcard: -> " + wildcardSearch);
 
-        System.out.println("Order -> " + order);
+        String query = "";
 
-        String query = (wildcardSearch) ?
-
-            "SELECT DISTINCT di.*, wg.GroupNum FROM dict AS di " +
-            "LEFT JOIN word_grouping AS wg ON ( di.Id = wg.WordId ) " +
-            "WHERE" + language + "Word like ? " +
-            "OR " + language + "Plural like ? " +
-            "OR" + language.substring(0, 3) + "Alt like ? " +
-            "OR" + language.substring(0, 3) + "PluralAlt like ? " +
-            "Group By di.Id " +
-            "ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC, " +
-            "LOWER(di." + order + "Word) DESC, di.Id ASC"
-
-                :
-
-            "SELECT DISTINCT di.*, wg.GroupNum,wg.InGroupPos FROM dict AS di " +
-            "LEFT JOIN word_grouping AS wg ON ( di.Id = wg.WordId ) " +
-            "WHERE di." + language + "SortBy = ? " +
-            "OR di." + language + "Plural = ? " +
-            "OR di." + language.substring(0, 3) + "Alt = ? " +
-            "OR di." + language.substring(0, 3) + "PluralAlt = ? " +
-            "Group By di.Id " +
-            "ORDER BY wg.GroupNum ASC, wg.InGroupPos ASC, " +
-            "LOWER(di." + order + "Word) DESC, di.Id ASC";
-
-//        String query = (wildcardSearch) ? "SELECT * FROM dict where " + language + "SortBy LIKE ? OR " +
-//                language + "Plural LIKE ? " +
-//                "ORDER BY " + language + "Word ASC"
-//                : "SELECT * FROM dict where " + language + "SortBy = ? OR " +
-//                language + "Plural = ? " +
-//                "ORDER BY " + language + "Word ASC";
+        if (language.equalsIgnoreCase(language1))
+        {
+            query = (wildcardSearch)
+                    ? "SELECT * FROM paldo WHERE tpl=? AND otpl=? AND root LIKE ?"
+                    : "SELECT * FROM paldo WHERE tpl=? AND otpl=? AND root=?";
+        }
+        else if (language.equalsIgnoreCase(language2))
+        {
+            query = (wildcardSearch)
+                    ? "SELECT * FROM paldo WHERE otpl=? AND tpl=? AND oroot LIKE ?"
+                    : "SELECT * FROM paldo WHERE otpl=? AND tpl=? AND oroot=?";
+        }
 
         return query;
     }

@@ -17,6 +17,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /**
@@ -86,7 +89,12 @@ public class Editor extends KamusiLogger
 
         String username = getUsername();
 
-        if (username == null || username.trim().length() == 0)
+        if (newWord.contains(SEPARATOR))
+        {
+            logApplicationMessage("The new word should not contain \"@\"");
+            MainWindow.showWarning(MessageLocalizer.formatMessage("general_error", null));
+        }
+        else if (username == null || username.trim().length() == 0)
         {
             Object[] messageParams =
             {
@@ -132,13 +140,11 @@ public class Editor extends KamusiLogger
         else
         {
             // Get the ID at the specified row and column
-            String id = getID(row, fromLanguage, searchKey);
+            List<String> id = getID(row, fromLanguage, searchKey);
 
             // We are now interested in the record of this id
-            String query = "UPDATE DICT SET " + formatColumnName(columnName)
-                    + " = ? WHERE Id = ?";
-
-            //TODO: Perhaps logApplicationMessage the whole query?
+            String query = "UPDATE paldo SET " + formatColumnName(columnName)
+                    + " = ? WHERE defn = ? and odefn = ? and nid = ? and onid = ?";
 
             String message = "";
 
@@ -185,17 +191,38 @@ public class Editor extends KamusiLogger
                     {
                         connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
 
-//            throw new Exception("Just a test exception");
-
                         statement = connection.prepareStatement(query);
                         statement.setString(1, newWord);
-                        statement.setString(2, id);
 
-                        statement.executeUpdate();
+                        statement.setString(2, id.get(0));
+                        statement.setString(3, id.get(1));
+                        statement.setString(4, id.get(2));
+                        statement.setString(5, id.get(3));
 
-                        logUpdate(query + "|" + newWord + "|" + id + "|" + getUsername());
+                        //TODO: Enable this flag
+                        //statement.executeUpdate();
 
-                        System.out.println(query + "|" + newWord + "|" + id + "|" + getUsername());
+                        message = MessageLocalizer.formatMessage("edit_success", null);
+
+                        MainWindow.showInfo(message);
+
+                        String log = query + SEPARATOR + searchKey
+                                + SEPARATOR + newWord
+                                + SEPARATOR;
+
+                        for (String element : id)
+                        {
+                            //This code eliminates a potential bug, for example
+                            //when an element contains a comma
+                            log += element + SEPARATOR;
+                        }
+
+                        log = log.substring(0, log.lastIndexOf(SEPARATOR));
+
+                        log += SEPARATOR + getUsername() + SEPARATOR + language1
+                                + SEPARATOR + language2;
+
+                        logUpdate(log);
                     }
                     catch (SQLException ex)
                     {
@@ -241,44 +268,59 @@ public class Editor extends KamusiLogger
      * @param row The row in the JTable that the entry came in
      * @param fromLanguage The language we are translating from
      * @param word The search query we used
-     * @return The ID of the row we are editing
+     * @return The vectors of the two IDs of the row we are editing
      */
-    private String getID(int row, String fromLanguage, String searchKey)
+    private List<String> getID(int row, String fromLanguage, String searchKey)
     {
-        String id = "UNDEFINED";
+
+        List<String> id = new ArrayList<String>();
+
         try
         {
             String query = "";
 
+            boolean wildCardSearch = searchKey.contains("*");
+
             if (fromLanguage.equalsIgnoreCase(language1))
             {
-                query = Translator.getQuery(language1, searchKey.contains("\\*"));
+                query = Translator.getQuery(language1, wildCardSearch);
             }
             else if (fromLanguage.equalsIgnoreCase(language2))
             {
-                query = Translator.getQuery(language2, searchKey.contains("\\*"));
+                query = Translator.getQuery(language2, wildCardSearch);
             }
+
+            query = query + " LIMIT ?, 1";
 
             connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
             statement = connection.prepareStatement(query);
-            statement.setString(1, searchKey);
-            resultSet = statement.executeQuery();
 
-            int currentRow = 0; // To hold the number of records
+            String parameter1 = fromLanguage.trim().equalsIgnoreCase("English") ? "en"
+                    : fromLanguage.trim().equalsIgnoreCase("Swahili") ? "sw" : "";
+
+            String parameter2 = fromLanguage.trim().equalsIgnoreCase("English") ? "sw"
+                    : fromLanguage.trim().equalsIgnoreCase("Swahili") ? "en" : "";
+
+            String parameter3 = wildCardSearch ? searchKey.replaceAll("\\*", "%") : searchKey;
+
+            statement.setString(1, parameter1);
+            statement.setString(2, parameter2);
+            statement.setString(3, parameter3);
+            statement.setInt(4, row);
+
+            resultSet = statement.executeQuery();
 
             while (resultSet.next())
             {
-                if (currentRow == row)
-                {
-                    id = resultSet.getString("Id");
-                    logApplicationMessage("Editing ID: " + id);
-                    break;
-                }
-                else
-                {
-                    currentRow++;
-                }
+                id.add(resultSet.getString("defn"));
+                id.add(resultSet.getString("odefn"));
+                id.add(resultSet.getString("nid"));
+                id.add(resultSet.getString("onid"));
+
+                break;
             }
+
+            logApplicationMessage("Editing ID: " + id);
         }
         catch (SQLException ex)
         {
@@ -314,29 +356,31 @@ public class Editor extends KamusiLogger
      */
     private String formatColumnName(String columnName)
     {
+        System.out.println("columnName -> " + columnName);
+
         if (columnName.equalsIgnoreCase(language1))
         {
-            return (language1 + "Word");
+            return "root";
         }
         else if (columnName.equalsIgnoreCase(language2))
         {
-            return (language2 + "Word");
+            return "oroot";
         }
         else if (columnName.equalsIgnoreCase(language1 + " plural"))
         {
-            return (language1 + "Plural");
+            return "title";
         }
         else if (columnName.equalsIgnoreCase(language2 + " plural"))
         {
-            return (language2 + "Plural");
+            return "otitle";
         }
         else if (columnName.equalsIgnoreCase(language1 + " example"))
         {
-            return (language1 + "Example");
+            return "defn";
         }
         else if (columnName.equalsIgnoreCase(language2 + " example"))
         {
-            return (language2 + "Example");
+            return "odefn";
         }
         else
         {
@@ -367,6 +411,8 @@ public class Editor extends KamusiLogger
             //Write out the new update file
             BufferedWriter writer = new BufferedWriter(new FileWriter(editFile, true));
             HexConverter converter = new HexConverter();
+//             TODO: Delete this line
+            System.out.println(update);
             writer.write(converter.getHex(update));
             writer.newLine();
             writer.close();
@@ -443,17 +489,38 @@ public class Editor extends KamusiLogger
         {
             case 0: //YES
 
-                String id = getID(row, fromLanguage, searchKey);
-                String query = "DELETE FROM dict WHERE id = ?";
+                List<String> id = getID(row, fromLanguage, searchKey);
+
+                String query = "DELETE FROM paldo "
+                        + "WHERE defn = ? and odefn = ? and nid = ? and onid = ?";
 
                 try
                 {
                     connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
-                    statement = connection.prepareStatement(query);
-                    statement.setString(1, id);
 
-                    statement.executeUpdate();
-                    logUpdate(query + "|" + id + "|" + getUsername());
+                    statement = connection.prepareStatement(query);
+
+                    String parameters = "";
+
+                    for (String param : id)
+                    {
+                        parameters += param + SEPARATOR;
+                    }
+
+                    parameters = parameters.substring(0, parameters.lastIndexOf(SEPARATOR));
+
+                    int index = 1;
+
+                    for (String string : parameters.split(SEPARATOR))
+                    {
+                        statement.setString(index, string);
+                        index++;
+                    }
+
+                    //TODO: Enable this query
+                    //statement.executeUpdate();
+
+                    logUpdate(query + SEPARATOR + parameters + SEPARATOR + getUsername());
                 }
                 catch (Exception ex)
                 {
@@ -717,7 +784,8 @@ public class Editor extends KamusiLogger
                 statement.setString(22, EngPluralAlt);
                 statement.setString(23, SwaPluralAlt);
 
-                statement.executeUpdate();
+                //TODO: Enable this flag
+//                statement.executeUpdate();
 
                 String updateLog = query + "|";
                 updateLog += PartOfSpeech + "|";
@@ -765,32 +833,6 @@ public class Editor extends KamusiLogger
                     MainWindow.showError(ex);
                 }
             }
-            /*CREATE TABLE "dict" (
-            "Id" integer NOT NULL primary key autoincrement,
-            "PartOfSpeech" integer unsigned NOT NULL default '0',
-            "Class" integer unsigned NOT NULL default '0',
-            "SwahiliSortBy" varchar(16) NOT NULL default '',
-            "EnglishSortBy" varchar(17) NOT NULL default '',
-            "SwahiliWord" varchar(53) NOT NULL default '',
-            "EnglishWord" varchar(175) NOT NULL default '',
-            "SwahiliPlural" varchar(255) NOT NULL default '',
-            "EnglishPlural" varchar(255) NOT NULL default '',
-            "SwahiliDefinition" varchar(174) NOT NULL default '',
-            "SwahiliExample" text,
-            "EnglishExample" text,
-            "Derived" varchar(82) NOT NULL default '',
-            "DialectNote" varchar(255) NOT NULL default '',
-            "Dialect" text NOT NULL,
-            "Terminology" text NOT NULL,
-            "EnglishDef" text,
-            "DerivedLang" integer unsigned default NULL,
-            "Taxonomy" text NOT NULL,
-            "RelatedWords" text NOT NULL,
-            "EngAlt" varchar(255) NOT NULL default '',
-            "SwaAlt" varchar(255) NOT NULL default '',
-            "EngPluralAlt" varchar(255) NOT NULL default '',
-            "SwaPluralAlt" varchar(255) NOT NULL default ''
-             */
         }
 
         return false;

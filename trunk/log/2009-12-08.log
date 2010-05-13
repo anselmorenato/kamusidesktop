@@ -1,0 +1,414 @@
+2009-12-08 00:00:33 [ Tue Dec 08 00:00:33 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 00:00:33 Starting encryption		[ OK ]
+2009-12-08 00:02:22 [ Tue Dec 08 00:02:21 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 00:02:22 Starting encryption		[ OK ]
+2009-12-08 00:09:20 [ Tue Dec 08 00:09:20 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 00:09:20 Starting encryption		[ OK ]
+2009-12-08 00:09:25 Mandatory field(s) missing values
+2009-12-08 05:50:05 [ Tue Dec 08 05:50:05 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 05:50:06 Starting encryption		[ OK ]
+2009-12-08 05:50:12 Mandatory field(s) missing values
+2009-12-08 05:50:14 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 05:50:36 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:05:40 [ Tue Dec 08 06:05:40 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:05:42 Starting encryption		[ OK ]
+2009-12-08 06:06:35 [ Tue Dec 08 06:06:35 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:06:35 Starting encryption		[ OK ]
+2009-12-08 06:06:37 java.sql.SQLException: No suitable driver found for jdbc:sqlite:kamusiproject.db
+2009-12-08 06:06:37 No suitable driver found for jdbc:sqlite:kamusiproject.db
+2009-12-08 06:06:46 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:08:23 [ Tue Dec 08 06:08:23 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:08:24 Starting encryption		[ OK ]
+2009-12-08 06:08:25 java.sql.SQLException: No suitable driver found for jdbc:sqlite:kamusiproject.db
+2009-12-08 06:08:25 No suitable driver found for jdbc:sqlite:kamusiproject.db
+2009-12-08 06:08:27 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:09:56 [ Tue Dec 08 06:09:56 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:09:57 Starting encryption		[ OK ]
+2009-12-08 06:10:01 1 results matched for "fat" from ENGLISH
+2009-12-08 06:10:07 1 results matched for "fat" from ENGLISH
+2009-12-08 06:10:12 6 results matched for "fat*" from ENGLISH
+2009-12-08 06:10:28 1 results matched for "fat" from ENGLISH
+2009-12-08 06:10:29 1 results matched for "moth" from ENGLISH
+2009-12-08 06:10:30 12 results matched for "mother" from ENGLISH
+2009-12-08 06:10:37 12 results matched for "mother" from ENGLISH
+2009-12-08 06:11:42 825 results matched for "f*" from ENGLISH
+2009-12-08 06:22:46 [ Tue Dec 08 06:22:46 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:22:46 Starting encryption		[ OK ]
+2009-12-08 06:22:50 java.sql.SQLException: no such table: dict
+2009-12-08 06:22:50 no such table: dict
+2009-12-08 06:22:56 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:25:51 [ Tue Dec 08 06:25:50 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:25:51 Starting encryption		[ OK ]
+2009-12-08 06:25:53 java.sql.SQLException: no such table: dict
+2009-12-08 06:25:53 no such table: dict
+2009-12-08 06:25:58 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:30:08 [ Tue Dec 08 06:30:08 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:30:08 Starting encryption		[ OK ]
+2009-12-08 06:30:11 2 results matched for "set" from ENGLISH
+2009-12-08 06:30:17 16 results matched for "set*" from ENGLISH
+2009-12-08 06:45:59 [ Tue Dec 08 06:45:58 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:45:59 Starting encryption		[ OK ]
+2009-12-08 06:46:09 Mandatory field(s) missing values
+2009-12-08 06:46:10 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:46:27 Mandatory field(s) missing values
+2009-12-08 06:46:29 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:46:35 dict.Class may not be NULL
+2009-12-08 06:46:45 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 06:48:21 [ Tue Dec 08 06:48:21 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:48:21 Starting encryption		[ OK ]
+2009-12-08 06:48:28 Mandatory field(s) missing values
+2009-12-08 06:48:34 Mandatory field(s) missing values
+2009-12-08 06:55:00 [ Tue Dec 08 06:55:00 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 06:55:00 Starting encryption		[ OK ]
+2009-12-08 06:55:30 Mandatory field(s) missing values
+2009-12-08 06:57:06 1 results matched for "fat" from ENGLISH
+2009-12-08 06:57:14 1 results matched for "fat" from ENGLISH
+2009-12-08 06:57:18 6 results matched for "fat*" from ENGLISH
+2009-12-08 07:02:09 [ Tue Dec 08 07:02:09 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:02:09 Starting encryption		[ OK ]
+2009-12-08 07:02:12 1 results matched for "fat" from ENGLISH
+2009-12-08 07:03:13 Word Added. Please restart the application in order for the changes to take effect.
+2009-12-08 07:05:11 [ Tue Dec 08 07:05:11 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:05:11 Starting encryption		[ OK ]
+2009-12-08 07:05:16 Mandatory field(s) missing values
+2009-12-08 07:17:29 [ Tue Dec 08 07:17:29 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:17:29 Starting encryption		[ OK ]
+2009-12-08 07:17:49 Word added successfully!
+2009-12-08 07:19:19 [ Tue Dec 08 07:19:19 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:19:20 Starting encryption		[ OK ]
+2009-12-08 07:19:31 5 results matched for "escape" from ENGLISH
+2009-12-08 07:19:33 5 results matched for "escape" from ENGLISH
+2009-12-08 07:19:34 5 results matched for "escape" from ENGLISH
+2009-12-08 07:19:35 5 results matched for "escape" from ENGLISH
+2009-12-08 07:19:36 5 results matched for "escape" from ENGLISH
+2009-12-08 07:20:39 2 results matched for "ko" from SWAHILI
+2009-12-08 07:20:43 2 results matched for "ko" from SWAHILI
+2009-12-08 07:20:45 2 results matched for "ko" from SWAHILI
+2009-12-08 07:20:48 2 results matched for "kosekana" from SWAHILI
+2009-12-08 07:21:58 [ Tue Dec 08 07:21:58 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:21:58 Starting encryption		[ OK ]
+2009-12-08 07:22:00 1 results matched for "fat" from ENGLISH
+2009-12-08 07:26:12 [ Tue Dec 08 07:26:12 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:26:12 Starting encryption		[ OK ]
+2009-12-08 07:26:14 java.sql.SQLException: near ")": syntax error
+2009-12-08 07:26:14 near ")": syntax error
+2009-12-08 07:26:17 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 07:26:37 [ Tue Dec 08 07:26:37 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:26:37 Starting encryption		[ OK ]
+2009-12-08 07:26:41 19 results matched for "test" from ENGLISH
+2009-12-08 07:26:49 22 results matched for "eagle" from ENGLISH
+2009-12-08 07:27:08 20 results matched for "fat" from ENGLISH
+2009-12-08 07:27:09 20 results matched for "fat" from ENGLISH
+2009-12-08 07:27:10 7 results matched for "father" from ENGLISH
+2009-12-08 07:27:17 7 results matched for "father" from ENGLISH
+2009-12-08 07:27:17 7 results matched for "father" from ENGLISH
+2009-12-08 07:27:18 7 results matched for "father" from ENGLISH
+2009-12-08 07:27:19 7 results matched for "father" from ENGLISH
+2009-12-08 07:27:43 22 results matched for "eagle" from ENGLISH
+2009-12-08 07:27:49 23 results matched for "eagle*" from ENGLISH
+2009-12-08 07:28:16 22 results matched for "eagle" from ENGLISH
+2009-12-08 07:29:16 1 results matched for "visu" from SWAHILI
+2009-12-08 07:29:22 4 results matched for "knives" from ENGLISH
+2009-12-08 07:34:24 [ Tue Dec 08 07:34:24 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:34:24 Starting encryption		[ OK ]
+2009-12-08 07:34:47 20 results matched for "fat" from ENGLISH
+2009-12-08 07:34:48 20 results matched for "fat" from ENGLISH
+2009-12-08 07:34:49 7 results matched for "father" from ENGLISH
+2009-12-08 07:34:52 7 results matched for "father" from ENGLISH
+2009-12-08 07:34:53 7 results matched for "father" from ENGLISH
+2009-12-08 07:34:54 7 results matched for "father" from ENGLISH
+2009-12-08 07:34:54 7 results matched for "father" from ENGLISH
+2009-12-08 07:35:18 Editing ID: 105814
+2009-12-08 07:35:18 java.lang.UnsupportedOperationException: Deleting entries is not yet implemented
+2009-12-08 07:35:20 7 results matched for "father" from ENGLISH
+2009-12-08 07:35:56 [ Tue Dec 08 07:35:56 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:35:56 Starting encryption		[ OK ]
+2009-12-08 07:36:01 20 results matched for "fat" from ENGLISH
+2009-12-08 07:36:02 7 results matched for "father" from ENGLISH
+2009-12-08 07:36:05 7 results matched for "father" from ENGLISH
+2009-12-08 07:36:08 7 results matched for "father" from ENGLISH
+2009-12-08 07:36:10 7 results matched for "father" from ENGLISH
+2009-12-08 07:36:15 Editing ID: 105814
+2009-12-08 07:36:15 java.lang.UnsupportedOperationException: Deleting entries is not yet implemented
+2009-12-08 07:36:19 7 results matched for "father" from ENGLISH
+2009-12-08 07:37:31 [ Tue Dec 08 07:37:30 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:37:31 Starting encryption		[ OK ]
+2009-12-08 07:37:52 [ Tue Dec 08 07:37:52 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:37:53 Starting encryption		[ OK ]
+2009-12-08 07:37:58 3 results matched for "vest" from ENGLISH
+2009-12-08 07:38:03 Editing ID: 8458
+2009-12-08 07:38:03 Deleting entries is not yet implemented
+2009-12-08 07:38:05 3 results matched for "vest" from ENGLISH
+2009-12-08 07:41:55 [ Tue Dec 08 07:41:55 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:41:55 Starting encryption		[ OK ]
+2009-12-08 07:42:01 15 results matched for "sex" from ENGLISH
+2009-12-08 07:42:09 19 results matched for "sex*" from ENGLISH
+2009-12-08 07:43:24 951 results matched for "se*" from ENGLISH
+2009-12-08 07:44:09 22 results matched for "eagle" from ENGLISH
+2009-12-08 07:44:25 23 results matched for "eagle*" from ENGLISH
+2009-12-08 07:45:35 [ Tue Dec 08 07:45:35 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:45:36 Starting encryption		[ OK ]
+2009-12-08 07:45:42 19 results matched for "test" from ENGLISH
+2009-12-08 07:45:49 50 results matched for "test*" from ENGLISH
+2009-12-08 07:49:12 [ Tue Dec 08 07:49:12 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:49:12 Starting encryption		[ OK ]
+2009-12-08 07:49:17 19 results matched for "test" from ENGLISH
+2009-12-08 07:49:30 [ Tue Dec 08 07:49:29 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 07:49:30 Starting encryption		[ OK ]
+2009-12-08 07:49:34 19 results matched for "test" from ENGLISH
+2009-12-08 07:49:40 19 results matched for "test" from ENGLISH
+2009-12-08 07:49:47 50 results matched for "test*" from ENGLISH
+2009-12-08 07:50:05 19 results matched for "make" from ENGLISH
+2009-12-08 07:50:10 2 results matched for "makende" from SWAHILI
+2009-12-08 11:17:57 [ Tue Dec 08 11:17:57 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 11:17:58 Starting encryption		[ OK ]
+2009-12-08 11:20:41 [ Tue Dec 08 11:20:41 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 11:20:42 Starting encryption		[ OK ]
+2009-12-08 14:10:39 8 results matched for "miti" from SWAHILI
+2009-12-08 14:10:50 8 results matched for "miti" from SWAHILI
+2009-12-08 14:10:51 8 results matched for "miti" from SWAHILI
+2009-12-08 14:10:52 8 results matched for "miti" from SWAHILI
+2009-12-08 14:10:52 8 results matched for "miti" from SWAHILI
+2009-12-08 14:11:20 71 results matched for "miti*" from SWAHILI
+2009-12-08 14:11:24 71 results matched for "miti*" from SWAHILI
+2009-12-08 14:13:55 7 results matched for "ni" from SWAHILI
+2009-12-08 14:13:56 5 results matched for "nili" from SWAHILI
+2009-12-08 14:14:00 10 results matched for "a" from SWAHILI
+2009-12-08 14:14:02 3 results matched for "ambia" from SWAHILI
+2009-12-08 14:37:15 [ Tue Dec 08 14:37:15 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 14:37:16 Starting encryption		[ OK ]
+2009-12-08 14:39:03 20 results matched for "fat" from ENGLISH
+2009-12-08 14:39:04 7 results matched for "father" from ENGLISH
+2009-12-08 14:39:17 7 results matched for "father" from ENGLISH
+2009-12-08 14:39:20 7 results matched for "father" from ENGLISH
+2009-12-08 14:39:21 7 results matched for "father" from ENGLISH
+2009-12-08 14:40:02 Editing database entry from padri to PADRI
+2009-12-08 14:40:02 Starting encryption		[ OK ]
+2009-12-08 14:40:03 Editing ID: 35754
+2009-12-08 14:40:03 Starting encryption		[ OK ]
+2009-12-08 14:40:07 Starting encryption		[ OK ]
+2009-12-08 14:40:07 Updated edit log
+2009-12-08 14:40:07 7 results matched for "father" from ENGLISH
+2009-12-08 14:40:55 Starting encryption		[ OK ]
+2009-12-08 14:40:55 Posting: 636F6C756D6E3D456E676C697368576F7264267570646174653D73616D706C65746573743273737326726F773D353735313326757365726E616D653D61727468757262756C697661266F6C6456616C75653D73616D706C657465737432
+2009-12-08 14:41:17 Starting encryption		[ OK ]
+2009-12-08 14:41:17 Posting: 636F6C756D6E3D53776168696C69576F7264267570646174653D504144524926726F773D333537353426757365726E616D653D61727468757262756C697661266F6C6456616C75653D7061647269
+2009-12-08 14:41:24 Fetching: http://localhost:8080/kamusiproject/fetchupdate.jsp?update=1259681942860
+2009-12-08 14:41:24 Databases synchronized successfully!
+2009-12-08 14:41:24 Databases synchronized successfully!
+2009-12-08 14:42:43 6 results matched for "we" from ENGLISH
+2009-12-08 14:48:19 [ Tue Dec 08 14:48:19 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 14:48:19 Starting encryption		[ OK ]
+2009-12-08 14:48:35 [ Tue Dec 08 14:48:35 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 14:48:36 Starting encryption		[ OK ]
+2009-12-08 14:49:42 19 results matched for "test" from ENGLISH
+2009-12-08 14:51:19 19 results matched for "test" from ENGLISH
+2009-12-08 14:51:21 19 results matched for "test" from ENGLISH
+2009-12-08 14:51:22 19 results matched for "test" from ENGLISH
+2009-12-08 14:51:24 19 results matched for "test" from ENGLISH
+2009-12-08 18:34:29 [ Tue Dec 08 18:34:29 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:34:30 Starting encryption		[ OK ]
+2009-12-08 18:34:35 19 results matched for "test" from ENGLISH
+2009-12-08 18:34:36 19 results matched for "test" from ENGLISH
+2009-12-08 18:35:28 [ Tue Dec 08 18:35:28 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:35:28 Starting encryption		[ OK ]
+2009-12-08 18:35:31 15 results matched for "see" from ENGLISH
+2009-12-08 18:35:36 19 results matched for "test" from ENGLISH
+2009-12-08 18:35:37 19 results matched for "test" from ENGLISH
+2009-12-08 18:38:09 [ Tue Dec 08 18:38:09 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:38:10 Starting encryption		[ OK ]
+2009-12-08 18:38:13 19 results matched for "test" from ENGLISH
+2009-12-08 18:38:14 19 results matched for "test" from ENGLISH
+2009-12-08 18:39:47 [ Tue Dec 08 18:39:47 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:39:47 Starting encryption		[ OK ]
+2009-12-08 18:39:50 19 results matched for "test" from ENGLISH
+2009-12-08 18:39:51 19 results matched for "test" from ENGLISH
+2009-12-08 18:40:02 [ Tue Dec 08 18:40:02 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:40:03 Starting encryption		[ OK ]
+2009-12-08 18:40:06 19 results matched for "test" from ENGLISH
+2009-12-08 18:40:07 19 results matched for "test" from ENGLISH
+2009-12-08 18:41:04 [ Tue Dec 08 18:41:04 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:41:05 Starting encryption		[ OK ]
+2009-12-08 18:41:07 19 results matched for "test" from ENGLISH
+2009-12-08 18:41:08 19 results matched for "test" from ENGLISH
+2009-12-08 18:41:38 [ Tue Dec 08 18:41:38 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:41:38 Starting encryption		[ OK ]
+2009-12-08 18:41:44 22 results matched for "eagle" from ENGLISH
+2009-12-08 18:41:53 23 results matched for "eagle*" from ENGLISH
+2009-12-08 18:43:03 [ Tue Dec 08 18:43:03 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:43:03 Starting encryption		[ OK ]
+2009-12-08 18:43:08 19 results matched for "test" from ENGLISH
+2009-12-08 18:43:09 19 results matched for "test" from ENGLISH
+2009-12-08 18:43:48 [ Tue Dec 08 18:43:48 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:43:48 Starting encryption		[ OK ]
+2009-12-08 18:44:04 [ Tue Dec 08 18:44:04 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:44:05 Starting encryption		[ OK ]
+2009-12-08 18:44:09 19 results matched for "test" from ENGLISH
+2009-12-08 18:44:10 19 results matched for "test" from ENGLISH
+2009-12-08 18:44:14 404 results matched for "j*" from ENGLISH
+2009-12-08 18:57:42 [ Tue Dec 08 18:57:42 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:57:42 Starting encryption		[ OK ]
+2009-12-08 18:57:45 19 results matched for "test" from ENGLISH
+2009-12-08 18:57:46 19 results matched for "test" from ENGLISH
+2009-12-08 18:58:08 [ Tue Dec 08 18:58:08 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 18:58:08 Starting encryption		[ OK ]
+2009-12-08 18:58:11 19 results matched for "test" from ENGLISH
+2009-12-08 18:58:12 19 results matched for "test" from ENGLISH
+2009-12-08 18:58:19 7 results matched for "as" from ENGLISH
+2009-12-08 18:58:19 7 results matched for "as" from ENGLISH
+2009-12-08 18:58:21 3 results matched for "ass" from ENGLISH
+2009-12-08 18:58:25 7 results matched for "as" from ENGLISH
+2009-12-08 18:58:28 20 results matched for "fat" from ENGLISH
+2009-12-08 19:05:01 [ Tue Dec 08 19:05:01 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:05:02 Starting encryption		[ OK ]
+2009-12-08 19:05:04 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 19:11:20 [ Tue Dec 08 19:11:20 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:11:20 Starting encryption		[ OK ]
+2009-12-08 19:11:24 19 results matched for "test" from ENGLISH
+2009-12-08 19:11:25 19 results matched for "test" from ENGLISH
+2009-12-08 19:11:39 [ Tue Dec 08 19:11:39 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:11:39 Starting encryption		[ OK ]
+2009-12-08 19:11:44 19 results matched for "test" from ENGLISH
+2009-12-08 19:14:24 [ Tue Dec 08 19:14:24 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:14:24 Starting encryption		[ OK ]
+2009-12-08 19:14:28 5 results matched for "edit" from ENGLISH
+2009-12-08 19:14:32 14 results matched for "edit*" from ENGLISH
+2009-12-08 19:15:20 [ Tue Dec 08 19:15:20 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:15:21 Starting encryption		[ OK ]
+2009-12-08 19:15:34 61091 results matched for "*" from ENGLISH
+2009-12-08 19:16:55 [ Tue Dec 08 19:16:55 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:16:55 Starting encryption		[ OK ]
+2009-12-08 19:17:08 61091 results matched for "*" from ENGLISH
+2009-12-08 19:17:47 Deleting entries is not yet implemented
+2009-12-08 19:17:57 61091 results matched for "*" from ENGLISH
+2009-12-08 19:19:07 [ Tue Dec 08 19:19:07 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:19:07 Starting encryption		[ OK ]
+2009-12-08 19:19:13 3873 results matched for "a*" from ENGLISH
+2009-12-08 19:19:34 15 results matched for "be" from ENGLISH
+2009-12-08 19:19:38 43 results matched for "bend" from ENGLISH
+2009-12-08 19:19:43 49 results matched for "bend*" from ENGLISH
+2009-12-08 19:20:37 [ Tue Dec 08 19:20:37 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:20:37 Starting encryption		[ OK ]
+2009-12-08 19:20:41 3915 results matched for "b*" from ENGLISH
+2009-12-08 19:20:42 3915 results matched for "b*" from ENGLISH
+2009-12-08 19:20:52 24 results matched for "mat" from ENGLISH
+2009-12-08 19:20:54 6 results matched for "matiti" from SWAHILI
+2009-12-08 19:21:05 61091 results matched for "*" from SWAHILI
+2009-12-08 19:21:13 61091 results matched for "*" from SWAHILI
+2009-12-08 19:21:20 6 results matched for "m" from SWAHILI
+2009-12-08 19:21:23 46 results matched for "mzun*" from SWAHILI
+2009-12-08 19:21:23 46 results matched for "mzun*" from SWAHILI
+2009-12-08 19:21:29 46 results matched for "mzung*" from SWAHILI
+2009-12-08 19:21:31 46 results matched for "mzungu*" from SWAHILI
+2009-12-08 19:21:32 20 results matched for "mzungu" from SWAHILI
+2009-12-08 19:21:43 61091 results matched for "*" from SWAHILI
+2009-12-08 19:21:50 61091 results matched for "*" from SWAHILI
+2009-12-08 19:21:50 1 results matched for "*z" from SWAHILI
+2009-12-08 19:21:50 53 results matched for "*zu" from SWAHILI
+2009-12-08 19:21:51 153 results matched for "*zung*" from SWAHILI
+2009-12-08 19:21:51 153 results matched for "*zung*" from SWAHILI
+2009-12-08 19:22:00 153 results matched for "*zung*" from SWAHILI
+2009-12-08 19:22:00 153 results matched for "*zung*" from SWAHILI
+2009-12-08 19:22:03 153 results matched for "*zung*" from SWAHILI
+2009-12-08 19:22:05 1005 results matched for "z*" from SWAHILI
+2009-12-08 19:22:05 1005 results matched for "z*" from SWAHILI
+2009-12-08 19:22:10 261 results matched for "uz*" from SWAHILI
+2009-12-08 19:22:12 74 results matched for "uzi*" from SWAHILI
+2009-12-08 19:22:17 14 results matched for "uzit*" from SWAHILI
+2009-12-08 19:22:21 14 results matched for "uzit*" from SWAHILI
+2009-12-08 19:22:22 6 results matched for "m" from SWAHILI
+2009-12-08 19:22:22 2 results matched for "mo" from SWAHILI
+2009-12-08 19:22:24 4 results matched for "moshi" from SWAHILI
+2009-12-08 19:23:08 61091 results matched for "*" from SWAHILI
+2009-12-08 19:23:16 61091 results matched for "*" from SWAHILI
+2009-12-08 19:23:35 25940 results matched for "*a" from SWAHILI
+2009-12-08 19:23:39 5 results matched for "*ab" from SWAHILI
+2009-12-08 19:23:42 5 results matched for "*ab" from SWAHILI
+2009-12-08 19:23:51 4 results matched for "catap*" from ENGLISH
+2009-12-08 19:23:54 20 results matched for "fat" from ENGLISH
+2009-12-08 19:23:55 7 results matched for "father" from ENGLISH
+2009-12-08 19:23:55 7 results matched for "father" from ENGLISH
+2009-12-08 19:24:05 Editing database entry from PADRI to padri
+2009-12-08 19:24:05 Starting encryption		[ OK ]
+2009-12-08 19:24:06 Editing ID: 35754
+2009-12-08 19:24:06 Starting encryption		[ OK ]
+2009-12-08 19:24:06 7 results matched for "father" from ENGLISH
+2009-12-08 19:24:09 Starting encryption		[ OK ]
+2009-12-08 19:24:09 Updated edit log
+2009-12-08 19:24:12 java.sql.SQLException: database locked
+2009-12-08 19:24:12 database locked
+2009-12-08 19:27:39 [ Tue Dec 08 19:27:39 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:27:40 Starting encryption		[ OK ]
+2009-12-08 19:27:48 java.sql.SQLException: database is locked
+2009-12-08 19:27:48 database is locked
+2009-12-08 19:27:51 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 19:28:13 java.sql.SQLException: database is locked
+2009-12-08 19:28:13 database is locked
+2009-12-08 19:28:15 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 19:29:38 java.sql.SQLException: database is locked
+2009-12-08 19:29:38 database is locked
+2009-12-08 19:29:41 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 19:32:15 [ Tue Dec 08 19:32:15 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 19:32:15 Starting encryption		[ OK ]
+2009-12-08 19:32:27 java.sql.SQLException: database is locked
+2009-12-08 19:32:27 database is locked
+2009-12-08 19:32:30 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 19:32:42 java.sql.SQLException: database is locked
+2009-12-08 19:32:42 database is locked
+2009-12-08 19:32:43 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 20:18:50 61091 results matched for "*" from ENGLISH
+2009-12-08 21:22:06 java.sql.SQLException: database is locked
+2009-12-08 21:22:06 database is locked
+2009-12-08 21:22:07 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 21:22:24 java.sql.SQLException: database is locked
+2009-12-08 21:22:24 database is locked
+2009-12-08 21:22:27 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 21:22:46 java.sql.SQLException: database is locked
+2009-12-08 21:22:46 database is locked
+2009-12-08 21:22:49 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-08 21:22:57 [ Tue Dec 08 21:22:57 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 21:22:57 Starting encryption		[ OK ]
+2009-12-08 21:23:03 4130 results matched for "d*" from ENGLISH
+2009-12-08 21:23:22 [ Tue Dec 08 21:23:22 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 21:23:22 Starting encryption		[ OK ]
+2009-12-08 21:23:34 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:23:50 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:23:51 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:23:52 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:23:53 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:24:00 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:24:01 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:24:02 22 results matched for "sev*" from ENGLISH
+2009-12-08 21:24:24 [ Tue Dec 08 21:24:24 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 21:24:24 Starting encryption		[ OK ]
+2009-12-08 21:24:32 43129 results matched for "" from ENGLISH
+2009-12-08 21:24:37 43129 results matched for "" from ENGLISH
+2009-12-08 21:24:49 43129 results matched for "" from ENGLISH
+2009-12-08 21:24:54 43129 results matched for "" from ENGLISH
+2009-12-08 21:25:55 [ Tue Dec 08 21:25:55 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 21:25:55 Starting encryption		[ OK ]
+2009-12-08 21:26:24 [ Tue Dec 08 21:26:24 CAT 2009 Linux 2.6.31.6-145.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-08 21:26:24 Starting encryption		[ OK ]
+2009-12-08 21:26:48 3873 results matched for "a*" from ENGLISH
+2009-12-08 21:26:53 4 results matched for "x*" from ENGLISH
+2009-12-08 21:26:57 1346 results matched for "*x*" from ENGLISH
+2009-12-08 21:27:10 2 results matched for "*x*" from SWAHILI

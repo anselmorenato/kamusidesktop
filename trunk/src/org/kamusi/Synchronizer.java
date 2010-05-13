@@ -22,6 +22,7 @@ import java.net.URLEncoder;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Vector;
 
 /**
  * Synchronizer.java
@@ -82,7 +83,7 @@ public class Synchronizer extends KamusiLogger
         if (updateLocalLog())
         {
             updateTimeStamp();
-            
+
             String message = MessageLocalizer.formatMessage("successful_sync", null);
             logApplicationMessage(message);
             MainWindow.showInfo(message);
@@ -134,8 +135,6 @@ public class Synchronizer extends KamusiLogger
 
         URL url = new URL(SYNC_URL + "/fetchupdate.jsp?update=" + lastUpdate);
 
-        System.out.println(url.toString());
-
         URLConnection connection = url.openConnection();
         sizeOfUpdate = connection.getContentLength();
         connection.getInputStream().close();
@@ -174,11 +173,20 @@ public class Synchronizer extends KamusiLogger
             }
             else
             {
-
                 String value = converter.getAscii(line);
+
                 logApplicationMessage(value);
+
                 String[] queryArray = value.split("\\|");
-                updateLocalDatabase(queryArray);
+
+                Vector<String> parameters = new Vector<String>();
+
+                for (String unit : queryArray[0].split("@"))
+                {
+                    parameters.add(unit);
+                }
+
+                updateLocalDatabase(queryArray[0], parameters);
             }
         }
         // Close the reader in preparation for the next line
@@ -217,7 +225,7 @@ public class Synchronizer extends KamusiLogger
             URLConnection connection = url.openConnection();
 
             BufferedInputStream inputStream = new BufferedInputStream(connection.getInputStream());
-            FileOutputStream ftpFileOutputStream = new FileOutputStream("log/edit.log");
+            FileOutputStream ftpFileOutputStream = new FileOutputStream(editLog);
 
             int i = 0;
 
@@ -226,8 +234,6 @@ public class Synchronizer extends KamusiLogger
             while ((i = inputStream.read(bytesIn)) >= 0)
             {
                 ftpFileOutputStream.write(bytesIn, 0, i);
-
-
             }
 
             ftpFileOutputStream.close();
@@ -381,27 +387,34 @@ public class Synchronizer extends KamusiLogger
      * Updates the local database with changes from the remote
      * @param queryArray
      */
-    private void updateLocalDatabase(String[] queryArray)
+    private void updateLocalDatabase(String query, Vector<String> parameters)
     {
-        String query = ("UPDATE DICT SET " + queryArray[0]
-                + " = ? WHERE Id = ?");
-
         PreparedStatement statement = null;
         Connection connection = null;
 
         try
         {
             connection = DriverManager.getConnection(DATABASE, USERNAME, PASSWORD);
+
             statement = connection.prepareStatement(query);
-            statement.setString(1, queryArray[1]);
-            statement.setString(2, queryArray[2]);
-            statement.executeUpdate();
+
+            int index = 1;
+
+            for (String param : parameters)
+            {
+                statement.setString(index, param);
+                index++;
+            }
+
+            System.out.println(query);
+            System.out.println(parameters);
+
+            //TODO: Enable this flag
+            //statement.executeUpdate();
         }
         catch (Exception ex)
         {
             MainWindow.showError(ex);
-
-
         }
         finally
         {

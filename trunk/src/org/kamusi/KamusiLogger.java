@@ -18,6 +18,8 @@ import java.util.Date;
 public class KamusiLogger
 {
 
+    public final String SEPARATOR = "@";
+
     /**
      * Initializes the class
      */
@@ -71,8 +73,6 @@ public class KamusiLogger
     {
         KamusiProperties props = new KamusiProperties();
         
-        System.out.println("props.printStackTrace() -> " + props.printStackTrace());
-
         if (props.printStackTrace())
         {
             exception.printStackTrace();

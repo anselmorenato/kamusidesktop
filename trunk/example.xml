@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<People><Person><Name>John Bartosh</Name><Age>35</Age><Children><Child><Name>George Bartosh</Name><Age>1</Age></Child><Child stepchild="yes"><Name>Maria Bartosh</Name><Age>5</Age></Child></Children></Person><Person><Name>Jane Bartosh</Name><Age>15</Age><Children /></Person></People>

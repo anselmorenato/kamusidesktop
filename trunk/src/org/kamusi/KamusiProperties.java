@@ -91,6 +91,11 @@ public class KamusiProperties extends KamusiLogger
         return stackTrace.equals("1")? true: false;
     }
 
+    public String getProperty(String key)
+    {
+        return System.getProperty(key);
+    }
+
     private String logFormat;
 
     public KamusiProperties()

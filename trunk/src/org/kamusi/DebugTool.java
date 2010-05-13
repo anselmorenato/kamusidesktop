@@ -23,6 +23,9 @@ public class DebugTool extends KamusiLogger
 
     private HexConverter converter = new HexConverter();
 
+    /**
+     * Sends error stack traces to developers
+     */
     public void sendErrorDetails()
     {
         try
