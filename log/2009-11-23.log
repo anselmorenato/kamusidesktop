@@ -1,0 +1,66 @@
+2009-11-23 19:54:45 [ Mon Nov 23 19:54:44 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 19:54:45 Starting encryption		[ OK ]
+2009-11-23 19:55:22 [ Mon Nov 23 19:55:22 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 19:55:23 Starting encryption		[ OK ]
+2009-11-23 19:55:28 18 results matched for "test" from ENGLISH
+2009-11-23 19:55:28 18 results matched for "test" from ENGLISH
+2009-11-23 20:00:17 [ Mon Nov 23 20:00:17 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:00:17 Starting encryption		[ OK ]
+2009-11-23 20:00:54 [ Mon Nov 23 20:00:54 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:00:54 Starting encryption		[ OK ]
+2009-11-23 20:00:59 java.net.UnknownHostException: pm.suuch.com
+2009-11-23 20:00:59 An error occurred while restoring database.
+Check your connection to the Internet or try again later.
+2009-11-23 20:01:38 [ Mon Nov 23 20:01:38 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:01:38 Starting encryption		[ OK ]
+2009-11-23 20:01:41 java.net.UnknownHostException: pm.suuch.com
+2009-11-23 20:01:41 An error occurred while restoring database.
+Check your connection to the Internet or try again later.
+2009-11-23 20:02:32 [ Mon Nov 23 20:02:32 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:02:32 Starting encryption		[ OK ]
+2009-11-23 20:02:34 java.net.UnknownHostException: pm.suuch.com
+2009-11-23 20:02:34 An error occurred while restoring database.
+Check your connection to the Internet or try again later.
+2009-11-23 20:18:46 [ Mon Nov 23 20:18:46 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:18:47 Starting encryption		[ OK ]
+2009-11-23 20:23:20 [ Mon Nov 23 20:23:20 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:23:20 Starting encryption		[ OK ]
+2009-11-23 20:23:32 java.net.UnknownHostException: pm.suuch.com
+2009-11-23 20:23:32 An error occurred while synchronizing.
+Please check your connection to the Internet or try again later.
+2009-11-23 20:26:29 [ Mon Nov 23 20:26:29 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:26:29 Starting encryption		[ OK ]
+2009-11-23 20:29:05 [ Mon Nov 23 20:29:05 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:29:05 Starting encryption		[ OK ]
+2009-11-23 20:29:37 [ Mon Nov 23 20:29:37 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:29:38 Starting encryption		[ OK ]
+2009-11-23 20:37:27 [ Mon Nov 23 20:37:27 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:37:28 Starting encryption		[ OK ]
+2009-11-23 20:37:32 18 results matched for "test" from ENGLISH
+2009-11-23 20:37:35 java.lang.UnsupportedOperationException: Adding new entries is not yet implemented
+2009-11-23 20:47:47 [ Mon Nov 23 20:47:47 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:47:47 Starting encryption		[ OK ]
+2009-11-23 20:49:46 [ Mon Nov 23 20:49:46 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:49:46 Starting encryption		[ OK ]
+2009-11-23 20:51:27 [ Mon Nov 23 20:51:27 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:51:27 Starting encryption		[ OK ]
+2009-11-23 20:52:34 [ Mon Nov 23 20:52:34 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:52:34 Starting encryption		[ OK ]
+2009-11-23 20:55:03 [ Mon Nov 23 20:55:03 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:55:03 Starting encryption		[ OK ]
+2009-11-23 20:55:22 18 results matched for "test" from ENGLISH
+2009-11-23 20:56:19 [ Mon Nov 23 20:56:19 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:56:20 Starting encryption		[ OK ]
+2009-11-23 20:56:22 18 results matched for "test" from ENGLISH
+2009-11-23 20:56:22 18 results matched for "test" from ENGLISH
+2009-11-23 20:56:22 18 results matched for "test" from ENGLISH
+2009-11-23 20:56:53 [ Mon Nov 23 20:56:53 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:56:54 Starting encryption		[ OK ]
+2009-11-23 20:56:55 18 results matched for "test" from ENGLISH
+2009-11-23 20:56:56 18 results matched for "test" from ENGLISH
+2009-11-23 20:57:06 [ Mon Nov 23 20:57:06 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 20:57:06 Starting encryption		[ OK ]
+2009-11-23 21:39:01 [ Mon Nov 23 21:39:01 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 21:39:02 Starting encryption		[ OK ]
+2009-11-23 21:39:54 [ Mon Nov 23 21:39:54 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-11-23 21:39:54 Starting encryption		[ OK ]

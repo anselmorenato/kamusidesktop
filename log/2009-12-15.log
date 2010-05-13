@@ -1,0 +1,342 @@
+2009-12-15 10:18:20 [ Tue Dec 15 10:18:20 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 10:18:21 Starting encryption		[ OK ]
+2009-12-15 10:18:22 Can't find resource for bundle java.util.PropertyResourceBundle, key english
+2009-12-15 10:18:27 Can't find resource for bundle java.util.PropertyResourceBundle, key swahili
+2009-12-15 10:22:02 [ Tue Dec 15 10:22:02 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 10:22:02 Starting encryption		[ OK ]
+2009-12-15 10:22:08 java.lang.Exception: Undefined language!
+2009-12-15 10:22:08 Undefined language!
+2009-12-15 10:22:11 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-15 10:24:04 [ Tue Dec 15 10:24:04 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 10:24:04 Starting encryption		[ OK ]
+2009-12-15 10:24:56 [ Tue Dec 15 10:24:56 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 10:24:57 Starting encryption		[ OK ]
+2009-12-15 10:25:00 java.lang.Exception: Undefined language!
+2009-12-15 10:25:00 Undefined language!
+2009-12-15 10:25:02 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-15 10:25:40 [ Tue Dec 15 10:25:40 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 10:25:41 Starting encryption		[ OK ]
+2009-12-15 10:25:42 java.lang.Exception: Undefined language!
+2009-12-15 10:25:42 Undefined language!
+2009-12-15 10:25:45 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-15 12:14:26 [ Tue Dec 15 12:14:26 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:14:27 Starting encryption		[ OK ]
+2009-12-15 12:14:34 java.lang.Exception: Undefined language!
+2009-12-15 12:14:34 Undefined language!
+2009-12-15 12:14:36 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-15 12:15:20 [ Tue Dec 15 12:15:20 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:15:20 Starting encryption		[ OK ]
+2009-12-15 12:15:24 java.lang.Exception: Undefined language!
+2009-12-15 12:15:24 Undefined language!
+2009-12-15 12:15:25 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-15 12:16:27 [ Tue Dec 15 12:16:27 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:16:27 Starting encryption		[ OK ]
+2009-12-15 12:16:33 19 results matched for "test" from English
+2009-12-15 12:16:47 19 results matched for "test" from English
+2009-12-15 12:16:49 19 results matched for "test" from English
+2009-12-15 12:16:50 19 results matched for "test" from English
+2009-12-15 12:16:51 19 results matched for "test" from English
+2009-12-15 12:21:04 [ Tue Dec 15 12:21:04 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:21:05 Starting encryption		[ OK ]
+2009-12-15 12:21:08 java.lang.Exception: Undefined language!
+2009-12-15 12:21:08 Undefined language!
+2009-12-15 12:21:15 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-15 12:22:35 [ Tue Dec 15 12:22:35 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:22:36 Starting encryption		[ OK ]
+2009-12-15 12:22:37 java.sql.SQLException: no such column: language1SortBy
+2009-12-15 12:22:37 no such column: language1SortBy
+2009-12-15 12:22:39 An error has ocurred.
+Check your log files for further details regarding this error.
+2009-12-15 12:24:35 [ Tue Dec 15 12:24:35 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:24:36 Starting encryption		[ OK ]
+2009-12-15 12:24:39 java.sql.SQLException: no such column: 'language1Word'
+2009-12-15 12:24:39 no such column: 'language1Word'
+2009-12-15 12:26:56 [ Tue Dec 15 12:26:56 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:26:57 Starting encryption		[ OK ]
+2009-12-15 12:26:59 19 results matched for "test" from English
+2009-12-15 12:26:59 19 results matched for "test" from English
+2009-12-15 12:27:01 19 results matched for "test" from English
+2009-12-15 12:27:03 19 results matched for "test" from English
+2009-12-15 12:27:04 19 results matched for "test" from English
+2009-12-15 12:29:09 [ Tue Dec 15 12:29:09 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:29:09 Starting encryption		[ OK ]
+2009-12-15 12:30:39 [ Tue Dec 15 12:30:39 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:30:39 Starting encryption		[ OK ]
+2009-12-15 12:30:41 19 results matched for "test" from English
+2009-12-15 12:30:41 19 results matched for "test" from English
+2009-12-15 12:30:43 19 results matched for "test" from English
+2009-12-15 12:30:45 19 results matched for "test" from English
+2009-12-15 12:30:46 19 results matched for "test" from English
+2009-12-15 12:30:47 19 results matched for "test" from English
+2009-12-15 12:32:42 [ Tue Dec 15 12:32:42 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:32:42 Starting encryption		[ OK ]
+2009-12-15 12:32:44 19 results matched for "test" from English
+2009-12-15 12:32:45 19 results matched for "test" from English
+2009-12-15 12:32:45 19 results matched for "test" from English
+2009-12-15 12:32:46 19 results matched for "test" from English
+2009-12-15 12:32:47 19 results matched for "test" from English
+2009-12-15 12:32:54 19 results matched for "test" from English
+2009-12-15 12:32:56 19 results matched for "test" from English
+2009-12-15 12:33:08 [ Tue Dec 15 12:33:08 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:33:08 Starting encryption		[ OK ]
+2009-12-15 12:33:11 19 results matched for "test" from English
+2009-12-15 12:33:13 19 results matched for "test" from English
+2009-12-15 12:33:14 19 results matched for "test" from English
+2009-12-15 12:33:15 19 results matched for "test" from English
+2009-12-15 12:33:16 19 results matched for "test" from English
+2009-12-15 12:34:44 [ Tue Dec 15 12:34:44 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:34:44 Starting encryption		[ OK ]
+2009-12-15 12:34:46 19 results matched for "test" from English
+2009-12-15 12:34:46 19 results matched for "test" from English
+2009-12-15 12:34:49 19 results matched for "test" from English
+2009-12-15 12:34:53 19 results matched for "test" from English
+2009-12-15 12:34:53 19 results matched for "test" from English
+2009-12-15 12:34:55 19 results matched for "test" from English
+2009-12-15 12:38:12 [ Tue Dec 15 12:38:12 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:38:13 Starting encryption		[ OK ]
+2009-12-15 12:38:13 Can't find resource for bundle java.util.PropertyResourceBundle, key language1
+2009-12-15 12:38:16 Can't find resource for bundle java.util.PropertyResourceBundle, key language2
+2009-12-15 12:38:31 19 results matched for "test" from English
+2009-12-15 12:38:33 19 results matched for "test" from English
+2009-12-15 12:38:34 19 results matched for "test" from English
+2009-12-15 12:38:35 19 results matched for "test" from English
+2009-12-15 12:38:37 19 results matched for "test" from English
+2009-12-15 12:40:24 [ Tue Dec 15 12:40:24 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:40:24 Starting encryption		[ OK ]
+2009-12-15 12:40:32 19 results matched for "test" from English
+2009-12-15 12:40:33 19 results matched for "test" from English
+2009-12-15 12:40:34 19 results matched for "test" from English
+2009-12-15 12:40:35 19 results matched for "test" from English
+2009-12-15 12:40:36 19 results matched for "test" from English
+2009-12-15 12:41:30 [ Tue Dec 15 12:41:30 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:41:31 Starting encryption		[ OK ]
+2009-12-15 12:41:33 19 results matched for "test" from English
+2009-12-15 12:41:33 19 results matched for "test" from English
+2009-12-15 12:41:35 19 results matched for "test" from English
+2009-12-15 12:43:53 [ Tue Dec 15 12:43:52 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:43:53 Starting encryption		[ OK ]
+2009-12-15 12:43:55 19 results matched for "test" from English
+2009-12-15 12:43:55 19 results matched for "test" from English
+2009-12-15 12:43:59 19 results matched for "test" from English
+2009-12-15 12:44:02 19 results matched for "test" from English
+2009-12-15 12:44:03 19 results matched for "test" from English
+2009-12-15 12:44:06 19 results matched for "test" from English
+2009-12-15 12:45:32 [ Tue Dec 15 12:45:32 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:45:33 Starting encryption		[ OK ]
+2009-12-15 12:45:37 19 results matched for "test" from English
+2009-12-15 12:45:38 19 results matched for "test" from English
+2009-12-15 12:45:43 19 results matched for "test" from English
+2009-12-15 12:45:47 6 results matched for "test" from Swahili
+2009-12-15 12:48:03 [ Tue Dec 15 12:48:03 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:48:03 Starting encryption		[ OK ]
+2009-12-15 12:48:12 19 results matched for "test" from English
+2009-12-15 12:48:12 19 results matched for "test" from English
+2009-12-15 12:49:00 [ Tue Dec 15 12:49:00 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:49:00 Starting encryption		[ OK ]
+2009-12-15 12:49:07 19 results matched for "test" from English
+2009-12-15 12:49:08 19 results matched for "test" from English
+2009-12-15 12:49:08 19 results matched for "test" from English
+2009-12-15 12:50:02 [ Tue Dec 15 12:50:02 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:50:02 Starting encryption		[ OK ]
+2009-12-15 12:50:06 19 results matched for "test" from English
+2009-12-15 12:50:08 19 results matched for "test" from English
+2009-12-15 12:50:09 19 results matched for "test" from English
+2009-12-15 12:51:01 [ Tue Dec 15 12:51:00 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:51:01 Starting encryption		[ OK ]
+2009-12-15 12:51:02 19 results matched for "test" from English
+2009-12-15 12:51:03 19 results matched for "test" from English
+2009-12-15 12:51:05 19 results matched for "test" from English
+2009-12-15 12:52:34 [ Tue Dec 15 12:52:34 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:52:35 Starting encryption		[ OK ]
+2009-12-15 12:52:37 19 results matched for "test" from English
+2009-12-15 12:52:37 19 results matched for "test" from English
+2009-12-15 12:52:37 19 results matched for "test" from English
+2009-12-15 12:52:38 19 results matched for "test" from English
+2009-12-15 12:53:26 [ Tue Dec 15 12:53:26 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:53:26 Starting encryption		[ OK ]
+2009-12-15 12:53:30 19 results matched for "test" from English
+2009-12-15 12:53:32 19 results matched for "test" from English
+2009-12-15 12:54:17 [ Tue Dec 15 12:54:17 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:54:17 Starting encryption		[ OK ]
+2009-12-15 12:54:18 19 results matched for "test" from English
+2009-12-15 12:54:19 19 results matched for "test" from English
+2009-12-15 12:54:19 19 results matched for "test" from English
+2009-12-15 12:54:20 19 results matched for "test" from English
+2009-12-15 12:56:16 [ Tue Dec 15 12:56:16 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:56:16 Starting encryption		[ OK ]
+2009-12-15 12:56:24 19 results matched for "test" from English
+2009-12-15 12:56:55 [ Tue Dec 15 12:56:55 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 12:56:55 Starting encryption		[ OK ]
+2009-12-15 12:57:01 19 results matched for "test" from English
+2009-12-15 13:37:49 [ Tue Dec 15 13:37:49 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:37:49 Starting encryption		[ OK ]
+2009-12-15 13:37:55 19 results matched for "test" from English
+2009-12-15 13:38:56 [ Tue Dec 15 13:38:56 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:38:56 Starting encryption		[ OK ]
+2009-12-15 13:39:07 19 results matched for "test" from English
+2009-12-15 13:39:07 19 results matched for "test" from English
+2009-12-15 13:39:12 19 results matched for "test" from English
+2009-12-15 13:40:13 [ Tue Dec 15 13:40:13 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:40:14 Starting encryption		[ OK ]
+2009-12-15 13:40:15 19 results matched for "test" from English
+2009-12-15 13:40:17 19 results matched for "test" from English
+2009-12-15 13:42:15 [ Tue Dec 15 13:42:15 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:42:16 Starting encryption		[ OK ]
+2009-12-15 13:42:18 19 results matched for "test" from English
+2009-12-15 13:42:18 19 results matched for "test" from English
+2009-12-15 13:42:19 19 results matched for "test" from English
+2009-12-15 13:43:17 [ Tue Dec 15 13:43:17 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:43:17 Starting encryption		[ OK ]
+2009-12-15 13:43:19 19 results matched for "test" from English
+2009-12-15 13:43:19 19 results matched for "test" from English
+2009-12-15 13:43:21 19 results matched for "test" from English
+2009-12-15 13:43:29 19 results matched for "test" from English
+2009-12-15 13:43:31 19 results matched for "test" from English
+2009-12-15 13:43:38 19 results matched for "test" from English
+2009-12-15 13:43:56 Editing database entry from sampletest2345 to sampletest12345
+2009-12-15 13:43:56 Starting encryption		[ OK ]
+2009-12-15 13:43:56 java.sql.SQLException: statement is not executing
+2009-12-15 13:43:56 statement is not executing
+2009-12-15 13:44:00 Starting encryption		[ OK ]
+2009-12-15 13:44:04 Starting encryption		[ OK ]
+2009-12-15 13:44:04 Updated edit log
+2009-12-15 13:44:05 19 results matched for "test" from English
+2009-12-15 13:46:27 [ Tue Dec 15 13:46:27 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:46:27 Starting encryption		[ OK ]
+2009-12-15 13:46:29 19 results matched for "test" from English
+2009-12-15 13:46:29 19 results matched for "test" from English
+2009-12-15 13:46:46 Editing database entry from sampletest2345 to sampletest12345
+2009-12-15 13:46:46 Starting encryption		[ OK ]
+2009-12-15 13:46:46 java.sql.SQLException: statement is not executing
+2009-12-15 13:46:46 statement is not executing
+2009-12-15 13:46:48 Starting encryption		[ OK ]
+2009-12-15 13:46:49 19 results matched for "test" from English
+2009-12-15 13:48:25 [ Tue Dec 15 13:48:25 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:48:25 Starting encryption		[ OK ]
+2009-12-15 13:48:27 19 results matched for "test" from English
+2009-12-15 13:48:27 19 results matched for "test" from English
+2009-12-15 13:48:38 Editing database entry from sampletest2345 to sampletest12345
+2009-12-15 13:48:38 Starting encryption		[ OK ]
+2009-12-15 13:48:38 java.sql.SQLException: statement is not executing
+2009-12-15 13:48:38 statement is not executing
+2009-12-15 13:48:40 Starting encryption		[ OK ]
+2009-12-15 13:48:41 19 results matched for "test" from English
+2009-12-15 13:49:42 [ Tue Dec 15 13:49:42 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:49:43 Starting encryption		[ OK ]
+2009-12-15 13:49:44 19 results matched for "test" from English
+2009-12-15 13:49:44 19 results matched for "test" from English
+2009-12-15 13:49:52 Editing database entry from sampletest2345 to sampletest12345
+2009-12-15 13:49:52 Starting encryption		[ OK ]
+2009-12-15 13:49:52 Editing ID: 57513
+2009-12-15 13:49:52 Starting encryption		[ OK ]
+2009-12-15 13:49:54 Starting encryption		[ OK ]
+2009-12-15 13:49:54 Updated edit log
+2009-12-15 13:49:54 19 results matched for "test" from English
+2009-12-15 13:51:18 [ Tue Dec 15 13:51:18 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:51:19 Starting encryption		[ OK ]
+2009-12-15 13:51:24 19 results matched for "test" from English
+2009-12-15 13:51:24 19 results matched for "test" from English
+2009-12-15 13:51:27 Editing database entry from sampletest12345 to sampletest1234
+2009-12-15 13:51:27 Starting encryption		[ OK ]
+2009-12-15 13:51:28 Editing ID: 57513
+2009-12-15 13:51:28 Starting encryption		[ OK ]
+2009-12-15 13:51:30 19 results matched for "test" from English
+2009-12-15 13:55:43 [ Tue Dec 15 13:55:43 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:55:43 Starting encryption		[ OK ]
+2009-12-15 13:55:47 19 results matched for "test" from English
+2009-12-15 13:55:47 19 results matched for "test" from English
+2009-12-15 13:55:49 19 results matched for "test" from English
+2009-12-15 13:55:49 19 results matched for "test" from English
+2009-12-15 13:55:50 19 results matched for "test" from English
+2009-12-15 13:55:51 19 results matched for "test" from English
+2009-12-15 13:58:09 [ Tue Dec 15 13:58:09 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 13:58:09 Starting encryption		[ OK ]
+2009-12-15 13:58:11 19 results matched for "test" from English
+2009-12-15 13:58:12 19 results matched for "test" from English
+2009-12-15 13:58:12 19 results matched for "test" from English
+2009-12-15 13:58:19 Editing database entry from sampletest12345 to sampletest123456
+2009-12-15 13:58:19 Starting encryption		[ OK ]
+2009-12-15 13:58:19 Editing ID: 57513
+2009-12-15 13:58:19 Starting encryption		[ OK ]
+2009-12-15 13:58:21 Starting encryption		[ OK ]
+2009-12-15 13:58:21 Updated edit log
+2009-12-15 13:58:21 19 results matched for "test" from English
+2009-12-15 14:00:48 [ Tue Dec 15 14:00:48 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:00:48 Starting encryption		[ OK ]
+2009-12-15 14:01:03 java.sql.SQLException: no such column: 'ChewaWord'
+2009-12-15 14:01:03 no such column: 'ChewaWord'
+2009-12-15 14:01:18 java.sql.SQLException: no such column: 'ChewaWord'
+2009-12-15 14:01:18 no such column: 'ChewaWord'
+2009-12-15 14:23:29 [ Tue Dec 15 14:23:29 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:23:29 Starting encryption		[ OK ]
+2009-12-15 14:23:32 19 results matched for "test" from English
+2009-12-15 14:23:32 19 results matched for "test" from English
+2009-12-15 14:23:34 19 results matched for "test" from English
+2009-12-15 14:23:35 19 results matched for "test" from English
+2009-12-15 14:23:35 19 results matched for "test" from English
+2009-12-15 14:23:36 19 results matched for "test" from English
+2009-12-15 14:23:38 Editing database entry from this is not a valid dictionary entry to this is not a valid dictionary entry
+2009-12-15 14:23:38 Starting encryption		[ OK ]
+2009-12-15 14:23:38 Editing ID: 57513
+2009-12-15 14:23:38 Starting encryption		[ OK ]
+2009-12-15 14:23:38 No changes applied.
+2009-12-15 14:23:38 19 results matched for "test" from English
+2009-12-15 14:24:45 [ Tue Dec 15 14:24:45 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:24:45 Starting encryption		[ OK ]
+2009-12-15 14:24:48 19 results matched for "test" from English
+2009-12-15 14:24:51 19 results matched for "test" from English
+2009-12-15 14:24:53 19 results matched for "test" from English
+2009-12-15 14:24:56 19 results matched for "test" from English
+2009-12-15 14:25:22 [ Tue Dec 15 14:25:22 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:25:23 Starting encryption		[ OK ]
+2009-12-15 14:25:25 19 results matched for "test" from English
+2009-12-15 14:26:53 [ Tue Dec 15 14:26:53 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:26:54 Starting encryption		[ OK ]
+2009-12-15 14:26:56 19 results matched for "test" from English
+2009-12-15 14:26:56 19 results matched for "test" from English
+2009-12-15 14:26:57 19 results matched for "test" from English
+2009-12-15 14:27:11 [ Tue Dec 15 14:27:11 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:27:11 Starting encryption		[ OK ]
+2009-12-15 14:27:13 19 results matched for "test" from English
+2009-12-15 14:27:13 19 results matched for "test" from English
+2009-12-15 14:27:22 19 results matched for "test" from English
+2009-12-15 14:27:23 19 results matched for "test" from English
+2009-12-15 14:27:39 [ Tue Dec 15 14:27:39 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:27:39 Starting encryption		[ OK ]
+2009-12-15 14:27:41 19 results matched for "test" from English
+2009-12-15 14:27:47 19 results matched for "test" from English
+2009-12-15 14:28:02 [ Tue Dec 15 14:28:02 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:28:02 Starting encryption		[ OK ]
+2009-12-15 14:28:04 19 results matched for "test" from English
+2009-12-15 14:28:04 19 results matched for "test" from English
+2009-12-15 14:28:08 19 results matched for "test" from English
+2009-12-15 14:28:38 [ Tue Dec 15 14:28:38 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 14:28:38 Starting encryption		[ OK ]
+2009-12-15 14:28:40 19 results matched for "test" from English
+2009-12-15 14:28:40 19 results matched for "test" from English
+2009-12-15 14:28:43 19 results matched for "test" from English
+2009-12-15 14:28:43 19 results matched for "test" from English
+2009-12-15 14:28:45 19 results matched for "test" from English
+2009-12-15 14:28:45 19 results matched for "test" from English
+2009-12-15 17:46:31 [ Tue Dec 15 17:46:31 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-15 17:46:31 Starting encryption		[ OK ]
+2009-12-15 23:03:17 Starting encryption		[ OK ]
+2009-12-15 23:03:45 Starting encryption		[ OK ]
+2009-12-15 23:03:53 Starting encryption		[ OK ]
+2009-12-15 23:04:46 Starting encryption		[ OK ]
+2009-12-15 23:04:55 Starting encryption		[ OK ]
+2009-12-15 23:04:59 Starting encryption		[ OK ]
+2009-12-15 23:05:13 Starting encryption		[ OK ]
+2009-12-15 23:05:19 Starting encryption		[ OK ]
+2009-12-15 23:05:42 Starting encryption		[ OK ]
+2009-12-15 23:09:51 Starting encryption		[ OK ]
+2009-12-15 23:09:59 Starting encryption		[ OK ]
+2009-12-15 23:10:31 Starting encryption		[ OK ]
+2009-12-15 23:11:05 Starting encryption		[ OK ]
+2009-12-15 23:11:36 Starting encryption		[ OK ]

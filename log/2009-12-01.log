@@ -1,0 +1,193 @@
+2009-12-01 18:04:04 [ Tue Dec 01 18:04:04 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 18:04:05 Starting encryption		[ OK ]
+2009-12-01 18:04:37 java.net.UnknownHostException: pm.suuch.com
+2009-12-01 18:04:37 An error occurred while restoring database.
+Check your connection to the Internet or try again later.
+2009-12-01 18:13:33 java.net.UnknownHostException: pm.suuch.com
+2009-12-01 18:13:33 An error occurred while restoring database.
+Check your connection to the Internet or try again later.
+2009-12-01 18:30:25 [ Tue Dec 01 18:30:25 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 18:30:26 Starting encryption		[ OK ]
+2009-12-01 18:30:48 java.net.UnknownHostException: pm.suuch.com
+2009-12-01 18:30:48 An error occurred while restoring original database.
+Check your log files for further details regarding this error.
+2009-12-01 18:32:05 [ Tue Dec 01 18:32:05 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 18:32:05 Starting encryption		[ OK ]
+2009-12-01 18:32:09 java.io.FileNotFoundException: http://localhost:8080/kamusiproject/kamusiproject.db
+2009-12-01 18:32:09 An error occurred while restoring original database.
+Check your log files for further details regarding this error.
+2009-12-01 18:32:42 java.io.FileNotFoundException: http://localhost:8080/kamusiproject/kamusiproject.db
+2009-12-01 18:32:42 An error occurred while restoring original database.
+Check your log files for further details regarding this error.
+2009-12-01 18:32:56 java.io.FileNotFoundException: http://localhost:8080/kamusiproject/kamusiproject.db/fetchupdate.jsp?update=1254233191843
+2009-12-01 18:32:56 An error occurred while synchronizing.
+Please check your connection to the Internet or try again later.
+2009-12-01 18:33:53 java.io.FileNotFoundException: http://localhost:8080/kamusiproject/fetchupdate.jsp?update=1254233191843
+2009-12-01 18:33:53 An error occurred while synchronizing.
+Please check your connection to the Internet or try again later.
+2009-12-01 18:34:39 java.io.FileNotFoundException: http://localhost:8080/kamusiproject/fetchupdate.jsp?update=1254233191843
+2009-12-01 18:34:39 An error occurred while synchronizing.
+Please check your connection to the Internet or try again later.
+2009-12-01 18:39:02 Fetching: http://localhost:8080/kamusiproject/fetchupdate.jsp?update=1254233191843
+2009-12-01 18:39:02 Databases synchronized successfully!
+2009-12-01 18:39:02 Databases synchronized successfully!
+2009-12-01 18:39:20 Updating database. Downloaded 1,286,144 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:20 Updating database. Downloaded 1,292,288 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:20 Updating database. Downloaded 1,321,984 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:20 Updating database. Downloaded 1,368,064 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:20 Updating database. Downloaded 1,400,832 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:20 Updating database. Downloaded 1,432,576 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:20 Updating database. Downloaded 1,892,352 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 2,757,765 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 2,874,501 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 2,960,517 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 3,153,029 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 3,343,493 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 3,540,101 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 3,871,877 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 4,020,357 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 4,156,549 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 4,900,997 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 5,030,021 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 5,144,576 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 5,266,565 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 5,424,261 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 5,595,269 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 5,816,453 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 6,061,189 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 6,262,784 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 6,344,704 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 6,426,757 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 6,525,061 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( {2} % )
+2009-12-01 18:39:21 Database has been updated successfully.
+2009-12-01 18:39:21 Database has been updated successfully.
+2009-12-01 18:39:21 Cleanup successful
+2009-12-01 18:49:58 [ Tue Dec 01 18:49:58 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 18:49:58 Starting encryption		[ OK ]
+2009-12-01 18:50:03 Updating database. Downloaded 1,269,760 out of 6,660,096 bytes ( -671088 % )
+2009-12-01 18:50:03 Updating database. Downloaded 2,007,040 out of 6,660,096 bytes ( 11408506 % )
+2009-12-01 18:50:03 Updating database. Downloaded 2,007,040 out of 6,660,096 bytes ( 11408506 % )
+2009-12-01 18:50:03 Updating database. Downloaded 2,007,040 out of 6,660,096 bytes ( 11408506 % )
+2009-12-01 18:50:03 Updating database. Downloaded 2,637,824 out of 6,660,096 bytes ( 17448304 % )
+2009-12-01 18:50:04 Updating database. Downloaded 2,973,696 out of 6,660,096 bytes ( 10066329 % )
+2009-12-01 18:50:04 Updating database. Downloaded 3,470,336 out of 6,660,096 bytes ( 15518924 % )
+2009-12-01 18:50:04 Updating database. Downloaded 3,712,000 out of 6,660,096 bytes ( 4445962 % )
+2009-12-01 18:50:04 Updating database. Downloaded 4,325,376 out of 6,660,096 bytes ( 10737418 % )
+2009-12-01 18:50:04 Updating database. Downloaded 4,759,552 out of 6,660,096 bytes ( -20803747 % )
+2009-12-01 18:50:04 Updating database. Downloaded 4,958,208 out of 6,660,096 bytes ( -18622709 % )
+2009-12-01 18:50:04 Updating database. Downloaded 5,382,144 out of 6,660,096 bytes ( -2013265 % )
+2009-12-01 18:50:04 Updating database. Downloaded 5,382,144 out of 6,660,096 bytes ( -2013265 % )
+2009-12-01 18:50:04 Updating database. Downloaded 5,578,752 out of 6,660,096 bytes ( -7381975 % )
+2009-12-01 18:50:04 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( -15435038 % )
+2009-12-01 18:50:04 Database has been updated successfully.
+2009-12-01 18:50:10 Cleanup successful
+2009-12-01 18:51:07 [ Tue Dec 01 18:51:07 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 18:51:08 Starting encryption		[ OK ]
+2009-12-01 18:51:18 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 18:51:18 Updating database. Downloaded 2,960,021 out of 6,660,096 bytes ( 44 % )
+2009-12-01 18:51:18 Updating database. Downloaded 2,960,021 out of 6,660,096 bytes ( 44 % )
+2009-12-01 18:51:18 Updating database. Downloaded 2,960,021 out of 6,660,096 bytes ( 44 % )
+2009-12-01 18:51:18 Updating database. Downloaded 2,960,021 out of 6,660,096 bytes ( 44 % )
+2009-12-01 18:51:18 Updating database. Downloaded 2,960,021 out of 6,660,096 bytes ( 44 % )
+2009-12-01 18:51:18 Updating database. Downloaded 2,960,021 out of 6,660,096 bytes ( 44 % )
+2009-12-01 18:51:18 Updating database. Downloaded 3,562,133 out of 6,660,096 bytes ( 53 % )
+2009-12-01 18:51:18 Updating database. Downloaded 3,562,133 out of 6,660,096 bytes ( 53 % )
+2009-12-01 18:51:18 Updating database. Downloaded 4,145,813 out of 6,660,096 bytes ( 62 % )
+2009-12-01 18:51:18 Updating database. Downloaded 4,145,813 out of 6,660,096 bytes ( 62 % )
+2009-12-01 18:51:18 Updating database. Downloaded 5,024,405 out of 6,660,096 bytes ( 75 % )
+2009-12-01 18:51:18 Updating database. Downloaded 5,024,405 out of 6,660,096 bytes ( 75 % )
+2009-12-01 18:51:18 Updating database. Downloaded 5,024,405 out of 6,660,096 bytes ( 75 % )
+2009-12-01 18:51:18 Updating database. Downloaded 5,909,141 out of 6,660,096 bytes ( 88 % )
+2009-12-01 18:51:18 Updating database. Downloaded 5,909,141 out of 6,660,096 bytes ( 88 % )
+2009-12-01 18:51:18 Updating database. Downloaded 5,909,141 out of 6,660,096 bytes ( 88 % )
+2009-12-01 18:51:18 Updating database. Downloaded 6,654,613 out of 6,660,096 bytes ( 99 % )
+2009-12-01 18:51:18 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( 100 % )
+2009-12-01 18:51:18 Database has been updated successfully.
+2009-12-01 18:51:25 Cleanup successful
+2009-12-01 18:51:58 18 results matched for "test" from ENGLISH
+2009-12-01 18:52:12 18 results matched for "test" from ENGLISH
+2009-12-01 18:52:12 18 results matched for "test" from ENGLISH
+2009-12-01 18:52:12 18 results matched for "test" from ENGLISH
+2009-12-01 18:52:20 Editing database entry from sampletest2 to sampletest2sss
+2009-12-01 18:52:20 Starting encryption		[ OK ]
+2009-12-01 18:52:20 Editing ID: 57513
+2009-12-01 18:52:20 Starting encryption		[ OK ]
+2009-12-01 18:52:22 Starting encryption		[ OK ]
+2009-12-01 18:52:22 Updated edit log
+2009-12-01 18:52:22 18 results matched for "test" from ENGLISH
+2009-12-01 18:55:05 [ Tue Dec 01 18:55:05 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 18:55:06 Starting encryption		[ OK ]
+2009-12-01 18:55:10 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 18:55:10 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 18:55:10 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 18:55:10 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 18:55:10 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 18:55:10 Updating database. Downloaded 260,096 out of 6,660,096 bytes ( 3 % )
+2009-12-01 18:55:10 Updating database. Downloaded 692,224 out of 6,660,096 bytes ( 10 % )
+2009-12-01 18:55:10 Updating database. Downloaded 1,323,008 out of 6,660,096 bytes ( 19 % )
+2009-12-01 18:55:10 Updating database. Downloaded 1,818,624 out of 6,660,096 bytes ( 27 % )
+2009-12-01 18:55:10 Updating database. Downloaded 2,715,648 out of 6,660,096 bytes ( 40 % )
+2009-12-01 18:55:10 Updating database. Downloaded 3,710,976 out of 6,660,096 bytes ( 55 % )
+2009-12-01 18:55:10 Updating database. Downloaded 4,295,680 out of 6,660,096 bytes ( 64 % )
+2009-12-01 18:55:10 Updating database. Downloaded 4,898,816 out of 6,660,096 bytes ( 73 % )
+2009-12-01 18:55:10 Updating database. Downloaded 5,713,920 out of 6,660,096 bytes ( 85 % )
+2009-12-01 18:55:10 Updating database. Downloaded 6,311,936 out of 6,660,096 bytes ( 94 % )
+2009-12-01 18:55:10 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( 100 % )
+2009-12-01 18:55:10 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( 100 % )
+2009-12-01 18:55:10 Database has been updated successfully.
+2009-12-01 18:55:10 Database has been updated successfully.
+2009-12-01 18:55:11 Cleanup successful
+2009-12-01 18:55:31 [ Tue Dec 01 18:55:31 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 18:55:32 Starting encryption		[ OK ]
+2009-12-01 18:55:36 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 18:55:36 Updating database. Downloaded 90,112 out of 6,660,096 bytes ( 1 % )
+2009-12-01 18:55:36 Updating database. Downloaded 90,112 out of 6,660,096 bytes ( 1 % )
+2009-12-01 18:55:36 Updating database. Downloaded 90,112 out of 6,660,096 bytes ( 1 % )
+2009-12-01 18:55:36 Updating database. Downloaded 303,104 out of 6,660,096 bytes ( 4 % )
+2009-12-01 18:55:36 Updating database. Downloaded 1,191,936 out of 6,660,096 bytes ( 17 % )
+2009-12-01 18:55:36 Updating database. Downloaded 1,191,936 out of 6,660,096 bytes ( 17 % )
+2009-12-01 18:55:36 Updating database. Downloaded 1,777,664 out of 6,660,096 bytes ( 26 % )
+2009-12-01 18:55:36 Updating database. Downloaded 1,777,664 out of 6,660,096 bytes ( 26 % )
+2009-12-01 18:55:36 Updating database. Downloaded 2,600,960 out of 6,660,096 bytes ( 39 % )
+2009-12-01 18:55:36 Updating database. Downloaded 2,774,016 out of 6,660,096 bytes ( 41 % )
+2009-12-01 18:55:36 Updating database. Downloaded 2,774,016 out of 6,660,096 bytes ( 41 % )
+2009-12-01 18:55:36 Updating database. Downloaded 2,774,016 out of 6,660,096 bytes ( 41 % )
+2009-12-01 18:55:36 Updating database. Downloaded 3,104,768 out of 6,660,096 bytes ( 46 % )
+2009-12-01 18:55:36 Updating database. Downloaded 3,354,624 out of 6,660,096 bytes ( 50 % )
+2009-12-01 18:55:36 Updating database. Downloaded 3,778,560 out of 6,660,096 bytes ( 56 % )
+2009-12-01 18:55:36 Updating database. Downloaded 4,148,224 out of 6,660,096 bytes ( 62 % )
+2009-12-01 18:55:36 Updating database. Downloaded 4,432,896 out of 6,660,096 bytes ( 66 % )
+2009-12-01 18:55:36 Updating database. Downloaded 4,997,120 out of 6,660,096 bytes ( 75 % )
+2009-12-01 18:55:36 Updating database. Downloaded 5,520,384 out of 6,660,096 bytes ( 82 % )
+2009-12-01 18:55:36 Updating database. Downloaded 6,068,224 out of 6,660,096 bytes ( 91 % )
+2009-12-01 18:55:36 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( 100 % )
+2009-12-01 18:55:36 Database has been updated successfully.
+2009-12-01 18:55:36 Updating database. Downloaded 6,651,904 out of 6,660,096 bytes ( 99 % )
+2009-12-01 18:55:40 Cleanup successful
+2009-12-01 19:00:08 [ Tue Dec 01 19:00:08 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 19:00:09 Starting encryption		[ OK ]
+2009-12-01 19:00:34 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 19:00:34 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 19:00:34 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 19:00:34 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 19:00:34 Updating database. Downloaded 0 out of 6,660,096 bytes ( 0 % )
+2009-12-01 19:00:34 Updating database. Downloaded 466,421 out of 6,660,096 bytes ( 7 % )
+2009-12-01 19:00:34 Updating database. Downloaded 567,797 out of 6,660,096 bytes ( 8 % )
+2009-12-01 19:00:34 Updating database. Downloaded 1,229,301 out of 6,660,096 bytes ( 18 % )
+2009-12-01 19:00:34 Updating database. Downloaded 1,435,125 out of 6,660,096 bytes ( 21 % )
+2009-12-01 19:00:35 Updating database. Downloaded 1,906,165 out of 6,660,096 bytes ( 28 % )
+2009-12-01 19:00:35 Updating database. Downloaded 2,143,733 out of 6,660,096 bytes ( 32 % )
+2009-12-01 19:00:35 Updating database. Downloaded 2,702,837 out of 6,660,096 bytes ( 40 % )
+2009-12-01 19:00:35 Updating database. Downloaded 3,259,893 out of 6,660,096 bytes ( 48 % )
+2009-12-01 19:00:35 Updating database. Downloaded 3,994,101 out of 6,660,096 bytes ( 59 % )
+2009-12-01 19:00:35 Updating database. Downloaded 4,506,101 out of 6,660,096 bytes ( 67 % )
+2009-12-01 19:00:35 Updating database. Downloaded 5,070,325 out of 6,660,096 bytes ( 76 % )
+2009-12-01 19:00:35 Updating database. Downloaded 5,635,573 out of 6,660,096 bytes ( 84 % )
+2009-12-01 19:00:35 Updating database. Downloaded 6,340,085 out of 6,660,096 bytes ( 95 % )
+2009-12-01 19:00:35 Updating database. Downloaded 6,660,096 out of 6,660,096 bytes ( 100 % )
+2009-12-01 19:00:35 Database has been updated successfully.
+2009-12-01 19:00:37 Cleanup successful
+2009-12-01 19:04:13 [ Tue Dec 01 19:04:13 EAT 2009 Linux 2.6.31.5-127.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-01 19:04:13 Starting encryption		[ OK ]

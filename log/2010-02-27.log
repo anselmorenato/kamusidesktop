@@ -1,0 +1,232 @@
+2010-02-27 22:28:38 [ Sat Feb 27 22:28:38 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:28:45 1 results matched for "Goa" from English
+2010-02-27 22:28:47 1 results matched for "Goa" from English
+2010-02-27 22:29:01 [ Sat Feb 27 22:29:01 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:29:03 27 results matched for "go" from English
+2010-02-27 22:29:04 16 results matched for "goal" from English
+2010-02-27 22:29:04 16 results matched for "goal" from English
+2010-02-27 22:29:15 16 results matched for "goal" from English
+2010-02-27 22:29:16 16 results matched for "goal" from English
+2010-02-27 22:29:17 16 results matched for "goal" from English
+2010-02-27 22:29:17 16 results matched for "goal" from English
+2010-02-27 22:29:30 22 results matched for "eagle" from English
+2010-02-27 22:30:53 12 results matched for "cat" from English
+2010-02-27 22:30:55 1 results matched for "category" from English
+2010-02-27 22:30:55 1 results matched for "category" from English
+2010-02-27 22:31:02 22 results matched for "eagle" from English
+2010-02-27 22:33:17 [ Sat Feb 27 22:33:17 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:33:20 12 results matched for "cat" from English
+2010-02-27 22:34:08 [ Sat Feb 27 22:34:08 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:34:20 12 results matched for "cat" from English
+2010-02-27 22:34:21 12 results matched for "cat" from English
+2010-02-27 22:37:37 [ Sat Feb 27 22:37:37 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:37:39 12 results matched for "cat" from English
+2010-02-27 22:37:43 1 results matched for "category" from English
+2010-02-27 22:37:45 java.sql.SQLException: no such column: d.Id
+2010-02-27 22:37:45 [ System Error ]
+java.sql.SQLException: no such column: d.Id
+at org.sqlite.DB.throwex(DB.java:288)
+at org.sqlite.NativeDB.prepare(NativeDB.java:-2)
+at org.sqlite.DB.prepare(DB.java:114)
+at org.sqlite.PrepStmt.<init>(PrepStmt.java:37)
+at org.sqlite.Conn.prepareStatement(Conn.java:231)
+at org.sqlite.Conn.prepareStatement(Conn.java:224)
+at org.sqlite.Conn.prepareStatement(Conn.java:213)
+at org.kamusi.Translator.<init>(Translator.java:120)
+at org.kamusi.MainWindow.displayTable(MainWindow.java:736)
+at org.kamusi.MainWindow.fetchTranslation(MainWindow.java:975)
+at org.kamusi.MainWindow.access$800(MainWindow.java:53)
+at org.kamusi.MainWindow$3.keyReleased(MainWindow.java:249)
+at java.awt.Component.processKeyEvent(Component.java:6177)
+at javax.swing.JComponent.processKeyEvent(JComponent.java:2799)
+at java.awt.Component.processEvent(Component.java:5993)
+at java.awt.Container.processEvent(Container.java:2041)
+at java.awt.Component.dispatchEventImpl(Component.java:4583)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1848)
+at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:704)
+at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:969)
+at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:841)
+at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:668)
+at java.awt.Component.dispatchEventImpl(Component.java:4455)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Window.dispatchEventImpl(Window.java:2475)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.EventQueue.dispatchEvent(EventQueue.java:599)
+at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
+at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
+at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
+at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
+
+2010-02-27 22:37:48 [ System Error ]
+java.lang.Exception: Oops, something did not work.
+Check your log files for further details regarding this error.
+at org.kamusi.MainWindow.displayTable(MainWindow.java:905)
+at org.kamusi.MainWindow.fetchTranslation(MainWindow.java:975)
+at org.kamusi.MainWindow.access$800(MainWindow.java:53)
+at org.kamusi.MainWindow$3.keyReleased(MainWindow.java:249)
+at java.awt.Component.processKeyEvent(Component.java:6177)
+at javax.swing.JComponent.processKeyEvent(JComponent.java:2799)
+at java.awt.Component.processEvent(Component.java:5993)
+at java.awt.Container.processEvent(Container.java:2041)
+at java.awt.Component.dispatchEventImpl(Component.java:4583)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1848)
+at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:704)
+at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:969)
+at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:841)
+at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:668)
+at java.awt.Component.dispatchEventImpl(Component.java:4455)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Window.dispatchEventImpl(Window.java:2475)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.EventQueue.dispatchEvent(EventQueue.java:599)
+at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
+at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
+at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
+at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
+
+2010-02-27 22:38:03 [ Sat Feb 27 22:38:03 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:38:06 12 results matched for "cat" from English
+2010-02-27 22:38:08 1 results matched for "category" from English
+2010-02-27 22:38:08 1 results matched for "category" from English
+2010-02-27 22:38:11 1 results matched for "category*" from English
+2010-02-27 22:38:14 1 results matched for "*category*" from English
+2010-02-27 22:40:00 [ Sat Feb 27 22:40:00 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:40:02 12 results matched for "cat" from English
+2010-02-27 22:40:07 79 results matched for "cat*" from English
+2010-02-27 22:40:09 7 results matched for "cate*" from English
+2010-02-27 22:40:30 22 results matched for "eagle" from English
+2010-02-27 22:40:38 22 results matched for "eagle" from English
+2010-02-27 22:40:39 22 results matched for "eagle" from English
+2010-02-27 22:40:39 22 results matched for "eagle" from English
+2010-02-27 22:40:40 22 results matched for "eagle" from English
+2010-02-27 22:40:57 12 results matched for "cat" from English
+2010-02-27 22:40:58 1 results matched for "category" from English
+2010-02-27 22:41:11 1 results matched for "category" from Swahili
+2010-02-27 22:41:19 6 results matched for "jam" from Swahili
+2010-02-27 22:41:29 6 results matched for "jam" from Swahili
+2010-02-27 22:41:31 6 results matched for "jam" from Swahili
+2010-02-27 22:42:33 [ Sat Feb 27 22:42:33 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:42:43 12 results matched for "cat" from Swahili
+2010-02-27 22:44:53 [ Sat Feb 27 22:44:53 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:44:57 7 results matched for "ja" from Swahili
+2010-02-27 22:45:00 24 results matched for "jamii" from Swahili
+2010-02-27 22:45:19 9 results matched for "pa" from Swahili
+2010-02-27 22:45:19 22 results matched for "paka" from Swahili
+2010-02-27 22:45:24 12 results matched for "cat" from English
+2010-02-27 22:45:24 12 results matched for "cat" from English
+2010-02-27 22:46:01 [ Sat Feb 27 22:46:01 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:46:05 12 results matched for "cat" from English
+2010-02-27 22:46:05 12 results matched for "cat" from English
+2010-02-27 22:48:11 [ Sat Feb 27 22:48:11 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:48:14 12 results matched for "cat" from English
+2010-02-27 22:48:14 12 results matched for "cat" from English
+2010-02-27 22:57:36 [ Sat Feb 27 22:57:36 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 22:57:38 java.sql.SQLException: near "COLLATE": syntax error
+2010-02-27 22:57:38 [ System Error ]
+java.sql.SQLException: near "COLLATE": syntax error
+at org.sqlite.DB.throwex(DB.java:288)
+at org.sqlite.NativeDB.prepare(NativeDB.java:-2)
+at org.sqlite.DB.prepare(DB.java:114)
+at org.sqlite.PrepStmt.<init>(PrepStmt.java:37)
+at org.sqlite.Conn.prepareStatement(Conn.java:231)
+at org.sqlite.Conn.prepareStatement(Conn.java:224)
+at org.sqlite.Conn.prepareStatement(Conn.java:213)
+at org.kamusi.Translator.<init>(Translator.java:118)
+at org.kamusi.MainWindow.displayTable(MainWindow.java:736)
+at org.kamusi.MainWindow.fetchTranslation(MainWindow.java:975)
+at org.kamusi.MainWindow.access$800(MainWindow.java:53)
+at org.kamusi.MainWindow$3.keyReleased(MainWindow.java:249)
+at java.awt.Component.processKeyEvent(Component.java:6177)
+at javax.swing.JComponent.processKeyEvent(JComponent.java:2799)
+at java.awt.Component.processEvent(Component.java:5993)
+at java.awt.Container.processEvent(Container.java:2041)
+at java.awt.Component.dispatchEventImpl(Component.java:4583)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1848)
+at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:704)
+at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:969)
+at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:841)
+at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:668)
+at java.awt.Component.dispatchEventImpl(Component.java:4455)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Window.dispatchEventImpl(Window.java:2475)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.EventQueue.dispatchEvent(EventQueue.java:599)
+at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
+at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
+at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
+at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
+
+2010-02-27 22:57:40 [ System Error ]
+java.lang.Exception: Oops, something did not work.
+Check your log files for further details regarding this error.
+at org.kamusi.MainWindow.displayTable(MainWindow.java:905)
+at org.kamusi.MainWindow.fetchTranslation(MainWindow.java:975)
+at org.kamusi.MainWindow.access$800(MainWindow.java:53)
+at org.kamusi.MainWindow$3.keyReleased(MainWindow.java:249)
+at java.awt.Component.processKeyEvent(Component.java:6177)
+at javax.swing.JComponent.processKeyEvent(JComponent.java:2799)
+at java.awt.Component.processEvent(Component.java:5993)
+at java.awt.Container.processEvent(Container.java:2041)
+at java.awt.Component.dispatchEventImpl(Component.java:4583)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1848)
+at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:704)
+at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:969)
+at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:841)
+at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:668)
+at java.awt.Component.dispatchEventImpl(Component.java:4455)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Window.dispatchEventImpl(Window.java:2475)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.EventQueue.dispatchEvent(EventQueue.java:599)
+at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
+at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
+at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
+at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
+
+2010-02-27 23:27:02 [ Sat Feb 27 23:27:02 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 23:27:05 12 results matched for "cat" from English
+2010-02-27 23:28:15 1 results matched for "category" from English
+2010-02-27 23:28:18 22 results matched for "eagle" from English
+2010-02-27 23:29:40 22 results matched for "eagle" from English
+2010-02-27 23:29:41 22 results matched for "eagle" from English
+2010-02-27 23:29:42 22 results matched for "eagle" from English
+2010-02-27 23:29:44 22 results matched for "eagle" from English
+2010-02-27 23:31:56 [ Sat Feb 27 23:31:55 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 23:32:00 22 results matched for "eagle" from English
+2010-02-27 23:32:21 [ Sat Feb 27 23:32:21 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 23:32:24 12 results matched for "cat" from English
+2010-02-27 23:33:36 [ Sat Feb 27 23:33:36 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 23:33:38 12 results matched for "cat" from English
+2010-02-27 23:33:38 12 results matched for "cat" from English
+2010-02-27 23:33:49 22 results matched for "eagle" from English
+2010-02-27 23:34:08 [ Sat Feb 27 23:34:08 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 23:34:10 12 results matched for "cat" from English
+2010-02-27 23:34:11 12 results matched for "cat" from English
+2010-02-27 23:34:16 22 results matched for "eagle" from English
+2010-02-27 23:34:26 22 results matched for "eagle" from English
+2010-02-27 23:34:31 9 results matched for "pa" from Swahili
+2010-02-27 23:34:31 22 results matched for "paka" from Swahili
+2010-02-27 23:36:34 [ Sat Feb 27 23:36:34 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 23:36:37 12 results matched for "cat" from English
+2010-02-27 23:36:37 12 results matched for "cat" from English
+2010-02-27 23:36:41 22 results matched for "eagle" from English
+2010-02-27 23:37:13 [ Sat Feb 27 23:37:12 EAT 2010 Linux 2.6.31.12-174.2.19.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2010-02-27 23:37:15 12 results matched for "cat" from English
+2010-02-27 23:37:15 12 results matched for "cat" from English
+2010-02-27 23:37:27 22 results matched for "eagle" from English

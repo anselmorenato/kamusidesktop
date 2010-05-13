@@ -1175,10 +1175,7 @@ public class MainWindow extends JFrame implements TableModelListener
      */
     static protected void showError(Exception exception)
     {
-
-        System.out.println("Logging exception...");
         logger.logExceptionStackTrace(exception);
-        System.out.println("Done!");
 
         Object[] options =
         {

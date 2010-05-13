@@ -1,0 +1,99 @@
+2009-12-22 10:25:46 [ Tue Dec 22 10:25:45 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 10:25:50 19 results matched for "test" from English
+2009-12-22 10:25:55 Editing ID: 57513
+2009-12-22 10:25:55 [ WARNING ] Deleting entries is not yet implemented
+2009-12-22 10:26:02 19 results matched for "test" from English
+2009-12-22 10:31:46 [ Tue Dec 22 10:31:46 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 10:31:48 19 results matched for "test" from English
+2009-12-22 10:31:48 19 results matched for "test" from English
+2009-12-22 10:31:59 Editing database entry from sampletest123456 to sampletest1234567
+2009-12-22 10:31:59 Editing ID: 57513
+2009-12-22 10:32:02 Updated edit log
+2009-12-22 10:32:02 19 results matched for "test" from English
+2009-12-22 10:32:21 [ Tue Dec 22 10:32:21 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 10:32:24 19 results matched for "test" from English
+2009-12-22 10:32:24 19 results matched for "test" from English
+2009-12-22 10:32:27 Editing ID: 57513
+2009-12-22 10:32:27 Updated edit log
+2009-12-22 10:32:27 19 results matched for "test" from English
+2009-12-22 16:34:42 [ Tue Dec 22 16:34:42 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 16:34:48 19 results matched for "test" from English
+2009-12-22 16:34:48 19 results matched for "test" from English
+2009-12-22 16:34:57 19 results matched for "test" from English
+2009-12-22 16:35:02 Editing ID: 57513
+2009-12-22 16:35:02 Updated edit log
+2009-12-22 16:35:03 19 results matched for "test" from English
+2009-12-22 16:36:08 [ Tue Dec 22 16:36:08 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 16:36:10 19 results matched for "test" from English
+2009-12-22 16:36:10 19 results matched for "test" from English
+2009-12-22 16:36:15 19 results matched for "test" from English
+2009-12-22 16:36:28 Editing ID: 57513
+2009-12-22 16:36:28 Updated edit log
+2009-12-22 16:36:28 19 results matched for "test" from English
+2009-12-22 16:38:23 [ Tue Dec 22 16:38:23 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 16:38:27 19 results matched for "test" from English
+2009-12-22 16:38:33 19 results matched for "test" from English
+2009-12-22 16:44:53 [ Tue Dec 22 16:44:53 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 16:44:56 19 results matched for "test" from English
+2009-12-22 16:44:56 19 results matched for "test" from English
+2009-12-22 16:45:01 Editing database entry from sampletest1234567 to 
+2009-12-22 16:45:01 Editing ID: 57513
+2009-12-22 16:45:05 19 results matched for "test" from English
+2009-12-22 16:45:08 Editing database entry from sampletest1234567 to 
+2009-12-22 16:45:08 Editing ID: 57513
+2009-12-22 16:45:10 Updated edit log
+2009-12-22 16:45:10 19 results matched for "test" from English
+2009-12-22 16:45:32 Editing database entry from  to sampletest1234567
+2009-12-22 16:45:32 Editing ID: 57513
+2009-12-22 16:45:36 Updated edit log
+2009-12-22 16:45:36 19 results matched for "test" from English
+2009-12-22 16:50:03 [ Tue Dec 22 16:50:03 EAT 2009 Linux 2.6.31.6-166.fc12.i686 1.6.0_13 Sun Microsystems Inc. ]
+2009-12-22 16:50:06 19 results matched for "test" from English
+2009-12-22 16:50:06 19 results matched for "test" from English
+2009-12-22 16:50:06 19 results matched for "test" from English
+2009-12-22 16:50:10 Editing database entry from sampletest1234567 to sampletest12345678
+2009-12-22 16:50:10 Editing ID: 57513
+2009-12-22 16:50:12 java.lang.Exception: Just a test exception
+2009-12-22 16:50:12 [ ERROR ] at org.kamusi.Editor.updateDatabase(Editor.java:393)
+at org.kamusi.Editor.edit(Editor.java:189)
+at org.kamusi.MainWindow.tableChanged(MainWindow.java:1235)
+at javax.swing.table.AbstractTableModel.fireTableChanged(AbstractTableModel.java:280)
+at javax.swing.table.AbstractTableModel.fireTableCellUpdated(AbstractTableModel.java:259)
+at javax.swing.table.DefaultTableModel.setValueAt(DefaultTableModel.java:650)
+at javax.swing.JTable.setValueAt(JTable.java:2719)
+at javax.swing.JTable.editingStopped(JTable.java:4721)
+at javax.swing.AbstractCellEditor.fireEditingStopped(AbstractCellEditor.java:125)
+at javax.swing.DefaultCellEditor$EditorDelegate.stopCellEditing(DefaultCellEditor.java:350)
+at javax.swing.DefaultCellEditor.stopCellEditing(DefaultCellEditor.java:215)
+at javax.swing.JTable$GenericEditor.stopCellEditing(JTable.java:5475)
+at javax.swing.DefaultCellEditor$EditorDelegate.actionPerformed(DefaultCellEditor.java:367)
+at javax.swing.JTextField.fireActionPerformed(JTextField.java:492)
+at javax.swing.JTextField.postActionEvent(JTextField.java:705)
+at javax.swing.JTextField$NotifyAction.actionPerformed(JTextField.java:820)
+at javax.swing.SwingUtilities.notifyAction(SwingUtilities.java:1636)
+at javax.swing.JComponent.processKeyBinding(JComponent.java:2849)
+at javax.swing.JComponent.processKeyBindings(JComponent.java:2884)
+at javax.swing.JComponent.processKeyEvent(JComponent.java:2812)
+at java.awt.Component.processEvent(Component.java:5993)
+at java.awt.Container.processEvent(Container.java:2041)
+at java.awt.Component.dispatchEventImpl(Component.java:4583)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.KeyboardFocusManager.redispatchEvent(KeyboardFocusManager.java:1848)
+at java.awt.DefaultKeyboardFocusManager.dispatchKeyEvent(DefaultKeyboardFocusManager.java:704)
+at java.awt.DefaultKeyboardFocusManager.preDispatchKeyEvent(DefaultKeyboardFocusManager.java:969)
+at java.awt.DefaultKeyboardFocusManager.typeAheadAssertions(DefaultKeyboardFocusManager.java:841)
+at java.awt.DefaultKeyboardFocusManager.dispatchEvent(DefaultKeyboardFocusManager.java:668)
+at java.awt.Component.dispatchEventImpl(Component.java:4455)
+at java.awt.Container.dispatchEventImpl(Container.java:2099)
+at java.awt.Window.dispatchEventImpl(Window.java:2475)
+at java.awt.Component.dispatchEvent(Component.java:4413)
+at java.awt.EventQueue.dispatchEvent(EventQueue.java:599)
+at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
+at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
+at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
+at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
+at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)
+
+2009-12-22 16:50:16 19 results matched for "test" from English
