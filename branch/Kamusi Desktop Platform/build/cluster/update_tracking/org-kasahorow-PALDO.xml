@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module codename="org.kasahorow.PALDO">
-    <module_version install_time="1284370560859" last="true" origin="installer" specification_version="1.0">
-        <file crc="2973383963" name="config/Modules/org-kasahorow-PALDO.xml"/>
-        <file crc="2308586277" name="modules/ext/paldo_en_sw.db"/>
-        <file crc="1903552434" name="modules/ext/sqlitejdbc-v056.jar"/>
-        <file crc="1056001350" name="modules/org-kasahorow-PALDO.jar"/>
-    </module_version>
-</module>

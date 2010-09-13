@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-OpenIDE-Module: org.kamusi.dictionary
-OpenIDE-Module-Layer: org/kamusi/dictionary/layer.xml
-OpenIDE-Module-Localizing-Bundle: org/kamusi/dictionary/Bundle.properties
-OpenIDE-Module-Requires: org.openide.windows.WindowManager, org.netbeans.api.javahelp.Help
-OpenIDE-Module-Specification-Version: 1.0
-
