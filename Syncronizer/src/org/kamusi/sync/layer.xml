@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="org-kamusi-sync-SynchronizerAction.instance">
+                <attr name="component" methodvalue="org.kamusi.sync.SynchronizerTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="org.kamusi.sync.Bundle#CTL_SynchronizerAction"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="SynchronizerAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/org-kamusi-sync-SynchronizerAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="SynchronizerTopComponent.settings" url="SynchronizerTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="editor">
+                <file name="SynchronizerTopComponent.wstcref" url="SynchronizerTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>

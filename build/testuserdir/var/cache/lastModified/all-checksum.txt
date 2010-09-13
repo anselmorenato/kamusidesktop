@@ -1,0 +1,5 @@
+/usr/local/netbeans-6.9.1/platform=1282039064000
+/home/arthur/Dropbox/Kamusi Desktop Platform/build/cluster=1284370560000
+/usr/local/netbeans-6.9.1/platform=1282039064000
+build/testuserdir=1284370560000
+crc=7
