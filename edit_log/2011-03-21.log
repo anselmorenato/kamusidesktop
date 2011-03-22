@@ -1,0 +1,55 @@
+2011-03-21 14:15:13 | UPDATE dict SET SwahiliWord = sampletest2222 WHERE PaldoKey = 119488
+
+
+2011-03-21 14:15:19 | UPDATE dict SET SwahiliWord = sampletest2222 WHERE PaldoKey = 119488
+
+
+2011-03-21 14:15:25 | UPDATE dict SET SwahiliWord = sampletest2233445566778899 WHERE PaldoKey = 119488
+
+
+2011-03-21 14:20:10 | UPDATE dict SET SwahiliWord = sampletest2222 WHERE PaldoKey = 119488
+
+
+2011-03-21 14:20:13 | UPDATE dict SET SwahiliWord = sampletest2222 WHERE PaldoKey = 119488
+
+
+2011-03-21 14:20:15 | UPDATE dict SET SwahiliWord = sampletest2233445566778899 WHERE PaldoKey = 119488
+
+
+2011-03-21 14:26:33 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/109029
+
+Editing <b>SwahiliWord</b>
+
+Old Word: theluji
+
+New Word: theluji., title=KamusiDesktop Edit (1300706790773), type=story}
+2011-03-21 14:27:29 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/109029
+
+Editing <b>SwahiliWord</b>
+
+Old Word: theluji.
+
+New Word: theluji, title=KamusiDesktop Edit (1300706847520), type=story}
+2011-03-21 14:27:49 | UPDATE dict SET SwahiliWord = theluji. WHERE PaldoKey = 109029
+
+
+2011-03-21 14:28:50 | UPDATE dict SET SwahiliWord = theluji. WHERE PaldoKey = 109029
+
+
+2011-03-21 14:58:51 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/109029
+
+Editing <b>SwahiliWord</b>
+
+Old Word: theluji
+
+New Word: theluji., title=KamusiDesktop Edit (1300708729454), type=story}
+2011-03-21 15:05:23 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/109029
+
+Editing <b>SwahiliWord</b>
+
+Old Word: theluji
+
+New Word: theluji., title=KamusiDesktop Edit (1300709121697), type=story}
+2011-03-21 15:06:26 | UPDATE dict SET SwahiliWord = theluji. WHERE PaldoKey = 109029
+
+

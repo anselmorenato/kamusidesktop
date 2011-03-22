@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN" "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Window">
+            <file name="org-kasahorow-Kinyarwanda-PaldoAction.instance">
+                <attr name="component" methodvalue="Kinyarwanda.KinyarwandaTopComponent.findInstance"/>
+                <attr name="displayName" bundlevalue="Kinyarwanda.Bundle#CTL_KinyarwandaAction"/>
+                <attr name="iconBase" stringvalue="Kinyarwanda/favicon.png"/>
+                <attr name="instanceCreate" methodvalue="org.openide.windows.TopComponent.openAction"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="Window">
+            <file name="KinyarwandaAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/org-kasahorow-Kinyarwanda-PaldoAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="KinyarwandaTopComponent.settings" url="KinyarwandaTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="editor">
+                <file name="KinyarwandaTopComponent.wstcref" url="KinyarwandaTopComponentWstcref.xml"/>
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
