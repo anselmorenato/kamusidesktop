@@ -22,8 +22,16 @@
         <folder name="File">
             <file name="org-openide-actions-SaveAction.instance"/>
         </folder>
+        <folder name="UndoRedo">
+        </folder>
     </folder>
     <folder name="Menu">
+        <folder name="Tools">
+            <file name="org-kamusi-dictionary-DictionaryDownloader.shadow">
+                <attr name="originalFile" stringvalue="Actions/Tools/org-kamusi-dictionary-DictionaryDownloader.instance"/>
+                <attr name="position" intvalue="0"/>
+            </file>
+        </folder>
         <folder name="Window">
             <file name="SearchAction.shadow">
                 <attr name="originalFile" stringvalue="Actions/Window/org-kamusi-dictionary-SearchAction.instance"/>

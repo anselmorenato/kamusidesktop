@@ -18,6 +18,8 @@
             </file>
         </folder>
     </folder>
+    <folder name="Toolbars">
+    </folder>
     <folder name="Windows2">
         <folder name="Components">
             <file name="PaldoTopComponent.settings" url="PaldoTopComponentSettings.xml"/>

@@ -2,7 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
-        <file>file:/home/arthur/Dropbox/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/SearchTopComponent.java</file>
-        <file>file:/home/arthur/Dropbox/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/layer.xml</file>
+        <file>file:/home/arthur/NetBeansProjects/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/KamusiLogger.java</file>
+        <file>file:/home/arthur/NetBeansProjects/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/Translator.java</file>
+        <file>file:/home/arthur/NetBeansProjects/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/DictionaryDownloader.java</file>
+        <file>file:/home/arthur/NetBeansProjects/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/Downloader.java</file>
+        <file>file:/home/arthur/NetBeansProjects/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/Editor.java</file>
+        <file>file:/home/arthur/NetBeansProjects/Kamusi%20Desktop%20Platform/Dictionary/src/org/kamusi/dictionary/SearchTopComponent.java</file>
     </open-files>
 </project-private>

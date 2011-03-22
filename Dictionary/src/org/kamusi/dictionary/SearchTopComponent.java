@@ -6,7 +6,6 @@ package org.kamusi.dictionary;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -20,7 +19,6 @@ import java.util.Vector;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -44,6 +42,7 @@ import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 import org.openide.util.ImageUtilities;
+import org.openide.util.NbPreferences;
 
 /**
  * Top component which displays something.
@@ -145,6 +144,7 @@ public final class SearchTopComponent extends TopComponent implements TableModel
         informationLabel = new javax.swing.JLabel();
         wordlabel = new javax.swing.JLabel();
         resultsPanel = new javax.swing.JPanel();
+        databaseDownloadButton = new javax.swing.JButton();
 
         optionsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -280,6 +280,24 @@ public final class SearchTopComponent extends TopComponent implements TableModel
         resultsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         resultsPanel.setLayout(new java.awt.BorderLayout());
 
+        databaseDownloadButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kamusi/dictionary/stock-download24.png"))); // NOI18N
+        databaseDownloadButton.setMnemonic('D');
+        org.openide.awt.Mnemonics.setLocalizedText(databaseDownloadButton, org.openide.util.NbBundle.getMessage(SearchTopComponent.class, "SearchTopComponent.databaseDownloadButton.text")); // NOI18N
+        databaseDownloadButton.setToolTipText(org.openide.util.NbBundle.getMessage(SearchTopComponent.class, "SearchTopComponent.databaseDownloadButton.toolTipText")); // NOI18N
+        databaseDownloadButton.setBorder(null);
+        databaseDownloadButton.setBorderPainted(false);
+        databaseDownloadButton.setContentAreaFilled(false);
+        databaseDownloadButton.setDefaultCapable(false);
+        databaseDownloadButton.setFocusPainted(false);
+        databaseDownloadButton.setFocusable(false);
+        databaseDownloadButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        databaseDownloadButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        databaseDownloadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                databaseDownloadButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -288,87 +306,103 @@ public final class SearchTopComponent extends TopComponent implements TableModel
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(optionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resultsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE))
+                    .addComponent(resultsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 657, Short.MAX_VALUE)
+                    .addComponent(databaseDownloadButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(databaseDownloadButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(resultsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void wordFieldKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_wordFieldKeyReleased
     {//GEN-HEADEREND:event_wordFieldKeyReleased
-//        if (!newWord.equalsIgnoreCase(oldWord))
-//        {
-//            EventQueue.invokeLater(new Runnable()
-//            {
-//                @Override
-//                public void run()
-//                {
-        displayTranslation();
-//                }
-//            });
-//        }
+        int keyCode = evt.getKeyCode();
+
+        if (evt.isActionKey()
+                || //keyCode == 8 || // Backspace
+                keyCode == 16 || // Shift
+                keyCode == 17 || // CTRL
+                keyCode == 18 // ALT
+                )
+        {
+            //Do nothing
+        }
+        else
+        {
+            //setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            displayTranslation();
+        }
 }//GEN-LAST:event_wordFieldKeyReleased
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_resetButtonActionPerformed
     {//GEN-HEADEREND:event_resetButtonActionPerformed
-        // TODO add your handling code here:
+
+        wordField.setText("");
         reset();
 }//GEN-LAST:event_resetButtonActionPerformed
 
     private void englishPluralCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_englishPluralCheckActionPerformed
     {//GEN-HEADEREND:event_englishPluralCheckActionPerformed
-        // TODO add your handling code here:
+
         displayTranslation();
     }//GEN-LAST:event_englishPluralCheckActionPerformed
 
     private void swahiliPluralCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_swahiliPluralCheckActionPerformed
     {//GEN-HEADEREND:event_swahiliPluralCheckActionPerformed
-        // TODO add your handling code here:
+
         displayTranslation();
     }//GEN-LAST:event_swahiliPluralCheckActionPerformed
 
     private void englishExampleCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_englishExampleCheckActionPerformed
     {//GEN-HEADEREND:event_englishExampleCheckActionPerformed
-        // TODO add your handling code here:
+
         displayTranslation();
     }//GEN-LAST:event_englishExampleCheckActionPerformed
 
     private void swahiliExampleCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_swahiliExampleCheckActionPerformed
     {//GEN-HEADEREND:event_swahiliExampleCheckActionPerformed
-        // TODO add your handling code here:
+
         displayTranslation();
     }//GEN-LAST:event_swahiliExampleCheckActionPerformed
 
     private void enToSwButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_enToSwButtonActionPerformed
     {//GEN-HEADEREND:event_enToSwButtonActionPerformed
-        // TODO add your handling code here:
+
         displayTranslation();
     }//GEN-LAST:event_enToSwButtonActionPerformed
 
     private void swToEnButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_swToEnButtonActionPerformed
     {//GEN-HEADEREND:event_swToEnButtonActionPerformed
-        // TODO add your handling code here:
+
         displayTranslation();
     }//GEN-LAST:event_swToEnButtonActionPerformed
 
     private void wordFieldPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_wordFieldPropertyChange
     {//GEN-HEADEREND:event_wordFieldPropertyChange
-        // TODO add your handling code here:
     }//GEN-LAST:event_wordFieldPropertyChange
 
     private void wordFieldKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_wordFieldKeyPressed
     {//GEN-HEADEREND:event_wordFieldKeyPressed
-        // TODO add your handling code here:
     }//GEN-LAST:event_wordFieldKeyPressed
+
+    private void databaseDownloadButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_databaseDownloadButtonActionPerformed
+    {//GEN-HEADEREND:event_databaseDownloadButtonActionPerformed
+        // TODO add your handling code here:
+        Downloader d = new Downloader();
+        d.run();
+    }//GEN-LAST:event_databaseDownloadButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton databaseDownloadButton;
     public static javax.swing.JRadioButton enToSwButton;
     private javax.swing.JCheckBox englishExampleCheck;
     private javax.swing.JCheckBox englishPluralCheck;
@@ -429,13 +463,11 @@ public final class SearchTopComponent extends TopComponent implements TableModel
     @Override
     public void componentOpened()
     {
-        // TODO add custom code on component opening
     }
 
     @Override
     public void componentClosed()
     {
-        // TODO add custom code on component closing
     }
 
     void writeProperties(java.util.Properties p)
@@ -443,7 +475,7 @@ public final class SearchTopComponent extends TopComponent implements TableModel
         // better to version settings since initial version as advocated at
         // http://wiki.apidesign.org/wiki/PropertyFiles
         p.setProperty("version", "1.0");
-        // TODO store your settings
+
     }
 
     Object readProperties(java.util.Properties p)
@@ -459,7 +491,7 @@ public final class SearchTopComponent extends TopComponent implements TableModel
     private void readPropertiesImpl(java.util.Properties p)
     {
         String version = p.getProperty("version");
-        // TODO read your settings according to their version
+
     }
 
     @Override
@@ -504,14 +536,25 @@ public final class SearchTopComponent extends TopComponent implements TableModel
 
     private void reset()
     {
-        wordField.setText(null);
-        englishPluralCheck.setSelected(false);
-        swahiliPluralCheck.setSelected(false);
-        englishExampleCheck.setSelected(false);
-        swahiliExampleCheck.setSelected(false);
-        resultsPanel.removeAll();
-        resultsPanel.updateUI();
-        resultsPanel.repaint();
+
+        EventQueue.invokeLater(new Runnable()
+        {
+
+            @Override
+            public void run()
+            {
+                
+                englishPluralCheck.setSelected(false);
+                swahiliPluralCheck.setSelected(false);
+                englishExampleCheck.setSelected(false);
+                swahiliExampleCheck.setSelected(false);
+                resultsPanel.removeAll();
+
+                resultsTable.repaint();
+                resultsPanel.repaint();
+                revalidate();
+            }
+        });
         displayTranslation();
     }
 
@@ -533,6 +576,7 @@ public final class SearchTopComponent extends TopComponent implements TableModel
                 progress.switchToIndeterminate();
 
                 String word = wordField.getText().trim();
+
                 if (word.length() != 0)
                 {
                     String fromLanguage = (enToSwButton.isSelected()) ? "English"
@@ -542,7 +586,9 @@ public final class SearchTopComponent extends TopComponent implements TableModel
                     TableModel model = translator.getTableModel(fromLanguage, word, fields);
 
                     resultsTable.setModel(model);
+
                     resultsTable.setGridColor(new Color(205, 213, 226));
+
                     int results = model.getRowCount();
 
                     if (results == 0)
@@ -569,39 +615,21 @@ public final class SearchTopComponent extends TopComponent implements TableModel
                                     //Display a popup menu
                                     JPopupMenu popupMenu = new JPopupMenu();
                                     JMenuItem editEntry = new JMenuItem("Edit");
-                                    JMenuItem deleteEntry = new JMenuItem("Delete");
                                     JMenuItem addNewEntry = new JMenuItem("Add New");
                                     popupMenu.add(editEntry);
-                                    popupMenu.add(deleteEntry);
                                     popupMenu.addSeparator();
                                     popupMenu.add(addNewEntry);
+                                    
                                     editEntry.addActionListener(new ActionListener()
                                     {
 
                                         @Override
                                         public void actionPerformed(ActionEvent e)
                                         {
-                                            String newWord =
-                                                    JOptionPane.showInputDialog(null, "Are you sure?");
-
-                                            if ((newWord != null))
-                                            {
-                                                //Implement edit functionality here
-                                                return;
-                                            }
+                                            Exceptions.printStackTrace(new Exception("Not yet implemented"));
                                         }
                                     });
 
-                                    deleteEntry.addActionListener(new ActionListener()
-                                    {
-
-                                        @Override
-                                        public void actionPerformed(ActionEvent e)
-                                        {
-                                            //Implement delete functionality here
-                                            return;
-                                        }
-                                    });
                                     addNewEntry.addActionListener(new ActionListener()
                                     {
 
@@ -609,6 +637,7 @@ public final class SearchTopComponent extends TopComponent implements TableModel
                                         public void actionPerformed(ActionEvent e)
                                         {
                                             //Implement Add-New functionality here
+                                            Exceptions.printStackTrace(new Exception("Not yet implemented"));
                                         }
                                     });
 
@@ -627,14 +656,20 @@ public final class SearchTopComponent extends TopComponent implements TableModel
                         @Override
                         public void run()
                         {
-                            resultsPanel.updateUI();
-//                            resultsPanel.repaint();
+                            resultsTable.repaint();
+                            resultsPanel.repaint();
+                            revalidate();
                         }
                     });
                 }
+                else
+                {
+                    reset();
+                }
 
-                resultsPanel.putClientProperty("print.printable", Boolean.TRUE);
-                resultsPanel.putClientProperty("print.size", new Dimension(700, 500)); // NOI18N
+                resultsTable.putClientProperty("print.printable", Boolean.TRUE); // NOI18N
+                resultsTable.putClientProperty("print.name", "Kamusi Desktop Dictionary search for " + word); // NOI18N
+
 
                 progress.finish();
             }
@@ -652,7 +687,7 @@ public final class SearchTopComponent extends TopComponent implements TableModel
         return manager;
     }
 
-            /**
+    /**
      * What happens when a cell value is changed
      * @param e The event that fired the table change
      */

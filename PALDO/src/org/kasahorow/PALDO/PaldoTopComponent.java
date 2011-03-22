@@ -6,7 +6,6 @@ package org.kasahorow.PALDO;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -20,7 +19,6 @@ import java.util.Vector;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -37,6 +35,8 @@ import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
 import org.openide.util.ImageUtilities;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.awt.StatusDisplayer;
 import org.openide.awt.UndoRedo;
 import org.openide.cookies.SaveCookie;
@@ -132,6 +132,7 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        languageSet = new javax.swing.ButtonGroup();
         topComponent1 = new org.openide.windows.TopComponent();
         optionsPanel = new javax.swing.JPanel();
         enToSwButton = new javax.swing.JRadioButton();
@@ -145,9 +146,11 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
         informationLabel = new javax.swing.JLabel();
         wordlabel = new javax.swing.JLabel();
         resultsPanel = new javax.swing.JPanel();
+        syncButton = new javax.swing.JButton();
 
         optionsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        languageSet.add(enToSwButton);
         enToSwButton.setSelected(true);
         org.openide.awt.Mnemonics.setLocalizedText(enToSwButton, org.openide.util.NbBundle.getMessage(PaldoTopComponent.class, "PaldoTopComponent.enToSwButton.text")); // NOI18N
         enToSwButton.setFocusCycleRoot(true);
@@ -158,6 +161,7 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
             }
         });
 
+        languageSet.add(swToEnButton);
         org.openide.awt.Mnemonics.setLocalizedText(swToEnButton, org.openide.util.NbBundle.getMessage(PaldoTopComponent.class, "PaldoTopComponent.swToEnButton.text")); // NOI18N
         swToEnButton.setFocusCycleRoot(true);
         swToEnButton.setRequestFocusEnabled(false);
@@ -282,6 +286,21 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
         resultsPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         resultsPanel.setLayout(new java.awt.BorderLayout());
 
+        syncButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/kasahorow/PALDO/gtk-refresh24.png"))); // NOI18N
+        syncButton.setMnemonic('R');
+        org.openide.awt.Mnemonics.setLocalizedText(syncButton, org.openide.util.NbBundle.getMessage(PaldoTopComponent.class, "PaldoTopComponent.syncButton.text")); // NOI18N
+        syncButton.setToolTipText(org.openide.util.NbBundle.getMessage(PaldoTopComponent.class, "PaldoTopComponent.syncButton.toolTipText")); // NOI18N
+        syncButton.setBorder(null);
+        syncButton.setContentAreaFilled(false);
+        syncButton.setFocusable(false);
+        syncButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        syncButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        syncButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                syncButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout topComponent1Layout = new javax.swing.GroupLayout(topComponent1);
         topComponent1.setLayout(topComponent1Layout);
         topComponent1Layout.setHorizontalGroup(
@@ -290,16 +309,19 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
                 .addContainerGap()
                 .addGroup(topComponent1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(optionsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resultsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE))
+                    .addComponent(resultsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                    .addComponent(syncButton, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         topComponent1Layout.setVerticalGroup(
             topComponent1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(topComponent1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(syncButton, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(optionsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addComponent(resultsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -321,86 +343,95 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
 
     private void enToSwButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_enToSwButtonActionPerformed
     {//GEN-HEADEREND:event_enToSwButtonActionPerformed
-        // TODO add your handling code here:
         displayTranslation();
 }//GEN-LAST:event_enToSwButtonActionPerformed
 
     private void swToEnButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_swToEnButtonActionPerformed
     {//GEN-HEADEREND:event_swToEnButtonActionPerformed
-        // TODO add your handling code here:
         displayTranslation();
 }//GEN-LAST:event_swToEnButtonActionPerformed
 
     private void wordFieldPropertyChange(java.beans.PropertyChangeEvent evt)//GEN-FIRST:event_wordFieldPropertyChange
     {//GEN-HEADEREND:event_wordFieldPropertyChange
-        // TODO add your handling code here:
 }//GEN-LAST:event_wordFieldPropertyChange
 
     private void wordFieldKeyPressed(java.awt.event.KeyEvent evt)//GEN-FIRST:event_wordFieldKeyPressed
     {//GEN-HEADEREND:event_wordFieldKeyPressed
-        // TODO add your handling code here:
 }//GEN-LAST:event_wordFieldKeyPressed
 
     private void wordFieldKeyReleased(java.awt.event.KeyEvent evt)//GEN-FIRST:event_wordFieldKeyReleased
     {//GEN-HEADEREND:event_wordFieldKeyReleased
-        //        if (!newWord.equalsIgnoreCase(oldWord))
-        //        {
-        //            EventQueue.invokeLater(new Runnable()
-        //            {
-        //                @Override
-        //                public void run()
-        //                {
-        displayTranslation();
-        //                }
-        //            });
-        //        }
+        int keyCode = evt.getKeyCode();
+
+        if (evt.isActionKey()
+                || //keyCode == 8 || // Backspace
+                keyCode == 16 || // Shift
+                keyCode == 17 || // CTRL
+                keyCode == 18 // ALT
+                )
+        {
+            //Do nothing
+        }
+        else
+        {
+            //setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            displayTranslation();
+        }
 }//GEN-LAST:event_wordFieldKeyReleased
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_resetButtonActionPerformed
     {//GEN-HEADEREND:event_resetButtonActionPerformed
-        // TODO add your handling code here:
+        wordField.setText("");
         reset();
 }//GEN-LAST:event_resetButtonActionPerformed
 
     private void swahiliExampleCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_swahiliExampleCheckActionPerformed
     {//GEN-HEADEREND:event_swahiliExampleCheckActionPerformed
-        // TODO add your handling code here:
         displayTranslation();
 }//GEN-LAST:event_swahiliExampleCheckActionPerformed
 
     private void englishExampleCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_englishExampleCheckActionPerformed
     {//GEN-HEADEREND:event_englishExampleCheckActionPerformed
-        // TODO add your handling code here:
         displayTranslation();
 }//GEN-LAST:event_englishExampleCheckActionPerformed
 
     private void swahiliPluralCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_swahiliPluralCheckActionPerformed
     {//GEN-HEADEREND:event_swahiliPluralCheckActionPerformed
-        // TODO add your handling code here:
         displayTranslation();
 }//GEN-LAST:event_swahiliPluralCheckActionPerformed
 
     private void englishPluralCheckActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_englishPluralCheckActionPerformed
     {//GEN-HEADEREND:event_englishPluralCheckActionPerformed
-        // TODO add your handling code here:
         displayTranslation();
 }//GEN-LAST:event_englishPluralCheckActionPerformed
+
+    private void syncButtonActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_syncButtonActionPerformed
+    {//GEN-HEADEREND:event_syncButtonActionPerformed
+        Synchronizer thread = new Synchronizer();
+
+        Thread t = new Thread(thread);
+        t.start();
+
+    }//GEN-LAST:event_syncButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JRadioButton enToSwButton;
     private javax.swing.JCheckBox englishExampleCheck;
     private javax.swing.JCheckBox englishPluralCheck;
     private javax.swing.JLabel informationLabel;
+    private javax.swing.ButtonGroup languageSet;
     private javax.swing.JPanel optionsPanel;
     private javax.swing.JButton resetButton;
     private javax.swing.JPanel resultsPanel;
     public static javax.swing.JRadioButton swToEnButton;
     private javax.swing.JCheckBox swahiliExampleCheck;
     private javax.swing.JCheckBox swahiliPluralCheck;
+    private javax.swing.JButton syncButton;
     private org.openide.windows.TopComponent topComponent1;
     public static javax.swing.JTextField wordField;
     private javax.swing.JLabel wordlabel;
     // End of variables declaration//GEN-END:variables
+
     /**
      * Gets default instance. Do not use directly: reserved for *.settings files only,
      * i.e. deserialization routines; otherwise you could get a non-deserialized instance.
@@ -447,12 +478,22 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
     public void componentOpened()
     {
         // TODO add custom code on component opening
+        //StatusDisplayer.getDefault().setStatusText("Will implement usernames later.");
+
+        Synchronizer sync = new Synchronizer();
+
+        File logFolder = new File(sync.getLogFileName()).getParentFile();
+
+        if (!logFolder.exists())
+        {
+            logFolder.mkdir();
+            sync.updateTimeStamp();
+        }
     }
 
     @Override
     public void componentClosed()
     {
-        // TODO add custom code on component closing
     }
 
     void writeProperties(java.util.Properties p)
@@ -460,7 +501,6 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
         // better to version settings since initial version as advocated at
         // http://wiki.apidesign.org/wiki/PropertyFiles
         p.setProperty("version", "1.0");
-        // TODO store your settings
     }
 
     Object readProperties(java.util.Properties p)
@@ -476,7 +516,6 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
     private void readPropertiesImpl(java.util.Properties p)
     {
         String version = p.getProperty("version");
-        // TODO read your settings according to their version
     }
 
     @Override
@@ -484,7 +523,6 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
     {
         return PREFERRED_ID;
     }
-
 
     private void displayTranslation()
     {
@@ -504,22 +542,36 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
                 progress.switchToIndeterminate();
 
                 String word = wordField.getText().trim();
+
+                String paldoLanguage = "Swahili";
+
                 if (word.length() != 0)
                 {
-                    String fromLanguage = (enToSwButton.isSelected()) ? "English"
-                            : (swToEnButton.isSelected()) ? "Swahili" : "";
+                    final String fromLanguage = (enToSwButton.isSelected()) ? "English"
+                            : (swToEnButton.isSelected()) ? paldoLanguage : "";
 
                     Vector<String> fields = getDisplayableFields();
 
-                    TableModel model = translator.getTableModel(fromLanguage, word, fields);
+                    TableModel model = translator.getTableModel(fromLanguage, word, fields,
+                            paldoLanguage);
 
                     resultsTable.setModel(model);
                     resultsTable.setGridColor(new Color(205, 213, 226));
+
                     int results = model.getRowCount();
 
                     if (results == 0)
                     {
                         resultsPanel.removeAll();
+
+                         //TODO: Try fetch from PALDO
+                        if (enToSwButton.isSelected())
+                        {
+                            PaldoXMLRPC.main(new String[]
+                                    {
+                                        word
+                                    });
+                        }
                     }
                     else
                     {
@@ -532,19 +584,17 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
                                 Point point = e.getPoint();
                                 int column = resultsTable.columnAtPoint(point);
                                 final int row = resultsTable.rowAtPoint(point);
-                                final String columnName = resultsTable.getColumnName(column);
+                                final String columnName = resultsTable.getColumnName(column) + "Word";
                                 String cellValue = (String) resultsTable.getValueAt(row, column);
-                                String oldWord = (cellValue);
+                                final String oldWord = (cellValue);
 
                                 if (e.isMetaDown())
                                 {
                                     //Display a popup menu
                                     JPopupMenu popupMenu = new JPopupMenu();
                                     JMenuItem editEntry = new JMenuItem("Edit");
-                                    JMenuItem deleteEntry = new JMenuItem("Delete");
                                     JMenuItem addNewEntry = new JMenuItem("Add New");
                                     popupMenu.add(editEntry);
-                                    popupMenu.add(deleteEntry);
                                     popupMenu.addSeparator();
                                     popupMenu.add(addNewEntry);
                                     editEntry.addActionListener(new ActionListener()
@@ -553,34 +603,49 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
                                         @Override
                                         public void actionPerformed(ActionEvent e)
                                         {
-                                            String newWord =
-                                                    JOptionPane.showInputDialog(null, "Are you sure?");
 
-                                            if ((newWord != null))
+                                            NotifyDescriptor.InputLine question = new NotifyDescriptor.InputLine(
+                                                    "Type in the new word",
+                                                    NbBundle.getMessage(PaldoTopComponent.class, "CTL_PaldoTopComponent"),
+                                                    NotifyDescriptor.OK_CANCEL_OPTION,
+                                                    NotifyDescriptor.QUESTION_MESSAGE);
+
+                                            question.setInputText(oldWord);
+
+                                            if (DialogDisplayer.getDefault().notify(question) == NotifyDescriptor.OK_OPTION)
                                             {
-                                                //Implement edit functionality here
-                                                return;
+                                                String newWord = question.getInputText();
+
+                                                if ((newWord != null)
+                                                        && (!newWord.equalsIgnoreCase(oldWord))
+                                                        && (newWord.trim().length() != 0))
+                                                {
+                                                    Editor editor = new Editor(fromLanguage, oldWord, newWord,
+                                                            columnName, row, wordField.getText());
+
+                                                    Thread t = new Thread(editor);
+                                                    t.start(); // start the task and progress visualization
+
+                                                    return;
+                                                }
+                                                else
+                                                {
+                                                    String message = "No changes made!";
+                                                    NotifyDescriptor d = new NotifyDescriptor.Message(message, NotifyDescriptor.INFORMATION_MESSAGE);
+                                                    DialogDisplayer.getDefault().notify(d);
+                                                }
                                             }
                                         }
                                     });
 
-                                    deleteEntry.addActionListener(new ActionListener()
-                                    {
-
-                                        @Override
-                                        public void actionPerformed(ActionEvent e)
-                                        {
-                                            //Implement delete functionality here
-                                            return;
-                                        }
-                                    });
                                     addNewEntry.addActionListener(new ActionListener()
                                     {
 
                                         @Override
                                         public void actionPerformed(ActionEvent e)
                                         {
-                                            //Implement Add-New functionality here
+                                            //TODO: Implement Add-New functionality here
+                                            Exceptions.printStackTrace(new Exception("Not yet implemented"));
                                         }
                                     });
 
@@ -599,14 +664,19 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
                         @Override
                         public void run()
                         {
-                            resultsPanel.updateUI();
-//                            resultsPanel.repaint();
+                            resultsTable.repaint();
+                            resultsPanel.repaint();
+                            revalidate();
                         }
                     });
                 }
+                else
+                {
+                    reset();
+                }
 
-                resultsPanel.putClientProperty("print.printable", Boolean.TRUE);
-                resultsPanel.putClientProperty("print.size", new Dimension(700, 500)); // NOI18N
+                resultsTable.putClientProperty("print.printable", Boolean.TRUE); // NOI18N
+                resultsTable.putClientProperty("print.name", "Kamusi Desktop PALDO Dictionary search for " + word); // NOI18N
 
                 progress.finish();
             }
@@ -624,7 +694,7 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
         return manager;
     }
 
-            /**
+    /**
      * What happens when a cell value is changed
      * @param e The event that fired the table change
      */
@@ -676,6 +746,7 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
         private class SaveCookieImpl implements SaveCookie
         {
 
+            @Override
             public void save() throws IOException
             {
                 JFileChooser chooser = new JFileChooser();
@@ -701,18 +772,40 @@ public final class PaldoTopComponent extends TopComponent implements TableModelL
 
     private void reset()
     {
-        wordField.setText(null);
-        englishPluralCheck.setSelected(false);
-        swahiliPluralCheck.setSelected(false);
-        englishExampleCheck.setSelected(false);
-        swahiliExampleCheck.setSelected(false);
-        resultsPanel.removeAll();
-        resultsPanel.updateUI();
-        resultsPanel.repaint();
+//        PaldoXMLRPC rpc = new PaldoXMLRPC();
+//        try
+//        {
+//            PaldoXMLRPC.main(new String[]
+//                    {
+//                        "cow"
+//                    });
+//        }
+//        catch (Exception ex)
+//        {
+//            Exceptions.printStackTrace(ex);
+//        }
+
+        EventQueue.invokeLater(new Runnable()
+        {
+
+            @Override
+            public void run()
+            {
+                englishPluralCheck.setSelected(false);
+                swahiliPluralCheck.setSelected(false);
+                englishExampleCheck.setSelected(false);
+                swahiliExampleCheck.setSelected(false);
+                resultsPanel.removeAll();
+
+                resultsTable.repaint();
+                resultsPanel.repaint();
+                revalidate();
+            }
+        });
         displayTranslation();
     }
 
-     /**
+    /**
      * Gets a Vector representation of the selected displayable fields
      * @return The Vector representation
      */

@@ -7,6 +7,38 @@
             <suite-component/>
             <module-dependencies>
                 <dependency>
+                    <code-name-base>com.mysql.jdbc</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
+                    <code-name-base>org.apache.commons.io</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
+                    <code-name-base>org.kamusi.dictionary</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
+                    <code-name-base>org.kamusi.drupal</code-name-base>
+                    <build-prerequisite/>
+                    <compile-dependency/>
+                    <run-dependency>
+                        <specification-version>1.0</specification-version>
+                    </run-dependency>
+                </dependency>
+                <dependency>
                     <code-name-base>org.netbeans.api.progress</code-name-base>
                     <build-prerequisite/>
                     <compile-dependency/>
@@ -93,6 +125,10 @@
             <class-path-extension>
                 <runtime-relative-path>ext/sqlitejdbc-v056.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/sqlitejdbc-v056.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/xmlrpc-1.2-b1.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/xmlrpc-1.2-b1.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>

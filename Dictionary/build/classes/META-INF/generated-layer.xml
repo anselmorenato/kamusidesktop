@@ -2,6 +2,35 @@
 <!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.2//EN"
                             "http://www.netbeans.org/dtds/filesystem-1_2.dtd">
 <filesystem>
+    <folder name="OptionsDialog">
+        <folder name="Options">
+            <file name="credentials-UsernameOptionsPanelController.instance">
+                <!--credentials.UsernameOptionsPanelController-->
+                <attr
+                    methodvalue="org.netbeans.spi.options.AdvancedOption.createSubCategory" name="instanceCreate"/>
+                <attr name="controller" newvalue="credentials.UsernameOptionsPanelController"/>
+                <attr
+                    bundlevalue="credentials.Bundle#AdvancedOption_DisplayName_Username" name="displayName"/>
+                <attr
+                    bundlevalue="credentials.Bundle#AdvancedOption_Keywords_Username" name="keywords"/>
+                <attr name="keywordsCategory" stringvalue="Options/Username"/>
+            </file>
+            <!--org.kamusi.dictionary-->
+            <attr intvalue="0" name="position"/>
+        </folder>
+        <file name="Options.instance">
+            <!--org.kamusi.dictionary-->
+            <attr
+                methodvalue="org.netbeans.spi.options.OptionsCategory.createCategory" name="instanceCreate"/>
+            <attr name="advancedOptionsFolder" stringvalue="OptionsDialog/Options"/>
+            <attr
+                bundlevalue="org.kamusi.dictionary.Bundle#OptionsCategory_Name_Options" name="categoryName"/>
+            <attr name="iconBase" stringvalue="org/kamusi/dictionary/kamusi_32x32.png"/>
+            <attr
+                bundlevalue="org.kamusi.dictionary.Bundle#OptionsCategory_Keywords_Options" name="keywords"/>
+            <attr name="keywordsCategory" stringvalue="Options"/>
+        </file>
+    </folder>
     <folder name="xml">
         <folder name="entities">
             <folder name="org_kamusi_dictionary">
