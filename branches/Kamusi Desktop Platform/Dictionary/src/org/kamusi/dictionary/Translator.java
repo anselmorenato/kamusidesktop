@@ -212,20 +212,34 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
 
         String languageCode = language.substring(0, 3);
 
+        /**
+         * Note:  "COLLATE NOCASE" enables case-insensitive searches
+         */
+
         return (wildcardSearch)
                 ? "SELECT DISTINCT * FROM dict "
                 + "AS di "
                 + "WHERE di." + language + "SortBy LIKE ? "
+                + "COLLATE NOCASE "
                 + "OR di." + language + "Plural LIKE ? "
+                + "COLLATE NOCASE "
                 + "OR di." + languageCode + "PluralAlt LIKE ? "
-                + "OR di." + languageCode + "Alt LIKE ? Group By Id "
+                + "COLLATE NOCASE "
+                + "OR di." + languageCode + "Alt LIKE ? "
+                + "COLLATE NOCASE "
+                + "Group By Id "
                 + "ORDER BY di.Id ASC"
                 : "SELECT DISTINCT * FROM dict "
                 + "AS di LEFT JOIN word_grouping AS wg ON ( di.Id = wg.WordId ) "
                 + "WHERE di." + language + "SortBy=? "
+                + "COLLATE NOCASE "
                 + "OR di." + language + "Plural=? "
+                + "COLLATE NOCASE "
                 + "OR di." + languageCode + "PluralAlt=? "
-                + "OR di." + languageCode + "Alt=? Group By di.Id "
+                + "COLLATE NOCASE "
+                + "OR di." + languageCode + "Alt=? "
+                + "COLLATE NOCASE "
+                + "Group By di.Id "
                 + "ORDER BY Id ASC, wg.InGroupPos ASC, di.Id ASC";
     }
 }

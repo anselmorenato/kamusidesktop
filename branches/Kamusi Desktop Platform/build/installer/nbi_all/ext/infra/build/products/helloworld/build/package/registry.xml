@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <registry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="registry.xsd">
     <components>
-        <product uid="kamusi-desktop" version="1.0.0.0.0" platforms="generic" status="not-installed" offset="20000" expand="false" built="1284370290455" visible="true" features="">
+        <product uid="kamusi-desktop" version="1.0.0.0.0" platforms="generic" status="not-installed" offset="20000" expand="false" built="1300709459001" visible="true" features="">
             <display-name>
-                <default><![CDATA[Kamusi Desktop]]></default>
+                <default><![CDATA[Kamusi Desktop 2.0]]></default>
             </display-name>
             <description>
                 <default><![CDATA[]]></default>
@@ -17,17 +17,17 @@
                 <property name="installation.location.macosx"><![CDATA[$N{install}/kamusi_desktop.app]]></property>
             </properties>
             <configuration-logic>
-                <file size="42622" md5="a88d26eccc6befc46dc9ce8326a56ba4">
+                <file size="42966" md5="61a683573e1a5b8a44f0b06ceecd5dd1">
                     <default-uri>resource:products/kamusi-desktop/1.0.0.0.0/generic/logic/logic,1.jar</default-uri>
                 </file>
             </configuration-logic>
             <installation-data>
-                <file size="8287551" md5="600c5296a9fa2626f96432df4c866f22">
+                <file size="9783085" md5="de94e0fde50bec5008f7c730513b9f80">
                     <default-uri>resource:products/kamusi-desktop/1.0.0.0.0/generic/data/data,1.jar</default-uri>
                 </file>
             </installation-data>
             <system-requirements>
-                <disk-space>28058941</disk-space>
+                <disk-space>31520307</disk-space>
             </system-requirements>
         </product>
     </components>

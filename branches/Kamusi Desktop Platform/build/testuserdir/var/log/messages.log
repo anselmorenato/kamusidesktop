@@ -1,31 +1,32 @@
 -------------------------------------------------------------------------------
->Log Session: Monday, September 13, 2010 12:36:01 PM EAT
+>Log Session: Monday, March 21, 2011 3:06:46 PM EAT
 >System Info: 
-  Product Version         = Kamusi Desktop 201007282301
-  Operating System        = Linux version 2.6.32.21-166.fc12.i686 running on i386
-  Java; VM; Vendor        = 1.6.0_20; Java HotSpot(TM) Server VM 16.3-b01; Sun Microsystems Inc.
-  Runtime                 = Java(TM) SE Runtime Environment 1.6.0_20-b02
-  Java Home               = /usr/java/jdk1.6.0_20/jre
+  Product Version         = Kamusi Desktop 2.0 201007282301
+  Operating System        = Linux version 2.6.35.11-83.fc14.i686 running on i386
+  Java; VM; Vendor        = 1.6.0_24; Java HotSpot(TM) Server VM 19.1-b02; Sun Microsystems Inc.
+  Runtime                 = Java(TM) SE Runtime Environment 1.6.0_24-b07
+  Java Home               = /usr/java/jdk1.6.0_24/jre
   System Locale; Encoding = en_US (kamusi_desktop); UTF-8
   Home Directory          = /home/arthur
-  Current Directory       = /home/arthur/Dropbox/Kamusi Desktop Platform
-  User Directory          = /home/arthur/Dropbox/Kamusi Desktop Platform/build/testuserdir
-  Installation            = /home/arthur/Dropbox/Kamusi Desktop Platform/build/cluster
+  Current Directory       = /home/arthur/NetBeansProjects/Kamusi Desktop Platform
+  User Directory          = /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/testuserdir
+  Installation            = /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster
                             /usr/local/netbeans-6.9.1/platform
                             /usr/local/netbeans-6.9.1/platform
-  Boot & Ext. Classpath   = /usr/java/jdk1.6.0_20/jre/lib/resources.jar:/usr/java/jdk1.6.0_20/jre/lib/rt.jar:/usr/java/jdk1.6.0_20/jre/lib/sunrsasign.jar:/usr/java/jdk1.6.0_20/jre/lib/jsse.jar:/usr/java/jdk1.6.0_20/jre/lib/jce.jar:/usr/java/jdk1.6.0_20/jre/lib/charsets.jar:/usr/java/jdk1.6.0_20/jre/classes:/usr/java/jdk1.6.0_20/jre/lib/ext/sunjce_provider.jar:/usr/java/jdk1.6.0_20/jre/lib/ext/comm.jar:/usr/java/jdk1.6.0_20/jre/lib/ext/dnsns.jar:/usr/java/jdk1.6.0_20/jre/lib/ext/localedata.jar:/usr/java/jdk1.6.0_20/jre/lib/ext/jsmpp-2.1.0.jar:/usr/java/jdk1.6.0_20/jre/lib/ext/sunpkcs11.jar
-  Application Classpath   = /usr/local/netbeans-6.9.1/platform/lib/boot.jar:/usr/local/netbeans-6.9.1/platform/lib/org-openide-modules.jar:/usr/local/netbeans-6.9.1/platform/lib/org-openide-util.jar:/usr/local/netbeans-6.9.1/platform/lib/org-openide-util-lookup.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/boot_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/boot_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/boot_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-modules_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-modules_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-modules_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util-lookup_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util-lookup_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util-lookup_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util_zh_CN.jar:/usr/java/jdk1.6.0_20/lib/dt.jar:/usr/java/jdk1.6.0_20/lib/tools.jar
-  Startup Classpath       = /usr/local/netbeans-6.9.1/platform/core/org-openide-filesystems.jar:/usr/local/netbeans-6.9.1/platform/core/core.jar:/usr/local/netbeans-6.9.1/platform/core/locale/org-openide-filesystems_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/core/locale/core_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/core/locale/org-openide-filesystems_ja.jar:/usr/local/netbeans-6.9.1/platform/core/locale/core_ja.jar:/usr/local/netbeans-6.9.1/platform/core/locale/org-openide-filesystems_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/core/locale/core_zh_CN.jar:/home/arthur/Dropbox/Kamusi Desktop Platform/build/cluster/core/locale/core_kamusi_desktop.jar
+  Boot & Ext. Classpath   = /usr/java/jdk1.6.0_24/jre/lib/resources.jar:/usr/java/jdk1.6.0_24/jre/lib/rt.jar:/usr/java/jdk1.6.0_24/jre/lib/sunrsasign.jar:/usr/java/jdk1.6.0_24/jre/lib/jsse.jar:/usr/java/jdk1.6.0_24/jre/lib/jce.jar:/usr/java/jdk1.6.0_24/jre/lib/charsets.jar:/usr/java/jdk1.6.0_24/jre/lib/modules/jdk.boot.jar:/usr/java/jdk1.6.0_24/jre/classes:/usr/java/jdk1.6.0_24/jre/lib/ext/localedata.jar:/usr/java/jdk1.6.0_24/jre/lib/ext/sunjce_provider.jar:/usr/java/jdk1.6.0_24/jre/lib/ext/dnsns.jar:/usr/java/jdk1.6.0_24/jre/lib/ext/sunpkcs11.jar
+  Application Classpath   = /usr/local/netbeans-6.9.1/platform/lib/boot.jar:/usr/local/netbeans-6.9.1/platform/lib/org-openide-modules.jar:/usr/local/netbeans-6.9.1/platform/lib/org-openide-util.jar:/usr/local/netbeans-6.9.1/platform/lib/org-openide-util-lookup.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/boot_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/boot_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/boot_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-modules_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-modules_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-modules_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util-lookup_ja.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util-lookup_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util-lookup_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/lib/locale/org-openide-util_zh_CN.jar:/usr/java/jdk1.6.0_24/lib/dt.jar:/usr/java/jdk1.6.0_24/lib/tools.jar
+  Startup Classpath       = /usr/local/netbeans-6.9.1/platform/core/org-openide-filesystems.jar:/usr/local/netbeans-6.9.1/platform/core/core.jar:/usr/local/netbeans-6.9.1/platform/core/locale/org-openide-filesystems_ja.jar:/usr/local/netbeans-6.9.1/platform/core/locale/core_zh_CN.jar:/usr/local/netbeans-6.9.1/platform/core/locale/core_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/core/locale/org-openide-filesystems_pt_BR.jar:/usr/local/netbeans-6.9.1/platform/core/locale/core_ja.jar:/usr/local/netbeans-6.9.1/platform/core/locale/org-openide-filesystems_zh_CN.jar:/home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/core/locale/core_kamusi_desktop.jar
 -------------------------------------------------------------------------------
-WARNING [org.netbeans.core.startup.NbEvents]: The extension /home/arthur/Dropbox/Kamusi Desktop Platform/build/cluster/modules/ext/sqlitejdbc-v056.jar may be multiply loaded by modules: [/home/arthur/Dropbox/Kamusi Desktop Platform/build/cluster/modules/org-kasahorow-PALDO.jar, /home/arthur/Dropbox/Kamusi Desktop Platform/build/cluster/modules/org-kamusi-dictionary.jar]; see: http://www.netbeans.org/download/dev/javadoc/org-openide-modules/org/openide/modules/doc-files/classpath.html#class-path
+WARNING [org.netbeans.core.startup.NbEvents]: The extension /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/ext/sqlitejdbc-v056.jar may be multiply loaded by modules: [/home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/Kinyarwanda.jar, /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/org-kasahorow-PALDO.jar]; see: http://www.netbeans.org/download/dev/javadoc/org-openide-modules/org/openide/modules/doc-files/classpath.html#class-path
+WARNING [org.netbeans.core.startup.NbEvents]: The extension /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/ext/xmlrpc-1.2-b1.jar may be multiply loaded by modules: [/home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/Kinyarwanda.jar, /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/org-kasahorow-PALDO.jar]; see: http://www.netbeans.org/download/dev/javadoc/org-openide-modules/org/openide/modules/doc-files/classpath.html#class-path
+WARNING [org.netbeans.core.startup.NbEvents]: The extension /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/ext/sqlitejdbc-v056.jar may be multiply loaded by modules: [/home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/Kinyarwanda.jar, /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/org-kamusi-dictionary.jar, /home/arthur/NetBeansProjects/Kamusi Desktop Platform/build/cluster/modules/org-kasahorow-PALDO.jar]; see: http://www.netbeans.org/download/dev/javadoc/org-openide-modules/org/openide/modules/doc-files/classpath.html#class-path
 INFO [org.netbeans.core.startup.NbEvents]: Turning on modules:
 	org.openide.util.lookup [8.3.1 201007282301]
 	org.openide.util [8.6.1 201007282301]
 	org.openide.modules [7.17.1 201007282301]
-	org.openide.filesystems [7.38.2 201007282301]
-	org.netbeans.modules.queries/1 [1.19.1 201007282301]
-	org.netbeans.modules.masterfs/2 [2.25.2 201007282301]
 	org.openide.awt [7.23.1 201007282301]
+	org.netbeans.libs.osgi [1.1.1 201007282301]
+	org.openide.filesystems [7.38.2 201007282301]
 	org.netbeans.modules.editor.mimelookup/1 [1.16.1 201007282301]
 	org.netbeans.api.progress/1 [1.20.2 201007282301]
 	org.openide.dialogs [7.15.1 201007282301]
@@ -39,6 +40,7 @@ INFO [org.netbeans.core.startup.NbEvents]: Turning on modules:
 	org.netbeans.bootstrap/1 [2.33.1 201007282301]
 	org.netbeans.core.startup/1 [1.25.1 201007282301]
 	org.netbeans.spi.quicksearch [1.6.1 201007282301]
+	org.netbeans.modules.queries/1 [1.19.1 201007282301]
 	org.openide.loaders [7.16.1 201007282301]
 	org.netbeans.modules.keyring [1.1.2 201007282301]
 	org.openide.io [1.23.1 201007282301]
@@ -48,29 +50,32 @@ INFO [org.netbeans.core.startup.NbEvents]: Turning on modules:
 	org.netbeans.modules.settings/1 [1.26.1 201007282301]
 	org.netbeans.core.windows/2 [2.21.1 201007282301]
 	org.netbeans.modules.javahelp/1 [2.17.1 201007282301]
-	org.kamusi.dictionary [1.0 100913]
-	org.kamusi.sync [1.0 100913]
-	org.netbeans.core.ui/1 [1.22.1 201007282301]
-	org.netbeans.libs.osgi [1.1.1 201007282301]
-	org.netbeans.libs.felix [1.1.1 201007282301]
-	org.netbeans.libs.jna/1 [1.7.2 201007282301]
-	org.netbeans.modules.keyring.impl [1.0.1 201007282301]
-	org.netbeans.core.io.ui/1 [1.8.1 201007282301]
-	org.netbeans.modules.options.keymap [1.10.1 201007282301]
-	org.netbeans.modules.progress.ui [1.12.1 201007282301]
-	org.netbeans.modules.editor.mimelookup.impl/1 [1.9.1 201007282301]
-	org.netbeans.core.nativeaccess/1 [1.7.1 201007282301]
-	org.kasahorow.PALDO [1.0 100913]
-	org.netbeans.modules.print [7.5.1 201007282301]
+	org.kamusi.dictionary [1.0 110321]
+	com.mysql.jdbc [1.0 110321]
+	org.kamusi.drupal [1.0 110321]
+	org.apache.commons.io [1.0 110321]
+	org.kasahorow.PALDO [1.0 110321]
 	org.netbeans.core.output2/1 [1.18.2 201007282301]
+	org.netbeans.libs.felix [1.1.1 201007282301]
 	org.netbeans.core.netigso [1.4.2 201007282301]
+	Kinyarwanda [1.0 110321]
+	org.netbeans.libs.jna/1 [1.7.2 201007282301]
+	org.netbeans.core.nativeaccess/1 [1.7.1 201007282301]
+	org.netbeans.modules.progress.ui [1.12.1 201007282301]
+	org.netbeans.core.io.ui/1 [1.8.1 201007282301]
+	org.netbeans.modules.editor.mimelookup.impl/1 [1.9.1 201007282301]
+	org.netbeans.modules.options.keymap [1.10.1 201007282301]
+	org.netbeans.modules.print [7.5.1 201007282301]
+	org.netbeans.modules.keyring.impl [1.0.1 201007282301]
+	org.netbeans.modules.masterfs/2 [2.25.2 201007282301]
+	org.netbeans.core.ui/1 [1.22.1 201007282301]
 WARNING [org.openide.filesystems.Ordering]: Not all children in Toolbars/File/ marked with the position attribute: [org-openide-actions-SaveAction.instance], but some are: [org-openide-actions-SaveAllAction.shadow]
 Diagnostic information
 Input arguments:
-	-Djdk.home=/usr/java/jdk1.6.0_20
+	-Djdk.home=/usr/java/jdk1.6.0_24
 	-Dnetbeans.system_http_proxy=DIRECT
 	-Dnetbeans.system_http_non_proxy_hosts=
-	-Dnetbeans.dirs=/home/arthur/Dropbox/Kamusi
+	-Dnetbeans.dirs=/home/arthur/NetBeansProjects/Kamusi
 	Desktop
 	Platform/build/cluster:/usr/local/netbeans-6.9.1/platform
 	-Dnetbeans.home=/usr/local/netbeans-6.9.1/platform
@@ -81,67 +86,10 @@ Input arguments:
 Compiler: HotSpot Tiered Compilers
 Heap memory usage: initial 31.3MB maximum 446.2MB
 Non heap memory usage: initial 18.2MB maximum 112.0MB
-Garbage collector: PS Scavenge (Collections=4 Total time spent=0s)
+Garbage collector: PS Scavenge (Collections=5 Total time spent=0s)
 Garbage collector: PS MarkSweep (Collections=0 Total time spent=0s)
-Classes: loaded=4008 total loaded=4008 unloaded 0
-INFO [org.netbeans.core.ui.warmup.DiagnosticTask]: Total memory 2,102,263,808
-INFO [null]: Total physical memory 2,102,263,808
-WARNING [org.openide.filesystems.Ordering]: Not all children in Menu/Window/ marked with the position attribute: [PaldoAction.shadow, SearchAction.shadow, SynchronizerAction.shadow], but some are: [org-netbeans-core-windows-actions-GlobalPropertiesAction.shadow, Output, SwitchToRecentDocumentAction.shadow, ProgressListAction.shadow, Separator3.instance, CloseWindowAction.shadow, MaximizeWindowAction.shadow, org-netbeans-core-windows-actions-UndockAction.shadow, Separator4.instance, CloneDocumentAction.shadow, CloseAllDocumentsAction.shadow, CloseAllButThisAction.shadow, DocumentsAction.shadow, Separator5.instance, org-netbeans-core-windows-actions-ResetWindowsAction.shadow]
+Classes: loaded=4104 total loaded=4104 unloaded 0
+INFO [org.netbeans.core.ui.warmup.DiagnosticTask]: Total memory 2,101,235,712
+INFO [null]: Total physical memory 2,101,235,712
+WARNING [org.openide.filesystems.Ordering]: Not all children in Menu/Window/ marked with the position attribute: [KinyarwandaAction.shadow, PaldoAction.shadow, SearchAction.shadow], but some are: [org-netbeans-core-windows-actions-GlobalPropertiesAction.shadow, Output, SwitchToRecentDocumentAction.shadow, ProgressListAction.shadow, Separator3.instance, CloseWindowAction.shadow, MaximizeWindowAction.shadow, org-netbeans-core-windows-actions-UndockAction.shadow, Separator4.instance, CloneDocumentAction.shadow, CloseAllDocumentsAction.shadow, CloseAllButThisAction.shadow, DocumentsAction.shadow, Separator5.instance, org-netbeans-core-windows-actions-ResetWindowsAction.shadow]
 WARNING [org.openide.filesystems.Ordering]: Not all children in Menu/Help/ marked with the position attribute: [master-help.xml], but some are: [Separator1.instance, org-netbeans-core-actions-AboutAction.shadow]
-SEVERE [global]
-java.lang.ArrayIndexOutOfBoundsException: 1 >= 1
-	at java.util.Vector.elementAt(Vector.java:427)
-	at javax.swing.table.DefaultTableColumnModel.getColumn(DefaultTableColumnModel.java:277)
-	at javax.swing.plaf.basic.BasicTableHeaderUI.paint(BasicTableHeaderUI.java:632)
-	at javax.swing.plaf.synth.SynthTableHeaderUI.paint(SynthTableHeaderUI.java:105)
-	at javax.swing.plaf.synth.SynthTableHeaderUI.update(SynthTableHeaderUI.java:93)
-	at javax.swing.JComponent.paintComponent(JComponent.java:752)
-	at javax.swing.JComponent.paint(JComponent.java:1029)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JViewport.paint(JViewport.java:747)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at org.netbeans.swing.tabcontrol.TabbedContainer.paint(TabbedContainer.java:959)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JLayeredPane.paint(JLayeredPane.java:567)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JComponent.paintChildren(JComponent.java:862)
-	at javax.swing.JComponent.paint(JComponent.java:1038)
-	at javax.swing.JLayeredPane.paint(JLayeredPane.java:567)
-	at javax.swing.JComponent.paintToOffscreen(JComponent.java:5124)
-	at javax.swing.BufferStrategyPaintManager.paint(BufferStrategyPaintManager.java:278)
-	at javax.swing.RepaintManager.paint(RepaintManager.java:1224)
-	at javax.swing.JComponent._paintImmediately(JComponent.java:5072)
-	at javax.swing.JComponent.paintImmediately(JComponent.java:4882)
-	at javax.swing.RepaintManager.paintDirtyRegions(RepaintManager.java:785)
-	at javax.swing.RepaintManager.paintDirtyRegions(RepaintManager.java:713)
-	at javax.swing.RepaintManager.seqPaintDirtyRegions(RepaintManager.java:693)
-	at javax.swing.SystemEventQueueUtilities$ComponentWorkRequest.run(SystemEventQueueUtilities.java:125)
-	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:209)
-	at java.awt.EventQueue.dispatchEvent(EventQueue.java:597)
-	at org.netbeans.core.TimableEventQueue.dispatchEvent(TimableEventQueue.java:137)
-	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:269)
-	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:184)
-	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:174)
-	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:169)
-	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:161)
-[catch] at java.awt.EventDispatchThread.run(EventDispatchThread.java:122)

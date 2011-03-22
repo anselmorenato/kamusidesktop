@@ -23,7 +23,7 @@ import org.openide.util.Exceptions;
  * Translator.java
  * Fetches translations from the database and renders them into a JTable
  */
-public class Translator extends KamusiLogger// extends DefaultTableModel
+public class Translator extends EditLogger// extends DefaultTableModel
 {
 
     /**
@@ -55,8 +55,8 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
      * "B" is the name of your module (this isn't strictly neccessary,
      * but makes finding the file much faster).
      */
-    private final File database = getDictionaryFile();
-    private final String DATABASE = "jdbc:sqlite:" + database;
+    private static final File database = getDictionaryFile();
+    public static String DATABASE = "jdbc:sqlite:" + database;
 
     /**
      * Initializes the class
@@ -68,7 +68,9 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
     {
     }
 
-    public TableModel getTableModel(final String fromLanguage, final String word, final Vector<String> fields)
+    public TableModel getTableModel(final String fromLanguage,
+            final String word, final Vector<String> fields,
+            String paldoLanguage)
     {
 
         boolean wildCardSearch = word.contains("*");
@@ -86,7 +88,7 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
             query = getQuery(fromLanguage, wildCardSearch);
 
             headers.addElement("English");
-            headers.addElement("Swahili");
+            headers.addElement(paldoLanguage);
 
             Enumeration<String> availableFields = fields.elements();
 
@@ -116,29 +118,15 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
                 Vector<String> rowData = new Vector<String>();
 
                 rowData.add(resultSet.getString("EnglishWord"));
-                rowData.add(resultSet.getString("SwahiliWord"));
-
-                if (fields.contains("English Plural"))
-                {
-                    rowData.add(resultSet.getString("EnglishPlural"));
-                }
-                if (fields.contains("Swahili Plural"))
-                {
-                    rowData.add(resultSet.getString("SwahiliPlural"));
-                }
-                if (fields.contains("English Example"))
-                {
-                    rowData.add(resultSet.getString("EnglishExample"));
-                }
-                if (fields.contains("Swahili Example"))
-                {
-                    rowData.add(resultSet.getString("SwahiliExample"));
-                }
+                rowData.add(resultSet.getString(paldoLanguage + "Word"));
 
                 //add to model
                 dataModel.setColumnIdentifiers(headers);
                 dataModel.addRow(rowData);
+
             }
+
+            connection.close();
 
             int row = dataModel.getRowCount();
 
@@ -147,8 +135,6 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
                 String message = row + " results matched for \"" + word + "\" from " + fromLanguage;
                 message += (fields.isEmpty() ? "" : " " + fields);
 
-                logApplicationMessage(message);
-
                 StatusDisplayer.getDefault().setStatusText(message);
             }
             else
@@ -156,18 +142,21 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
                 StatusDisplayer.getDefault().setStatusText("Nothing found for " + word);
             }
 
-            connection.close();
+            
         }
         catch (Exception ex)
         {
             Exceptions.printStackTrace(ex);
-            System.out.println("There is an error here");
         }
 
 
         return dataModel;
     }
 
+    /**
+     * Returns the JDBC representation of the database file
+     * @return the jdbc url for the database
+     */
     public String getDatabase()
     {
         return DATABASE;
@@ -192,7 +181,7 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
     /**
      * Returns the File Object of the database
      */
-    public File getDictionaryFile()
+    private static File getDictionaryFile()
     {
         return InstalledFileLocator.getDefault().
                 locate("modules/ext/paldo_en_sw.db", // A
@@ -210,13 +199,13 @@ public class Translator extends KamusiLogger// extends DefaultTableModel
     {
         language = language.trim();
 
-        String languageCode = language.substring(0, 3);
-
         return (wildcardSearch)
                 ? "SELECT * FROM dict "
                 + "WHERE " + language + "Word LIKE ? "
-                + "ORDER BY Id ASC"
+                + "COLLATE NOCASE "
+                + "ORDER BY Priority ASC"
                 : "SELECT * FROM dict "
-                + "WHERE " + language + "Word=? ";
+                + "WHERE " + language + "Word=? COLLATE NOCASE "
+                + " ORDER BY Priority ASC";
     }
 }

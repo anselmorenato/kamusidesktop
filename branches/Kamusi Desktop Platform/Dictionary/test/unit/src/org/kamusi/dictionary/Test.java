@@ -13,7 +13,7 @@ public class Test
 {
     public static void main(String[] args)
     {
-        DictionaryDownloader instance = new DictionaryDownloader();
+        Downloader instance = new Downloader();
         instance.downloadDictionary();
     }
 }
