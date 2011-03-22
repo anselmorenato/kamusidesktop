@@ -1,0 +1,30 @@
+2011-03-15 13:20:15 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/119488
+
+Editing <b>SwahiliWord</b>
+
+Old Word: sampletest2
+
+New Word: sampletest2222, title=KamusiDesktop Edit (1300184411355), type=story}
+2011-03-15 13:29:30 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/119488
+
+Editing <b>SwahiliWord</b>
+
+Old Word: sampletest2
+
+New Word: sampletest223344, title=KamusiDesktop Edit (1300184969839), type=story}
+2011-03-15 13:32:58 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/119488
+
+Editing <b>SwahiliWord</b>
+
+Old Word: sampletest2
+
+New Word: sampletest2233, title=KamusiDesktop Edit (1300185176328), type=story}
+2011-03-15 13:33:59 | UPDATE dict SET SwahiliWord = sampletest2vvvv WHERE PaldoKey = 119488
+
+
+2011-03-15 13:33:59 | UPDATE dict SET SwahiliWord = sampletest2dsdsdw332 WHERE PaldoKey = 119488
+
+
+2011-03-15 13:34:00 | UPDATE dict SET SwahiliWord = SAMPLETEST WHERE PaldoKey = 119488
+
+

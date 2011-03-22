@@ -1,0 +1,37 @@
+2011-03-10 10:22:46 | UPDATE DICT SET SwahiliWord = : sampletest2345 WHERE PaldoKey = 119488
+2011-03-10 11:18:48 | UPDATE DICT SET SwahiliWord = sampletest2vvvv WHERE PaldoKey = 119488
+
+
+2011-03-10 11:22:45 | UPDATE dict SET SwahiliWord = sampletest2vvvv WHERE PaldoKey = 119488
+
+
+2011-03-10 11:31:48 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/119488
+
+Editing <b>SwahiliWord</b>
+
+Old Word: sampletest2
+
+New Word: sampletestsample234, title=KamusiDesktop Edit (1299745906944), type=story}
+2011-03-10 11:43:49 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/119488
+
+Editing <b>SwahiliWord</b>
+
+Old Word: sampletest2
+
+New Word: sampletest22333, title=KamusiDesktop Edit (1299746628150), type=story}
+2011-03-10 12:10:40 | UPDATE dict SET SwahiliWord = sampletest2vvvv WHERE PaldoKey = 119488
+
+
+2011-03-10 12:11:49 | UPDATE dict SET SwahiliWord = sampletest2vvvv WHERE PaldoKey = 119488
+
+
+2011-03-10 12:11:49 | UPDATE dict SET SwahiliWord = sampletest2dsdsdw332 WHERE PaldoKey = 119488
+
+
+2011-03-10 12:12:42 | {body=Editing <i><b>English Swahili</b></i> Dictionary<hr>PALDO Entry: http://words.fienipa.com/node/119488
+
+Editing <b>SwahiliWord</b>
+
+Old Word: sampletest2
+
+New Word: sampletest2went0, title=KamusiDesktop Edit (1299748360464), type=story}
